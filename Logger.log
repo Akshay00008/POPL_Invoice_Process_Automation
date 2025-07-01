@@ -1,0 +1,133 @@
+2025-06-18 13:01:05,617 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:01:05,617 [33mPress CTRL+C to quit[0m
+2025-06-18 13:01:05,622  * Restarting with stat
+2025-06-18 13:01:08,386  * Debugger is active!
+2025-06-18 13:01:08,393  * Debugger PIN: 534-669-484
+2025-06-18 13:02:06,986 127.0.0.1 - - [18/Jun/2025 13:02:06] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:05:33,900  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:05:34,095  * Restarting with stat
+2025-06-18 13:05:37,016  * Debugger is active!
+2025-06-18 13:05:37,021  * Debugger PIN: 534-669-484
+2025-06-18 13:05:59,332 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://169.254.210.253:5001
+2025-06-18 13:05:59,332 [33mPress CTRL+C to quit[0m
+2025-06-18 13:05:59,337  * Restarting with stat
+2025-06-18 13:06:01,714  * Debugger is active!
+2025-06-18 13:06:01,720  * Debugger PIN: 534-669-484
+2025-06-18 13:06:32,635 Retrying request to /chat/completions in 0.412600 seconds
+2025-06-18 13:06:45,109 Retrying request to /chat/completions in 0.958528 seconds
+2025-06-18 13:06:58,138 127.0.0.1 - - [18/Jun/2025 13:06:58] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:11:18,136  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:11:18,333  * Restarting with stat
+2025-06-18 13:11:21,286  * Debugger is active!
+2025-06-18 13:11:21,294  * Debugger PIN: 534-669-484
+2025-06-18 13:12:01,985  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:12:02,175  * Restarting with stat
+2025-06-18 13:12:04,549  * Debugger is active!
+2025-06-18 13:12:04,554  * Debugger PIN: 534-669-484
+2025-06-18 13:12:24,881 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:12:24,882 [33mPress CTRL+C to quit[0m
+2025-06-18 13:12:24,886  * Restarting with stat
+2025-06-18 13:12:26,941  * Debugger is active!
+2025-06-18 13:12:26,948  * Debugger PIN: 534-669-484
+2025-06-18 13:12:55,185 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-18 13:12:55,212 127.0.0.1 - - [18/Jun/2025 13:12:55] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:13:57,607  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:13:57,806  * Restarting with stat
+2025-06-18 13:14:00,267  * Debugger is active!
+2025-06-18 13:14:00,273  * Debugger PIN: 534-669-484
+2025-06-18 13:14:21,608 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:14:21,644 127.0.0.1 - - [18/Jun/2025 13:14:21] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:15:25,012 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:15:25,012 [33mPress CTRL+C to quit[0m
+2025-06-18 13:15:25,016  * Restarting with stat
+2025-06-18 13:15:27,257  * Debugger is active!
+2025-06-18 13:15:27,263  * Debugger PIN: 534-669-484
+2025-06-18 13:15:45,553 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:15:45,607 127.0.0.1 - - [18/Jun/2025 13:15:45] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:37:58,475  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:37:58,663  * Restarting with stat
+2025-06-18 13:38:56,787 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:38:56,787 [33mPress CTRL+C to quit[0m
+2025-06-18 13:38:56,790  * Restarting with stat
+2025-06-18 13:38:58,569  * Debugger is active!
+2025-06-18 13:38:58,573  * Debugger PIN: 534-669-484
+2025-06-18 13:40:17,452 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:40:17,904 127.0.0.1 - - [18/Jun/2025 13:40:17] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:42:45,114  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_validation.py', reloading
+2025-06-18 13:42:45,314  * Restarting with stat
+2025-06-18 13:42:46,972  * Debugger is active!
+2025-06-18 13:42:46,976  * Debugger PIN: 534-669-484
+2025-06-18 13:43:15,557 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:43:15,869 127.0.0.1 - - [18/Jun/2025 13:43:15] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:45:19,800  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_validation.py', reloading
+2025-06-18 13:45:19,986  * Restarting with stat
+2025-06-18 13:45:21,751  * Debugger is active!
+2025-06-18 13:45:21,756  * Debugger PIN: 534-669-484
+2025-06-18 13:46:17,402  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:46:17,550  * Restarting with stat
+2025-06-18 13:46:19,230  * Debugger is active!
+2025-06-18 13:46:19,235  * Debugger PIN: 534-669-484
+2025-06-18 13:46:40,880 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:46:40,880 [33mPress CTRL+C to quit[0m
+2025-06-18 13:46:40,885  * Restarting with stat
+2025-06-18 13:46:42,508  * Debugger is active!
+2025-06-18 13:46:42,512  * Debugger PIN: 534-669-484
+2025-06-18 13:47:08,743 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:47:09,044 127.0.0.1 - - [18/Jun/2025 13:47:09] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:49:16,308  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\LPO_&_GRN.py', reloading
+2025-06-18 13:49:16,499  * Restarting with stat
+2025-06-18 13:49:18,183  * Debugger is active!
+2025-06-18 13:49:18,189  * Debugger PIN: 534-669-484
+2025-06-18 13:50:26,162  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:50:26,301  * Restarting with stat
+2025-06-18 13:50:28,002  * Debugger is active!
+2025-06-18 13:50:28,007  * Debugger PIN: 534-669-484
+2025-06-18 13:50:44,832  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:50:44,971  * Restarting with stat
+2025-06-18 13:50:46,483  * Debugger is active!
+2025-06-18 13:50:46,488  * Debugger PIN: 534-669-484
+2025-06-18 13:52:11,925  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:52:12,058  * Restarting with stat
+2025-06-18 13:52:13,575  * Debugger is active!
+2025-06-18 13:52:13,579  * Debugger PIN: 534-669-484
+2025-06-18 13:52:25,962  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:52:26,101  * Restarting with stat
+2025-06-18 13:52:27,990  * Debugger is active!
+2025-06-18 13:52:27,997  * Debugger PIN: 534-669-484
+2025-06-18 13:53:15,296  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:53:15,463  * Restarting with stat
+2025-06-18 13:53:17,276  * Debugger is active!
+2025-06-18 13:53:17,280  * Debugger PIN: 534-669-484
+2025-06-18 13:58:15,632  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:58:15,781  * Restarting with stat
+2025-06-18 14:01:26,712 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 14:01:26,712 [33mPress CTRL+C to quit[0m
+2025-06-18 14:01:26,717  * Restarting with stat
+2025-06-18 14:01:34,332  * Debugger is active!
+2025-06-18 14:01:34,338  * Debugger PIN: 534-669-484
+2025-06-18 14:01:34,505 127.0.0.1 - - [18/Jun/2025 14:01:34] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 202 -
+2025-06-18 14:01:48,936 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 14:05:58,705  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\logger_file.py', reloading
+2025-06-18 14:05:59,514  * Restarting with stat
+2025-06-18 14:09:34,401  * Restarting with stat

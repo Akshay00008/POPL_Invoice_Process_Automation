@@ -52,10 +52,10 @@ def validate_and_convert_to_dataframe(fields_matching_result):
         'total_tax_amount': fields_matching_result['total_tax_amount'],
         'tax_id': fields_matching_result['tax_id'],
     }
-
+    print("line number 55")
     # Process each item in goods_services_details and create a new row for each
     goods_services_details = fields_matching_result['goods_services_details']
-    tax_details = fields_matching_result['tax_details']
+    # tax_details = fields_matching_result['tax_details']
    
     rows = []
   
@@ -65,17 +65,23 @@ def validate_and_convert_to_dataframe(fields_matching_result):
         row['description'] = item.get('description', '0') if item.get('description') else '0'
         row['quantity'] = item.get('quantity', 0) if item.get('quantity') is not None else 0
         row['unit_price'] = item.get('unit_price', 0) if item.get('unit_price') is not None else 0
-       
+        row['cuin'] =123456789
         rows.append(row)
     
-    for tax in tax_details:
+    # for tax in tax_details:
     
-        row['tax_type'] = tax.get('tax_type', '0') if tax.get('tax_type') else '0'
-        row['tax_rate'] = tax.get('rate', 0) if tax.get('rate') is not None else 0
-        row['tax_amount'] = tax.get('amount', 0) if tax.get('amount') is not None else 0
+    #     row['tax_type'] = tax.get('tax_type', '0') if tax.get('tax_type') else 'VAT'
+    #     row['tax_rate'] = tax.get('rate', 0) if tax.get('rate') is not None else 16
+    #     row['tax_amount'] = tax.get('amount', 0) if tax.get('amount') is not None else "Not_Available"
 
-        rows.append(row)
+    #     rows.append(row)
 
+    
+    df = pd.DataFrame(rows)
+    df.drop_duplicates(subset=['description'],keep='first',inplace=True)
+    # df['cuin'] = 123654789
+    df.to_excel("abcdf.xlsx")
+    print(rows)
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
         df = pd.DataFrame([row])  # Create a DataFrame for this row
@@ -86,9 +92,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     # rows.append(row)
     
     # Convert list of rows into a DataFrame
-    df = pd.DataFrame(rows)
-    df.drop_duplicates(subset=['description'],keep='first',inplace=True)
-    df.to_excel("abcdf.xlsx")
+    
     # Calculate the subtotal by multiplying unit_price and quantity
     df['calculated_subtotal'] = df['unit_price'] * df['quantity']
     
@@ -99,7 +103,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     
     
     # Check if subtotal + tax amount matches the total amount
-    df['tax_amount_match'] = (df['sub_total'] + df['tax_amount']) == df['total_amount']
+    df['tax_amount_match'] = (df['sub_total'] + df['total_tax_amount']) == df['total_amount']
 
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
 
@@ -110,12 +114,14 @@ def validate_and_convert_to_dataframe(fields_matching_result):
         # engine = create_engine('your_database_connection_string')
 
         # Store the entire DataFrame into 'reconciliation_data' table if condition is met
+        df['Error_state'] = "Tax_amount"
         df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
         print("Message:", "Data Saved to Reconcillateion stage")
-        return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+        return df
+        # return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
 
-    
+    return df
     
 
 

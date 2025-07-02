@@ -7,6 +7,21 @@ import torch
 import os 
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
+from openai import OpenAI
+import numpy as np
+
+
+load_dotenv()  # This will load the .env file in your project directory
+
+# Retrieve OpenAI API Key from environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
+
+# Check if the API key is loaded correctly
+if not openai_api_key:
+    raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
+
+# Initialize OpenAI client
+client = OpenAI(api_key=openai_api_key)
 
 
 # Load environment variables from .env
@@ -336,35 +351,100 @@ SELECT
             # Semantic matching for all invoice items with all LPO and GRN entries
 
             df_invoice = pd.read_excel('invoice_data.xlsx')
-            model = SentenceTransformer('all-MiniLM-L6-v2')
+            df_invoice.drop(columns=['Unnamed: 0'],inplace=True)
+            # model = SentenceTransformer('all-MiniLM-L6-v2')
             invoice_descriptions = df_invoice['description'].astype(str).tolist()
             print("invoice_descriptions:",invoice_descriptions)
             lpo_descriptions = lpo_df['DESCRIPTION'].astype(str).tolist()
             grn_descriptions = grn_df['ITEM_NAME'].astype(str).tolist()
 
-            invoice_emb = model.encode(invoice_descriptions, convert_to_tensor=True)
-            lpo_emb = model.encode(lpo_descriptions, convert_to_tensor=True)
-            grn_emb = model.encode(grn_descriptions, convert_to_tensor=True)
+            # invoice_emb = model.encode(invoice_descriptions, convert_to_tensor=True)
+            # lpo_emb = model.encode(lpo_descriptions, convert_to_tensor=True)
+            # grn_emb = model.encode(grn_descriptions, convert_to_tensor=True)
 
-            lpo_sim = util.cos_sim(grn_emb, lpo_emb)
-            grn_sim = util.cos_sim(lpo_emb, grn_emb)
+            # lpo_sim = util.cos_sim(grn_emb, lpo_emb)
+            # grn_sim = util.cos_sim(lpo_emb, grn_emb)
 
-            lpo_top_matches = torch.argmax(lpo_sim, dim=1)
-            grn_top_matches = torch.argmax(grn_sim, dim=1)
+            # lpo_top_matches = torch.argmax(lpo_sim, dim=1)
+            # grn_top_matches = torch.argmax(grn_sim, dim=1)
 
-            grn_df['Matched_LPO_Description'] = [lpo_descriptions[i] for i in lpo_top_matches]
-            lpo_df['Matched_GRN_Description'] = [grn_descriptions[i] for i in grn_top_matches]
-            grn_df['LPO_Similarity'] = [round(float(lpo_sim[j][i]), 2) for j, i in enumerate(lpo_top_matches)]
-            lpo_df['GRN_Similarity'] = [round(float(grn_sim[j][i]), 2) for j, i in enumerate(grn_top_matches)]
+            # Function to get embeddings from OpenAI
+            def get_embeddings(texts):
+              response = client.embeddings.create(
+              model="text-embedding-ada-002",
+              input=texts
+          )
+          
+            # Serialize the response to a dictionary
+              response_dict = response.model_dump()
+              return [embedding['embedding'] for embedding in response_dict['data']]
 
-            if (grn_df['LPO_Similarity'] < 1).any() or len(lpo_df) != len(grn_df):
+                      # Get embeddings for each description set
+            # Compute embeddings for all descriptions
+            grn_emb = np.array(get_embeddings(grn_descriptions))
+            lpo_emb = np.array(get_embeddings(lpo_descriptions))
+            invoice_emb = np.array(get_embeddings(invoice_descriptions))
+
+            # Helper function for matrix cosine similarity
+            def cosine_similarity_matrix(emb1, emb2):
+                norm1 = np.linalg.norm(emb1, axis=1, keepdims=True)
+                norm2 = np.linalg.norm(emb2, axis=1, keepdims=True)
+                norm1 = np.where(norm1 == 0, 1, norm1)
+                norm2 = np.where(norm2 == 0, 1, norm2)
+                emb1_norm = emb1 / norm1
+                emb2_norm = emb2 / norm2
+                return np.dot(emb1_norm, emb2_norm.T)
+
+            # Compute similarity matrices
+            grn_lpo_sim_matrix = cosine_similarity_matrix(grn_emb, lpo_emb)
+            invoice_lpo_sim_matrix = cosine_similarity_matrix(invoice_emb, lpo_emb)
+            invoice_grn_sim_matrix = cosine_similarity_matrix(invoice_emb, grn_emb)
+
+            # Find best matches
+            grn_to_lpo_indices = np.argmax(grn_lpo_sim_matrix, axis=1)
+            lpo_to_grn_indices = np.argmax(grn_lpo_sim_matrix, axis=0)
+            invoice_to_lpo_indices = np.argmax(invoice_lpo_sim_matrix, axis=1)
+            invoice_to_grn_indices = np.argmax(invoice_grn_sim_matrix, axis=1)
+
+            # Assign to dataframes
+            grn_df['Matched_LPO_Description'] = [lpo_descriptions[i] for i in grn_to_lpo_indices]
+            grn_df['LPO_Similarity'] = [round(float(grn_lpo_sim_matrix[j, i]), 2) for j, i in enumerate(grn_to_lpo_indices)]
+
+            lpo_df['Matched_GRN_Description'] = [grn_descriptions[i] for i in lpo_to_grn_indices]
+            lpo_df['GRN_Similarity'] = [round(float(grn_lpo_sim_matrix[i, j]), 2) for j, i in enumerate(lpo_to_grn_indices)]
+
+            df_invoice['Matched_LPO_Description'] = [lpo_descriptions[i] for i in invoice_to_lpo_indices]
+            df_invoice['Matched_GRN_Description'] = [grn_descriptions[i] for i in invoice_to_grn_indices]
+            df_invoice['LPO_Similarity'] = [round(float(invoice_lpo_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_lpo_indices)]
+            df_invoice['GRN_Similarity'] = [round(float(invoice_grn_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_grn_indices)]
+            # df_invoice.drop(['Unnamed: 0'],inplace=True)
+            df_invoice.to_excel("invoice_validation.xlsx")
+
+            lpo_df = lpo_df[['DESCRIPTION', 'UNIT_PRICE', 'QUANTITY']]
+            grn_df = grn_df[['ITEM_NAME', 'QUANTITY']]
+
+            # Rename columns using the 'columns' keyword argument
+            lpo_df.rename(columns={"DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY"}, inplace=True)
+            grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)
+
+            # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
+            merged_df = df_invoice.merge(lpo_df, on='Matched_LPO_Description', how='left')
+
+            # Then, merge the resulting DataFrame with grn_df on 'Matched_GRN_Description'
+            final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
+
+
+
+            if (df_invoice['LPO_Similarity'] < 0.75).any() :
                   # Assuming 'invoice_df' is the DataFrame you want to store
               # Setup the SQL connection
               # engine = create_engine('your_database_connection_string')
 
               # Store the invoice_df into 'reconciliation_data' table if the condition is met
-              df_invoice.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+              final_df['Error_state'] = "Line_Item"
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :
+                final_df.to_sql('Saved_Data', con=engine, if_exists='append', index=False)  
                 return {"Message" : "Data Saved to saved page"}

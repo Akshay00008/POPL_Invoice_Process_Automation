@@ -20,6 +20,7 @@ def process_invoice_ocr(file_path):
     try:
         # Extract invoice data and validate fields
         invoice_df = fields_matching(file_path)
+        print(invoice_df)
         loggs.info(f"Validated Invoice Data: {invoice_df}")
         lpo_numbers = invoice_df[0]
     except Exception as e:
@@ -49,11 +50,17 @@ def process_invoice_and_reconcile(file_path):
     return reconciliation_result
 
 # Route to trigger the invoice processing and reconciliation
+from flask import request
+
 @app.route("/invoice_processing", methods=["POST"], strict_slashes=False)
 def invoice_trigger():
     """Trigger the invoice processing and reconciliation via an API endpoint."""
-    # The file path could be passed from the request, for simplicity I use a fixed file path
-    file_path = r"C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Invoices\\SANPAC MA109305.pdf"
+    # Get the file path from the request body
+    file_path = request.json.get('invoice_image')
+    
+    # Check if file_path is provided in the request
+    if not file_path:
+        return jsonify({"error": "File path is required."}), 400
     
     # Run the processing in a background thread
     thread = Thread(target=process_invoice_and_reconcile, args=(file_path,))
@@ -62,4 +69,13 @@ def invoice_trigger():
     # Respond to the client immediately while the background process runs
     return jsonify({"message": "Invoice processing and reconciliation started."}), 202
 
-# @app.route("/extraction_page",methods=["POST"], strict_slashes=False)
+
+app.route("/extraction_page",methods=["POST"], strict_slashes=False)
+def extraction_page():
+    lpo_number=request.json.get('lpo_number')
+    try:
+        reconciliation_result = perform_reconciliation(lpo_number,item_count=0)
+        loggs.info(f"Reconciliation result: {reconciliation_result}")
+    except Exception as e:
+        loggs.error(f"Reconciliation failed: {str(e)}")
+        raise ValueError(f"Reconciliation failed: {str(e)}")

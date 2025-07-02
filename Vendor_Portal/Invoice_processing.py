@@ -2,11 +2,12 @@ import os
 import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
-from openai import OpenAI
+from openai import OpenAI  # Using OpenAI class for initialization
 import json
 from dotenv import load_dotenv
 
-load_dotenv()  # This will load the .env file in your project directory
+# Load environment variables from the .env file
+load_dotenv()
 
 # Retrieve OpenAI API Key from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
@@ -15,11 +16,8 @@ openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
 if not openai_api_key:
     raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
 
-# Initialize OpenAI client
+# Initialize OpenAI client using the loaded API key
 client = OpenAI(api_key=openai_api_key)
-
-
-# Configure OpenAI API - INSECURE METHOD (for demonstration only)
 
 # Configure Tesseract path if needed (uncomment and modify if necessary)
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -83,44 +81,28 @@ Field Specifications:
 Special Handling Instructions:
 
 Invoice Number:
-
 Invoice numbers may contain special characters or alphanumeric codes like "INV-123/AB45". Ensure that all characters in the invoice number are preserved exactly as they appear, including any dashes, slashes, or other symbols.
 
 PO Number:
-
 Purchase order (PO) numbers may be written in various formats, such as "LPO: 2345-XYZ". When processing these, extract only the alphanumeric portion of the PO number after "LPO:". For example, from "LPO: 2345-XYZ", extract "2345-XYZ".
 
 Amounts with Currency Symbols:
-
 When processing amounts with currency symbols like "KES 1,500.00", you should remove the currency symbol and extract only the numeric value. In this case, "KES 1,500.00" should be converted to the value 1500.0. If the amount includes commas, remove them, and ensure the value is in a float format.
 
 Quantity:
-
 The quantity can sometimes be written with a comma or multiple decimal places. Here’s how to handle it:
-
 If the quantity appears as "1,488.00", treat it as 1488.
-
 If the quantity is written as "3.00000", treat it as 3 (ignore extra decimals).
-
 If the quantity is "60.00", treat it as 60.
-
 Essentially, remove any commas and round decimals where applicable, keeping the integer value as the quantity.
 
 Unit Price:
-
 Unit prices can also be written in different formats, such as:
-
 "2,400.00" → This should be treated as 2400.
-
 "8.00000" → This should be treated as 8.
-
 "196.50000" → This should be treated as 196.5.
-
 if none the it should be treated as 0
-
 Remove commas, and convert the value to a float, ensuring only significant digits are included (i.e., no unnecessary decimal places).
-
-
 
 Example Format:
 {{
@@ -134,19 +116,15 @@ Example Format:
 Text Source:
 {text[:15000]}
 """
-
-
-
     try:
         response = client.chat.completions.create(
             model="gpt-4.1-2025-04-14",
-            messages=[
+            messages=[ 
                 {"role": "system", "content": "You are a JSON output machine. Return ONLY valid JSON."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0,
             max_tokens=2000,
-            # response_format={"type": "json_object"}
         )
         
         return json.loads(response.choices[0].message.content)
@@ -175,6 +153,3 @@ def process_file(filepath):
     except Exception as e:
         print(f"Error processing {filepath}: {str(e)}")
         raise
-
-
-   

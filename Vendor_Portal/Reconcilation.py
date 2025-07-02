@@ -421,7 +421,7 @@ SELECT
             df_invoice.to_excel("invoice_validation.xlsx")
 
             lpo_df = lpo_df[['DESCRIPTION', 'UNIT_PRICE', 'QUANTITY']]
-            grn_df = grn_df[['ITEM_NAME', 'QUANTITY']]
+            grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
 
             # Rename columns using the 'columns' keyword argument
             lpo_df.rename(columns={"DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY"}, inplace=True)

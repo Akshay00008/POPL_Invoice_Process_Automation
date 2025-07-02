@@ -36,7 +36,7 @@ def normalize_field_name(field_name):
                     .replace('-', '_') \
                     .replace('__', '_')
 
-def validate_and_convert_to_dataframe(fields_matching_result):
+def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     # Extract common fields that will remain constant across all rows
     common_fields = { 
         'invoice_number': fields_matching_result['invoice_number'],
@@ -81,6 +81,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     df = pd.DataFrame(rows)
     df['subject'] = "Not Provided"
     df['received_on'] = "Vendor Portal"
+    df['file_path']=file_path
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")
@@ -131,7 +132,7 @@ def fields_matching(file_path):
         
         print("fields_matching_result:", result)
         # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result)
+        df = validate_and_convert_to_dataframe(result,file_path)
 
         # df.to_excel('invoice_data.xlsx')
         

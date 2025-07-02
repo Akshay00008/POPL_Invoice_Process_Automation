@@ -34,7 +34,7 @@ def ocr_from_pdf(pdf_path):
         pages = convert_from_path(
             pdf_path, 
             dpi=300,
-            poppler_path="\home\bramhesh_srivastav\POPL_Invoice_Process_Automation\Release-24.08.0-0\poppler-24.08.0\Library\bin"
+            poppler_path=r"\home\bramhesh_srivastav\POPL_Invoice_Process_Automation\Release-24.08.0-0\poppler-24.08.0\Library\bin"
         )
     except Exception as e:
         raise RuntimeError(f"PDF conversion failed: {e}") from e

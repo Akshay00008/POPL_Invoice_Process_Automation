@@ -85,6 +85,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     # df['cuin'] = 123654789
     print("updating abcdf")
     df.to_excel("abcdf.xlsx")
+    print(df)
     print("updated abcdf")
     print(rows)
     

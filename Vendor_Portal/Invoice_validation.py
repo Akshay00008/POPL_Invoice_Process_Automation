@@ -25,7 +25,7 @@ REQUIRED_FIELDS = [
     'invoice_number', 'date', 'cuin', 'vendor_name', 'vendor_address',
     'vendor_contact', 'po_number', 'sub_total',
     'total_amount', 'currency', 'total_tax_amount', 'goods_services_details',
-    'tax_details', 'tax_id'
+    'tax_details', 'tax_id', 'vat_pin'
 ]
 
 def normalize_field_name(field_name):
@@ -51,6 +51,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
         'currency': fields_matching_result['currency'],
         'total_tax_amount': fields_matching_result['total_tax_amount'],
         'tax_id': fields_matching_result['tax_id'],
+        'vat_pin' : fields_matching_result['vat_pin'],
     }
     print("line number 55")
     # Process each item in goods_services_details and create a new row for each
@@ -78,16 +79,20 @@ def validate_and_convert_to_dataframe(fields_matching_result):
 
     
     df = pd.DataFrame(rows)
+    df['subject'] = "Not Provided"
+    df['received on'] = "Vendor Portal"
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")
     df.to_excel("abcdf.xlsx")
     print("updated abcdf")
     print(rows)
+    
+
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
         df = pd.DataFrame([row])  # Create a DataFrame for this row
-        df.to_sql('extracted_data', engine, if_exists='replace', index=False)
+        df.to_sql('extracted_data', engine, if_exists='append', index=False)
         print("Data with None or 0 found, saved to SQL.")
         return {"message" : "validation stopped at extraction stage"}  # Return the DataFrame immediately if saving
 

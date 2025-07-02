@@ -439,7 +439,7 @@ SELECT
 
               # Store the entire DataFrame into 'reconciliation_data' table if condition is met
               final_df['Error_state'] = "Tax_amount"
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
               print("Message:", "Data Saved to Reconcillateion stage")
               # return df
@@ -452,7 +452,7 @@ SELECT
 
               # Store the invoice_df into 'reconciliation_data' table if the condition is met
               final_df['Error_state'] = "Line_Item"
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :

@@ -80,7 +80,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     
     df = pd.DataFrame(rows)
     df['subject'] = "Not Provided"
-    df['received on'] = "Vendor Portal"
+    df['received_on'] = "Vendor Portal"
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")
@@ -92,7 +92,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
 
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
-        df = pd.DataFrame([row])  # Create a DataFrame for this row
+        # df = pd.DataFrame([row])  # Create a DataFrame for this row
         df.to_sql('extracted_data', engine, if_exists='replace', index=False)
         print("Data with None or 0 found, saved to SQL.")
         return {"message" : "validation stopped at extraction stage"}  # Return the DataFrame immediately if saving

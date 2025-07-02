@@ -117,17 +117,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     print("line number 116")
     df.to_excel('invoice_data.xlsx')
 
-    if (df['subtotal_match'] == False).any() or (df['tax_amount_match'] == False).any():
-        # Setup the SQL connection
-        # engine = create_engine('your_database_connection_string')
-
-        # Store the entire DataFrame into 'reconciliation_data' table if condition is met
-        df['Error_state'] = "Tax_amount"
-        df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
-
-        print("Message:", "Data Saved to Reconcillateion stage")
-        return df
-        # return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+    
 
     return df
     

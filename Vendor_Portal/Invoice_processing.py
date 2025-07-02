@@ -30,11 +30,14 @@ def ocr_from_image(image_path):
 
 def ocr_from_pdf(pdf_path):
     """Extract text from a PDF file using OCR"""
+    if not os.path.exists(pdf_path):
+        raise FileNotFoundError(f"PDF file not found: {pdf_path}")
+    
     try:
         pages = convert_from_path(
             pdf_path, 
             dpi=300,
-            poppler_path=r"//usr//bin//pdftoppm"
+            poppler_path=r"/usr/bin/pdftoppm"
         )
     except Exception as e:
         raise RuntimeError(f"PDF conversion failed: {e}") from e

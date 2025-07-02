@@ -446,5 +446,5 @@ SELECT
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :
-                final_df.to_sql('Saved_Data', con=engine, if_exists='replace', index=False)  
+                final_df.to_sql('Saved_Data', con=engine, if_exists='append', index=False)  
                 return {"Message" : "Data Saved to saved page"}

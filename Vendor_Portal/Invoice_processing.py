@@ -136,6 +136,7 @@ Text Source:
 def process_file(filepath):
     """Process a file and return extracted invoice data"""
     if not os.path.exists(filepath):
+        print("File not found: {filepath}")
         raise FileNotFoundError(f"File not found: {filepath}")
     
     ext = filepath.lower().split('.')[-1]

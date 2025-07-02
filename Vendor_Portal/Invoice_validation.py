@@ -65,7 +65,7 @@ def validate_and_convert_to_dataframe(fields_matching_result):
         row['description'] = item.get('description', '0') if item.get('description') else '0'
         row['quantity'] = item.get('quantity', 0) if item.get('quantity') is not None else 0
         row['unit_price'] = item.get('unit_price', 0) if item.get('unit_price') is not None else 0
-        row['cuin'] =123456789
+        # row['cuin'] =123456789
         rows.append(row)
     
     # for tax in tax_details:
@@ -80,7 +80,9 @@ def validate_and_convert_to_dataframe(fields_matching_result):
     df = pd.DataFrame(rows)
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
+    print("updating abcdf")
     df.to_excel("abcdf.xlsx")
+    print("updated abcdf")
     print(rows)
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):

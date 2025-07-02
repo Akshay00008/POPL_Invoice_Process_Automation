@@ -30,22 +30,21 @@ def ocr_from_image(image_path):
 
 def ocr_from_pdf(pdf_path):
     """Extract text from a PDF file using OCR"""
-    if not os.path.exists(pdf_path):
-        raise FileNotFoundError(f"PDF file not found: {pdf_path}")
-    
     try:
-        pages = convert_from_path(
-            pdf_path, 
-            dpi=300,
-            poppler_path=r"/usr/bin/pdftoppm"
-        )
+        # Convert PDF to image files using pdftoppm
+        pages = convert_from_path(pdf_path, dpi=300, poppler_path="/usr/bin/pdftoppm")
+        
+        # Process each page image for OCR
+        extracted_text = []
+        for page in pages:
+            # Convert the page (Image) to text
+            text = pytesseract.image_to_string(page)
+            extracted_text.append(text)
+        
+        return extracted_text
+
     except Exception as e:
-        raise RuntimeError(f"PDF conversion failed: {e}") from e
-    
-    if not pages:
-        raise ValueError("PDF file is empty or could not be processed")
-    
-    return "\n".join(pytesseract.image_to_string(page).strip() for page in pages)
+        raise RuntimeError(f"PDF conversion or OCR failed: {e}") from e
 
 def extract_invoice_data_with_llm(text):
     """Extract structured data from invoice text using LLM"""

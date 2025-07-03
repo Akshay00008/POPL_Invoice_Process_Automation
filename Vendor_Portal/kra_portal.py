@@ -133,7 +133,7 @@ def check_qr_code_in_pdf(pdf_path):
             print("line 133")
 
             if decoded_objects:
-                obj = decoded_objects[0]  # Process the first decoded object
+                obj = decoded_objects  # Process the first decoded object
                 if 'parsed' in obj:
                     qr_data = obj['parsed'].decode('utf-8')
                     logger.info(f"Found QR Code on page {page_num}: {qr_data}")

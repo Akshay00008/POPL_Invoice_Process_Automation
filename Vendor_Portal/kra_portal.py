@@ -130,6 +130,7 @@ def check_qr_code_in_pdf(pdf_path):
 
             reader = BarCodeReader()
             decoded_objects = reader.decode(temp_image_path)
+            print("line 133")
 
             if decoded_objects:
                 obj = decoded_objects[0]  # Process the first decoded object

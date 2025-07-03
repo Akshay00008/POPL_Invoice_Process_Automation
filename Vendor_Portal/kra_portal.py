@@ -133,18 +133,19 @@ def check_qr_code_in_pdf(pdf_path):
             print("line 133")
 
             if decoded_objects:
-                for obj in  decoded_objects : # Process the first decoded object
-                    if 'parsed' in obj:
-                        qr_data = obj['parsed'].decode('utf-8')
-                        logger.info(f"Found QR Code on page {page_num}: {qr_data}")
+                for obj in decoded_objects :
+                    # obj = decoded_objects[0]  # Process the first decoded object
+                    # if 'parsed' in obj:
+                    qr_data = obj['parsed'].decode('utf-8')
+                    logger.info(f"Found QR Code on page {page_num}: {qr_data}")
 
-                        if is_valid_kra_url(qr_data):
-                            logger.info(f"Valid KRA URL found in QR code: {qr_data}")
-                            result = extract_invoice_details(qr_data)
-                            return result
-                        else:
-                            logger.error(f"Incorrect URL or not pointing to KRA portal: {qr_data}")
-                            return {"status": "error", "message": "QR code or Link not found"}
+                    if is_valid_kra_url(qr_data):
+                        logger.info(f"Valid KRA URL found in QR code: {qr_data}")
+                        result = extract_invoice_details(qr_data)
+                        return result
+                    else:
+                        logger.error(f"Incorrect URL or not pointing to KRA portal: {qr_data}")
+                        return {"status": "error", "message": "QR code or Link not found"}
             else:
                 logger.error(f"No QR code found on page {page_num}.")
                 return {"status": "error", "message": "QR code or Link not found"}

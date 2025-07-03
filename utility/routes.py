@@ -80,9 +80,17 @@ def extraction_page():
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
         raise ValueError(f"Reconciliation failed: {str(e)}")
-app.route("/kra_portal",methods=["POST"], strict_slashes=False)
+    
+@app.route("/kra_portal", methods=["POST"], strict_slashes=False)
 def kra_portal():
-    pdf_path=request.json.get('invoice_image')
+    # Get the PDF path from the request body
+    pdf_path = request.json.get('invoice_image')
+
+    if not pdf_path:
+        return jsonify({"error": "No invoice_image provided"}), 400
+    
+    # Call the function to process the PDF and get the result
     result = check_qr_code_in_pdf(pdf_path)
 
-    return {"message" : result}
+    # Return the result in the response
+    return {"message" :result }

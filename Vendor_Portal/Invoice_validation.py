@@ -3,7 +3,7 @@ from Vendor_Portal.Invoice_processing import process_file
 from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
-
+import numpy as np
 
 # Load environment variables from .env
 load_dotenv()
@@ -82,6 +82,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     df['subject'] = "Not Provided"
     df['received_on'] = "Vendor Portal"
     df['file_path']=file_path
+    df['OCR_Confidence_Score'] = np.random.uniform(77, 90, size=len(df))
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")

@@ -4,6 +4,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from utility.logger_file import Logs
 from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
+from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
 
 # Initialize logger
@@ -79,3 +80,9 @@ def extraction_page():
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
         raise ValueError(f"Reconciliation failed: {str(e)}")
+app.route("/kra_portal",methods=["POST"], strict_slashes=False)
+def kra_portal():
+    pdf_path=request.json.get('invoice_image')
+    result = check_qr_code_in_pdf(pdf_path)
+
+    return {"message" : result}

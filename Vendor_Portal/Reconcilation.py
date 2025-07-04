@@ -292,6 +292,7 @@ SELECT
          AND H.INSPECTION_STATUS_CODE != 'REJECTED'
          AND TO_NUMBER (a.segment1) =
                 NVL (TO_NUMBER (:p_lpo_numbers), TO_NUMBER (a.segment1))'''
+   
     dsn = "TEST"
     username = "Apps"
     password = "apps085"

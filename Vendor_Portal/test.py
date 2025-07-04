@@ -1,229 +1,163 @@
-import logging
-from datetime import datetime
-import os
-from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
-import requests
-from bs4 import BeautifulSoup
-import re
-from pyzbar.pyzbar import decode as pyzbar_decode
-from tempfile import NamedTemporaryFile
 import cv2
-import numpy as np
 from pdf2image import convert_from_path
-from PIL import Image
-import pytesseract
-from ctypes import CDLL
+import numpy as np
+import os
+from pyzbar.pyzbar import decode
+import asyncio
+from playwright.async_api import async_playwright
+from bs4 import BeautifulSoup
+import nest_asyncio
 
-# Load the DLL (make sure to provide the correct path)
-libzbar_path = r"/usr/lib/x86_64-linux-gnu/libzbar.so.0"
-libzbar = CDLL(libzbar_path)
+nest_asyncio.apply()
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
-# Load environment variables from .env
-load_dotenv()
+class QRCodeExtractor:
+    def __init__(self, input_path, dpi_list=None):
+        self.input_path = input_path
+        self.dpi_list = dpi_list or [400, 500, 600, 700, 800]
+        self.pdf_list = self._get_pdf_list()
 
-# Extracting the database connection details
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = int(os.getenv("DB_PORT", "3306"))
-DB_NAME = os.getenv("DB_NAME")
+    def _get_pdf_list(self):
+        if os.path.isfile(self.input_path) and self.input_path.lower().endswith('.pdf'):
+            return [self.input_path]
+        elif os.path.isdir(self.input_path):
+            return [
+                os.path.join(self.input_path, f)
+                for f in os.listdir(self.input_path)
+                if f.lower().endswith('.pdf')
+            ]
+        else:
+            raise ValueError("❌ Input path must be a .pdf file or a folder containing .pdf files.")
 
-# Create database engine
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-session = SessionLocal()
+    def extract_qr_codes(self):
+        extracted_data = {}
+        for pdf_path in self.pdf_list:
+            print(f"\n📄 Processing PDF: {os.path.basename(pdf_path)}")
+            found = False
 
-# Configure Tesseract path if needed
-# pytesseract.pytesseract.tesseract_cmd = r'<full_path_to_tesseract_executable>'
-
-def is_valid_kra_url(url):
-    """Validate KRA URL pattern with improved regex"""
-    kra_url_pattern = re.compile(
-        r'https?://(www\.)?itax\.kra\.go\.ke/KRA-Portal/invoiceChk\.htm\?actionCode=loadPage&invoiceNo=\d+'
-    )
-    return bool(kra_url_pattern.match(url))
-
-def save_to_database(data):
-    """Save extracted invoice details to database"""
-    try:
-        query = text('''INSERT INTO kra_portal (control_unit_invoice_number, invoice_date, total_taxable_amount, 
-                        total_tax_amount, total_invoice_amount, supplier_name, invoice_number)
-                        VALUES (:control_unit_invoice_number, :invoice_date, :total_taxable_amount, 
-                        :total_tax_amount, :total_invoice_amount, :supplier_name, :invoice_number)''')
-        session.execute(query, data)
-        session.commit()
-        logger.info("Data successfully saved to database.")
-        return {"status": "success", "message": "Data saved to database."}
-    except Exception as e:
-        logger.error(f"Database error: {e}")
-        session.rollback()
-        return {"status": "error", "message": f"Database error: {e}"}
-
-def extract_invoice_details(url):
-    """Extract invoice details from KRA portal with improved error handling"""
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Create mapping of field names to their values
-        field_map = {
-            'Control Unit Invoice Number': 'control_unit_invoice_number',
-            'Invoice Date': 'invoice_date',
-            'Total Taxable Amount': 'total_taxable_amount',
-            'Total Tax Amount': 'total_tax_amount',
-            'Total Invoice Amount': 'total_invoice_amount',
-            'Supplier Name': 'supplier_name',
-            'Trader System Invoice No': 'invoice_number'
-        }
-        
-        data = {v: None for v in field_map.values()}
-        
-        for field, key in field_map.items():
-            element = soup.find('td', string=field)
-            if element:
-                value = element.find_next('td').text.strip()
-                if key == 'invoice_date' and value:
-                    try:
-                        value = datetime.strptime(value, '%d/%m/%Y').strftime('%Y-%m-%d')
-                    except ValueError:
-                        logger.warning(f"Invalid date format: '{value}'")
-                data[key] = value
-        
-        # Convert numeric fields
-        for field in ['total_taxable_amount', 'total_tax_amount', 'total_invoice_amount']:
-            if data[field]:
+            for dpi in self.dpi_list:
+                print(f"   🔍 Trying DPI: {dpi}")
                 try:
-                    # Remove any non-numeric characters
-                    data[field] = float(re.sub(r'[^\d.]', '', data[field]))
-                except ValueError:
-                    data[field] = 0.0
-            else:
-                data[field] = 0.0
-        
-        return save_to_database(data)
-        
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Network error: {e}")
-        return {"status": "error", "message": f"Network error: {e}"}
-    except Exception as e:
-        logger.error(f"Extraction error: {e}")
-        return {"status": "error", "message": f"Extraction error: {e}"}
+                    images = convert_from_path(pdf_path, dpi=dpi)
+                    image = images[0]
+                except Exception as e:
+                    print(f"   ❌ Failed to read PDF at {dpi} DPI: {e}")
+                    continue
 
-def preprocess_image(image):
-    """Enhance image for better QR/text detection"""
-    # Convert to OpenCV format
-    open_cv_image = np.array(image)
-    img = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
-    
-    # Convert to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    
-    # Apply adaptive thresholding
-    thresh = cv2.adaptiveThreshold(
-        gray, 255, 
-        cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-        cv2.THRESH_BINARY, 11, 2
-    )
-    
-    # Apply morphological operations
-    kernel = np.ones((3, 3), np.uint8)
-    processed = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
-    
-    return processed
+                qr_data = self._process_image(image)
+                if qr_data:
+                    extracted_data[pdf_path] = qr_data
+                    found = True
+                    break
 
-def extract_text_from_image(image):
-    """Extract text from image using OCR"""
-    try:
-        # Preprocess image specifically for OCR
-        gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
-        text = pytesseract.image_to_string(gray)
-        return text
-    except Exception as e:
-        logger.error(f"OCR error: {e}")
-        return ""
+            if not found:
+                print(f"   ❌ No QR code found in '{os.path.basename(pdf_path)}' at any DPI.")
+        return extracted_data
 
-def find_kra_url_in_text(text):
-    """Search for KRA URL pattern in extracted text"""
-    kra_url_pattern = re.compile(
-        r'https?://(www\.)?itax\.kra\.go\.ke/KRA-Portal/invoiceChk\.htm\?actionCode=loadPage&invoiceNo=\d+'
-    )
-    match = kra_url_pattern.search(text)
-    return match.group(0) if match else None
+    def _process_image(self, image):
+        open_cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+        gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
 
-def extract_images_from_pdf(pdf_path):
-    """Extract images from PDF with error handling"""
-    try:
-        return convert_from_path(pdf_path, dpi=300, poppler_path=r'/usr/bin')
-    except Exception as e:
-        logger.error(f"PDF conversion error: {e}")
-        return []
+        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+        gray = clahe.apply(gray)
 
-def detect_qr_codes(image):
-    """Detect QR codes using multiple methods"""
-    # Method 1: PyZbar (fastest)
-    decoded_objects = pyzbar_decode(image)
-    if decoded_objects:
-        return [obj.data.decode('utf-8') for obj in decoded_objects]
-    
-    # Method 2: OpenCV QRCodeDetector (if available)
-    if hasattr(cv2, 'QRCodeDetector'):
-        detector = cv2.QRCodeDetector()
-        retval, decoded_info, _, _ = detector.detectAndDecodeMulti(np.array(image))
-        if retval and decoded_info:
-            return [info for info in decoded_info if info]
-    
-    return []
+        _, binary = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY)
+        blurred = cv2.GaussianBlur(binary, (7, 7), 0)
 
-def check_qr_code_in_pdf(pdf_path):
-    """Process PDF to find KRA URLs via QR codes or text"""
-    try:
-        images = extract_images_from_pdf(pdf_path)
-        if not images:
-            return {"status": "error", "message": "Failed to extract images from PDF"}
-
-        for page_num, image in enumerate(images, 1):
-            # Try QR code detection first
-            processed_img = preprocess_image(image)
-            qr_codes = detect_qr_codes(processed_img)
-            
-            for qr_data in qr_codes:
-                logger.info(f"Found QR Code on page {page_num}: {qr_data}")
-                if is_valid_kra_url(qr_data):
-                    logger.info(f"Valid KRA URL found: {qr_data}")
-                    return extract_invoice_details(qr_data)
-            
-            # Fallback to OCR text extraction
-            logger.info(f"No QR found on page {page_num}, trying OCR...")
-            text = extract_text_from_image(image)
-            url = find_kra_url_in_text(text)
-            
-            if url:
-                logger.info(f"Found KRA URL in text: {url}")
-                return extract_invoice_details(url)
-        
-        return {"status": "error", "message": "No valid KRA URL found in document"}
-    
-    except Exception as e:
-        logger.error(f"PDF processing failed: {e}")
-        return {"status": "error", "message": f"Processing error: {e}"}
-
-# Example usage
-# result = check_qr_code_in_pdf('path/to/your/document.pdf')
-
-# Example usage
-result = check_qr_code_in_pdf('/apps/POPL_Invoice_Process_Automation/Invoices/JALARAM 126883.pdf')
+        qr_codes = decode(blurred)
+        if qr_codes:
+            return [qr.data.decode('utf-8') for qr in qr_codes]
+        return None
 
 
-# from ctypes.util import find_library
-# libzbar_path = find_library('zbar')
-# print(f"Library found at: {libzbar_path}")
+class WebPageScraper:
+    def __init__(self, url):
+        self.url = url
 
+    async def fetch_html(self):
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.goto(self.url, timeout=20000)
+            await page.wait_for_selector("body")
+            html = await page.content()
+            await browser.close()
+            return html
+
+
+class KRAInvoiceParser:
+    def __init__(self, html):
+        self.html = html
+
+    def extract_data(self):
+        soup = BeautifulSoup(self.html, "html.parser")
+        result = {
+            "control_unit_invoice_number": None,
+            "invoice_number": None,
+            "invoice_date": None,
+            "total_taxable_amount": None,
+            "total_tax_amount": None,
+            "total_invoice_amount": None,
+            "supplier_name": None
+        }
+
+        key_map = {
+            "control unit invoice number": "control_unit_invoice_number",
+            "trader system invoice no": "invoice_number",
+            "invoice date": "invoice_date",
+            "total taxable amount": "total_taxable_amount",
+            "total tax amount": "total_tax_amount",
+            "total invoice amount": "total_invoice_amount",
+            "supplier name": "supplier_name"
+        }
+
+        tables = soup.find_all("table", {"width": "100%"})
+        for table in tables:
+            rows = table.find_all("tr")
+            for row in rows:
+                cells = row.find_all("td")
+                i = 0
+                while i < len(cells):
+                    cell = cells[i]
+                    key_text = cell.get_text(strip=True).lower()
+                    mapped_key = key_map.get(key_text)
+                    if mapped_key:
+                        j = i + 1
+                        while j < len(cells):
+                            value = cells[j].get_text(strip=True)
+                            if value:
+                                result[mapped_key] = value
+                                break
+                            j += 1
+                        i = j
+                    i += 1
+        return result
+
+
+async def main():
+    # 📥 Step 1: Extract QR codes from PDFs
+    qr_extractor = QRCodeExtractor(input_path="INVOICES/ALL_PACKS")  
+    qr_data = qr_extractor.extract_qr_codes()
+
+    # 🌐 Step 2: If any QR found, fetch the URL
+    for pdf_file, urls in qr_data.items():
+        for url in urls:
+            print(f"\n🌍 Fetching HTML for URL from {pdf_file}: {url}")
+            scraper = WebPageScraper(url)
+            try:
+                html = await scraper.fetch_html()
+            except Exception as e:
+                print(f"❌ Failed to fetch HTML: {e}")
+                continue
+
+            # 📊 Step 3: Extract invoice details from HTML
+            parser = KRAInvoiceParser(html)
+            invoice_data = parser.extract_data()
+
+            print("✅ Extracted Invoice Data:")
+            for key, value in invoice_data.items():
+                print(f"{key}: {value}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

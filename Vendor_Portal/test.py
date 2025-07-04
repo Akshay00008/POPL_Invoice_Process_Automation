@@ -187,7 +187,7 @@ async def process_invoice_ocr_kra_portal(file_path):
             df = pd.DataFrame(extracted_data)
 
             # Save the data into the SQL table kra_portal
-            df.to_sql('kra_portal', engine, if_exists='replace', index=False)
+            df.to_sql('kra_portal', engine, if_exists='append', index=False)
             return {"message": "Invoice data successfully processed and saved to SQL."}
         else:
             return {"message": "No invoice data found in the web page."}

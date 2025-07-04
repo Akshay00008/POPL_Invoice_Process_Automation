@@ -17,7 +17,7 @@ import pytesseract
 from ctypes import CDLL
 
 # Load the DLL (make sure to provide the correct path)
-libzbar_path = r"C:\Users\hp\anaconda3\envs\pwani_Scm\lib\site-packages\pyzbar\libzbar-64.dll"
+libzbar_path = r"/usr/local/lib/libzbar.so"
 libzbar = CDLL(libzbar_path)
 
 # Set up logging

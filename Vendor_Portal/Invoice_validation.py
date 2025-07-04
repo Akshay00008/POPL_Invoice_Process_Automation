@@ -139,17 +139,21 @@ def fields_matching(file_path):
 
         # Check if the necessary fields exist in the DataFrame
         if 'po_number' not in df.columns or 'invoice_number' not in df.columns:
-            return {"Message": f"Invoice data validation/reconciliation unsuccessful! Error: {str(e)}"}
+            raise ValueError("Missing required columns: 'po_number' or 'invoice_number'")
 
         # Extract values
         lpo_number = df['po_number']
         invoice_number = df['invoice_number']
         
         print("Invoice data validation successful!")
-        return lpo_number, invoice_number
+        return lpo_number, invoice_number  # Return both values
         
     except Exception as e:
-        # Return a dictionary with the exception message
-        return {"Message": f"Invoice data validation/reconciliation unsuccessful! Error: {str(e)}"}
+        # Log the error message for debugging
+        print(f"Error: {str(e)}")
+        
+        # Ensure the function returns two values (could be None or empty)
+        return None, None  # Return a tuple with None values to avoid unpacking errors
+
 
         

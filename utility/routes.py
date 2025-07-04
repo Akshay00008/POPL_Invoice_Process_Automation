@@ -68,6 +68,10 @@ def process_invoice_and_reconcile(file_path):
     lpo_invoice_number = process_invoice_ocr(file_path)
     
     print("lpo_invoice_number :",lpo_invoice_number)
+
+    if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
+            # Return the error message
+            return lpo_invoice_number
     lpo_numbers=lpo_invoice_number[0]
     invoice_number=lpo_invoice_number[1]
 

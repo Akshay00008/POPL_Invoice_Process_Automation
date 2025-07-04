@@ -65,8 +65,13 @@ def perform_reconciliation(lpo_number,invoice_number,item_count):
 # Function to manage the OCR and reconciliation steps asynchronously
 def process_invoice_and_reconcile(file_path):
     """Process the invoice OCR and then perform reconciliation in background."""
-    lpo_numbers, invoice_number = process_invoice_ocr(file_path)
+    lpo_invoice_number = process_invoice_ocr(file_path)
     
+    print("lpo_invoice_number :",lpo_invoice_number)
+    lpo_numbers=lpo_invoice_number[0]
+    invoice_number=lpo_invoice_number[1]
+
+
     print("LPo numbers :",lpo_numbers )
     print("invoice_number :", invoice_number)
     reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,item_count=0)

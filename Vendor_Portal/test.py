@@ -17,7 +17,7 @@ import pytesseract
 from ctypes import CDLL
 
 # Load the DLL (make sure to provide the correct path)
-libzbar_path = r"/usr/local/lib/libzbar.so"
+libzbar_path = r"/usr/lib/x86_64-linux-gnu/libzbar.so.0"
 libzbar = CDLL(libzbar_path)
 
 # Set up logging

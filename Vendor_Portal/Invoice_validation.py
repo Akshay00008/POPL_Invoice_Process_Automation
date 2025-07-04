@@ -86,7 +86,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")
-    #df.to_excel("abcdf.xlsx")
+    # df.to_excel("abcdf.xlsx")
     print(df)
     print("updated abcdf")
     print(rows)
@@ -118,7 +118,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     print("line number 116")
     df.to_sql('Invoice_data_collection', engine, if_exists='append', index=False)
-    # #df.to_excel('invoice_data.xlsx')
+    # df.to_excel('invoice_data.xlsx')
 
     
 
@@ -133,27 +133,17 @@ def fields_matching(file_path):
         result = process_file(file_path)
         
         print("fields_matching_result:", result)
-        
         # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result, file_path)
+        df = validate_and_convert_to_dataframe(result,file_path)
 
-        # Check if the necessary fields exist in the DataFrame
-        if 'po_number' not in df.columns or 'invoice_number' not in df.columns:
-            raise ValueError("Missing required columns: 'po_number' or 'invoice_number'")
-
-        # Extract values
+        # df.to_excel('invoice_data.xlsx')
+        
         lpo_number = df['po_number']
-        invoice_number = df['invoice_number']
+        invoice_number= df['invoice_number']
         
         print("Invoice data validation successful!")
-        return lpo_number, invoice_number  # Return both values
+        return lpo_number,invoice_number
         
     except Exception as e:
-        # Log the error message for debugging
-        print(f"Error: {str(e)}")
-        
-        # Ensure the function returns two values (could be None or empty)
-        return None, None  # Return a tuple with None values to avoid unpacking errors
-
-
+        return {"Message" : "Invoice data validation/reconcillation unsuccessful!"}
         

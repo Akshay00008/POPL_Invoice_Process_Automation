@@ -27,11 +27,12 @@ def process_invoice_ocr(file_path):
         invoice_number=invoice_number[0]
         print("26 lpo_numbers :" , lpo_numbers )
         print("27 invoice_number :" , invoice_number )
+        return lpo_numbers, invoice_number
     except Exception as e:
         loggs.error(f"Invoice processing failed: {str(e)}")
-        raise ValueError(f"Invoice processing failed: {str(e)}")
+        # raise ValueError(f"Invoice processing failed: {str(e)}")
     
-    return lpo_numbers, invoice_number
+        return {"message" : "Data with None or 0 found, saved to SQL."}
 
 # Helper function to handle the reconciliation process
 def perform_reconciliation(lpo_number,invoice_number,item_count):
@@ -49,6 +50,7 @@ def perform_reconciliation(lpo_number,invoice_number,item_count):
 def process_invoice_and_reconcile(file_path):
     """Process the invoice OCR and then perform reconciliation in background."""
     lpo_numbers, invoice_number = process_invoice_ocr(file_path)
+    
     print("LPo numbers :",lpo_numbers )
     print("invoice_number :", invoice_number)
     reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,item_count=0)

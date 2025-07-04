@@ -7,6 +7,7 @@ from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
 from Vendor_Portal.test import process_invoice_ocr_kra_portal
+import asyncio
 
 # Initialize logger
 loggs = Logs()

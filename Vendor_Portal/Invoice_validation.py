@@ -139,7 +139,7 @@ def fields_matching(file_path):
 
         # Check if the necessary fields exist in the DataFrame
         if 'po_number' not in df.columns or 'invoice_number' not in df.columns:
-            raise ValueError("Missing required columns: 'po_number' or 'invoice_number'")
+            return {"Message": f"Invoice data validation/reconciliation unsuccessful! Error: {str(e)}"}
 
         # Extract values
         lpo_number = df['po_number']

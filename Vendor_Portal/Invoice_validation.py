@@ -133,17 +133,23 @@ def fields_matching(file_path):
         result = process_file(file_path)
         
         print("fields_matching_result:", result)
-        # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result,file_path)
-
-        # #df.to_excel('invoice_data.xlsx')
         
+        # Validate and convert to DataFrame
+        df = validate_and_convert_to_dataframe(result, file_path)
+
+        # Check if the necessary fields exist in the DataFrame
+        if 'po_number' not in df.columns or 'invoice_number' not in df.columns:
+            raise ValueError("Missing required columns: 'po_number' or 'invoice_number'")
+
+        # Extract values
         lpo_number = df['po_number']
-        invoice_number= df['invoice_number']
+        invoice_number = df['invoice_number']
         
         print("Invoice data validation successful!")
-        return lpo_number,invoice_number
+        return lpo_number, invoice_number
         
     except Exception as e:
-        return {"Message" : "Invoice data validation/reconcillation unsuccessful!"}
+        # Return a dictionary with the exception message
+        return {"Message": f"Invoice data validation/reconciliation unsuccessful! Error: {str(e)}"}
+
         

@@ -136,7 +136,7 @@ class KRAInvoiceParser:
 
 async def main():
     # 📥 Step 1: Extract QR codes from PDFs
-    qr_extractor = QRCodeExtractor(input_path="INVOICES/ALL_PACKS")  
+    qr_extractor = QRCodeExtractor(input_path="/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf")  
     qr_data = qr_extractor.extract_qr_codes()
 
     # 🌐 Step 2: If any QR found, fetch the URL

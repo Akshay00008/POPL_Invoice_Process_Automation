@@ -314,7 +314,7 @@ SELECT
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
-            lpo_#df.to_excel('lpo_df.xlsx')
+            # lpo_#df.to_excel('lpo_df.xlsx')
 
             
             print("lpo:", lpo_number)
@@ -323,7 +323,7 @@ SELECT
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             grn_df = pd.concat([grn_df, df], ignore_index=True)
-            grn_#df.to_excel('grn_df.xlsx')
+            # grn_#df.to_excel('grn_df.xlsx')
 
     except cx_Oracle.DatabaseError as e:
         print(f"Database error: {e}")

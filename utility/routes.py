@@ -6,7 +6,7 @@ from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
-from test import process_invoice_ocr_kra_portal
+from Vendor_Portal.test import process_invoice_ocr_kra_portal
 
 # Initialize logger
 loggs = Logs()

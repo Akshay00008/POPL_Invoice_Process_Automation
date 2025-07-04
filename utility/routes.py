@@ -71,7 +71,7 @@ def invoice_trigger():
     return jsonify({"message": "Invoice processing and reconciliation started."}), 202
 
 
-app.route("/extraction_page",methods=["POST"], strict_slashes=False)
+@app.route("/extraction_page",methods=["POST"], strict_slashes=False)
 def extraction_page():
     lpo_number=request.json.get('lpo_number')
     try:

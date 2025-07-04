@@ -86,7 +86,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     # df['cuin'] = 123654789
     print("updating abcdf")
-    df.to_excel("abcdf.xlsx")
+    #df.to_excel("abcdf.xlsx")
     print(df)
     print("updated abcdf")
     print(rows)
@@ -117,7 +117,8 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
 
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     print("line number 116")
-    df.to_excel('invoice_data.xlsx')
+    df.to_sql('Invoice_data_collection', engine, if_exists='append', index=False)
+    # #df.to_excel('invoice_data.xlsx')
 
     
 
@@ -135,12 +136,13 @@ def fields_matching(file_path):
         # Validate and convert to DataFrame
         df = validate_and_convert_to_dataframe(result,file_path)
 
-        # df.to_excel('invoice_data.xlsx')
+        # #df.to_excel('invoice_data.xlsx')
         
         lpo_number = df['po_number']
+        invoice_number= df['invoice_number']
         
         print("Invoice data validation successful!")
-        return lpo_number
+        return lpo_number,invoice_number
         
     except Exception as e:
         return {"Message" : "Invoice data validation/reconcillation unsuccessful!"}

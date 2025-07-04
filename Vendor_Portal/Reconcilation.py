@@ -40,7 +40,7 @@ SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{D
 # Create an SQLAlchemy engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-def Reconcillation_process(lpo_numbers,item_count):
+def Reconcillation_process(lpo_number,invoice_number,item_count=0):
     
     # lpo_numbers = []
    
@@ -298,32 +298,32 @@ SELECT
     
     lpo_df = pd.DataFrame()
     grn_df = pd.DataFrame()
-    print(lpo_numbers)
+    print(lpo_number)
     # Initialize connection and cursor outside the try block to prevent reference errors
     connection = None
     cursor = None
     
     try:
-        if lpo_numbers:
+        if lpo_number:
             connection = cx_Oracle.connect(username, password, dsn)
             cursor = connection.cursor()
 
             
-            cursor.execute(query_3, lpo_number=lpo_numbers)
+            cursor.execute(query_3, lpo_number=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
-            lpo_df.to_excel('lpo_df.xlsx')
+            lpo_#df.to_excel('lpo_df.xlsx')
 
             
-            print("lpo:", lpo_numbers)
-            cursor.execute(query_GRN__Details, p_lpo_numbers=lpo_numbers)
+            print("lpo:", lpo_number)
+            cursor.execute(query_GRN__Details, p_lpo_numbers=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             grn_df = pd.concat([grn_df, df], ignore_index=True)
-            grn_df.to_excel('grn_df.xlsx')
+            grn_#df.to_excel('grn_df.xlsx')
 
     except cx_Oracle.DatabaseError as e:
         print(f"Database error: {e}")
@@ -350,8 +350,13 @@ SELECT
 
             # Semantic matching for all invoice items with all LPO and GRN entries
 
-            df_invoice = pd.read_excel('invoice_data.xlsx')
-            df_invoice.drop(columns=['Unnamed: 0'],inplace=True)
+            query = f"SELECT * FROM Invoice_data_collection WHERE invoice_number = '{invoice_number}'"
+
+# Read the data into a DataFrame
+            df_invoice = pd.read_sql_query(query, engine)
+            print("line 357 :", df_invoice)
+            # df_invoice = pd.read_excel('invoice_data.xlsx')
+            # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)
             # model = SentenceTransformer('all-MiniLM-L6-v2')
             invoice_descriptions = df_invoice['description'].astype(str).tolist()
             print("invoice_descriptions:",invoice_descriptions)
@@ -418,7 +423,7 @@ SELECT
             df_invoice['LPO_Similarity'] = [round(float(invoice_lpo_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_lpo_indices)]
             df_invoice['GRN_Similarity'] = [round(float(invoice_grn_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_grn_indices)]
             # df_invoice.drop(['Unnamed: 0'],inplace=True)
-            df_invoice.to_excel("invoice_validation.xlsx")
+            # df_invoice.to_excel("invoice_validation.xlsx")
 
             lpo_df = lpo_df[['DESCRIPTION', 'UNIT_PRICE', 'QUANTITY']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]

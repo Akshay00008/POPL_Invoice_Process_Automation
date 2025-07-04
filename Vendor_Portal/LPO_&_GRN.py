@@ -238,8 +238,8 @@ def LPO(data):
 
     
 
-    lpo_df.to_excel('lpo_df.xlsx')
-    grn_df.to_excel('grn_df.xlsx')
+    lpo_#df.to_excel('lpo_df.xlsx')
+    grn_#df.to_excel('grn_df.xlsx')
 
    
 

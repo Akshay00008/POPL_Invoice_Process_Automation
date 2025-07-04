@@ -20,21 +20,24 @@ def process_invoice_ocr(file_path):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
-        invoice_df = fields_matching(file_path)
-        print(invoice_df)
+        invoice_df,invoice_number = fields_matching(file_path)
+        # print(invoice_df)
         loggs.info(f"Validated Invoice Data: {invoice_df}")
         lpo_numbers = invoice_df[0]
+        invoice_number=invoice_number[0]
+        print("26 lpo_numbers :" , lpo_numbers )
+        print("27 invoice_number :" , invoice_number )
     except Exception as e:
         loggs.error(f"Invoice processing failed: {str(e)}")
         raise ValueError(f"Invoice processing failed: {str(e)}")
     
-    return lpo_numbers
+    return lpo_numbers, invoice_number
 
 # Helper function to handle the reconciliation process
-def perform_reconciliation(lpo_numbers,item_count):
+def perform_reconciliation(lpo_number,invoice_number,item_count):
     """Runs the reconciliation process with the provided LPO numbers."""
     try:
-        result = Reconcillation_process(lpo_numbers,item_count)
+        result = Reconcillation_process(lpo_number,invoice_number,item_count)
         loggs.info(f"Reconciliation result: {result}")
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
@@ -45,9 +48,10 @@ def perform_reconciliation(lpo_numbers,item_count):
 # Function to manage the OCR and reconciliation steps asynchronously
 def process_invoice_and_reconcile(file_path):
     """Process the invoice OCR and then perform reconciliation in background."""
-    lpo_numbers = process_invoice_ocr(file_path)
+    lpo_numbers, invoice_number = process_invoice_ocr(file_path)
     print("LPo numbers :",lpo_numbers )
-    reconciliation_result = perform_reconciliation(lpo_numbers,item_count=0)
+    print("invoice_number :", invoice_number)
+    reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,item_count=0)
     return reconciliation_result
 
 # Route to trigger the invoice processing and reconciliation
@@ -74,8 +78,9 @@ def invoice_trigger():
 @app.route("/extraction_page",methods=["POST"], strict_slashes=False)
 def extraction_page():
     lpo_number=request.json.get('lpo_number')
+    invoice_number=request.json.get('invoice_number')
     try:
-        reconciliation_result = perform_reconciliation(lpo_number,item_count=0)
+        reconciliation_result = perform_reconciliation(lpo_number,invoice_number,item_count=0)
         loggs.info(f"Reconciliation result: {reconciliation_result}")
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")

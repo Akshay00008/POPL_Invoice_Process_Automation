@@ -6,6 +6,7 @@ from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
+from test import process_invoice_ocr_kra_portal
 
 # Initialize logger
 loggs = Logs()
@@ -113,16 +114,33 @@ def extraction_page():
         loggs.error(f"Reconciliation failed: {str(e)}")
         raise ValueError(f"Reconciliation failed: {str(e)}")
     
+# @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
+# def kra_portal():
+#     # Get the PDF path from the request body
+#     pdf_path = request.json.get('invoice_image')
+
+#     if not pdf_path:
+#         return jsonify({"error": "No invoice_image provided"}), 400
+    
+#     # Call the function to process the PDF and get the result
+#     result = check_qr_code_in_pdf(pdf_path)
+
+#     # Return the result in the response
+#     return {"message" :result }
+
+# Flask route for handling the request
+# Flask route for handling the request
 @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
 def kra_portal():
+    """Process the invoice image and store data in SQL."""
     # Get the PDF path from the request body
     pdf_path = request.json.get('invoice_image')
 
     if not pdf_path:
         return jsonify({"error": "No invoice_image provided"}), 400
-    
+
     # Call the function to process the PDF and get the result
-    result = check_qr_code_in_pdf(pdf_path)
+    result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
 
     # Return the result in the response
-    return {"message" :result }
+    return jsonify(result)

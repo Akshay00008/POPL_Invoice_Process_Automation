@@ -20,19 +20,35 @@ def process_invoice_ocr(file_path):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
-        invoice_df,invoice_number = fields_matching(file_path)
-        # print(invoice_df)
+        result = fields_matching(file_path)
+        
+        # Check if the result is an error message
+        if isinstance(result, dict) and "message" in result:
+            # Return the error message
+            return result
+        
+        # Unpack the result into invoice_df and invoice_number
+        invoice_df, invoice_number = result
+        
+        # Validate the extracted values (ensure they are not None)
+        if invoice_df is None or invoice_number is None:
+            raise ValueError("Extracted values for invoice data are None.")
+
         loggs.info(f"Validated Invoice Data: {invoice_df}")
+        
+        # Extract values
         lpo_numbers = invoice_df[0]
-        invoice_number=invoice_number[0]
-        print("26 lpo_numbers :" , lpo_numbers )
-        print("27 invoice_number :" , invoice_number )
+        invoice_number = invoice_number[0]
+        
+        print("26 lpo_numbers:", lpo_numbers)
+        print("27 invoice_number:", invoice_number)
+        
         return lpo_numbers, invoice_number
+
     except Exception as e:
         loggs.error(f"Invoice processing failed: {str(e)}")
-        # raise ValueError(f"Invoice processing failed: {str(e)}")
-    
-        return {"message" : "Data with None or 0 found, saved to SQL."}
+        return {"message": "Data with None or 0 found, saved to SQL."}
+
 
 # Helper function to handle the reconciliation process
 def perform_reconciliation(lpo_number,invoice_number,item_count):

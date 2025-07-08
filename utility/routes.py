@@ -20,7 +20,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 CORS(app)
 
 # Helper function to process the invoice OCR
-def process_invoice_ocr(file_path):
+def process_invoice_ocr(file_path,rel_num):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
@@ -114,7 +114,7 @@ def invoice_trigger():
             return jsonify({"error": "File path is required."}), 400
         
         # Run the processing in a background thread
-        thread = Thread(target=process_invoice_and_reconcile, args=(file_path,))
+        thread = Thread(target=process_invoice_and_reconcile, args=(file_path,rel_num))
         thread.start()
 
         # Respond to the client immediately while the background process runs
@@ -127,7 +127,7 @@ def extraction_page():
     invoice_number=request.json.get('invoice_number')
     try:
         result = data_conversion_pipeline(invoice_number)
-        rel_num=result['rel_num']
+        rel_num=result['release_number']
         rel_num=rel_num[0]
         thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,0))
         thread.start()

@@ -36,7 +36,7 @@ def normalize_field_name(field_name):
                     .replace('-', '_') \
                     .replace('__', '_')
 
-def validate_and_convert_to_dataframe(fields_matching_result,file_path):
+def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     # Extract common fields that will remain constant across all rows
     common_fields = { 
         'invoice_number': fields_matching_result['invoice_number'],
@@ -90,7 +90,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     print(df)
     print("updated abcdf")
     print(rows)
-    
+    df['release_number'] = rel_num
 
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
@@ -127,7 +127,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path):
     
 
 
-def fields_matching(file_path):
+def fields_matching(file_path,rel_num):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
@@ -135,7 +135,7 @@ def fields_matching(file_path):
         
         print("fields_matching_result:", result)
         # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result,file_path)
+        df = validate_and_convert_to_dataframe(result,file_path,rel_num)
 
         # df.to_excel('invoice_data.xlsx')
         

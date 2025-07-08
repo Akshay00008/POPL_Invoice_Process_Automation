@@ -108,7 +108,7 @@ def data_conversion_pipeline(invoice_number) :
     # Check if subtotal + tax amount matches the total amount
     result_df['tax_amount_match'] = (result_df['sub_total'] + result_df['total_tax_amount']) == result_df['total_amount']
 
-
+    result_df['release_number']=1
     
     # Insert into MySQL
     result_df.to_sql("Invoice_data_collection", engine, if_exists="append", index=False)

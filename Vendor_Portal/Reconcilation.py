@@ -40,7 +40,8 @@ SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{D
 # Create an SQLAlchemy engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-def Reconcillation_process(lpo_number,invoice_number,item_count=0):
+def Reconcillation_process(lpo_number,invoice_number,rel_num,item_count=0):
+      
     
     # lpo_numbers = []
    
@@ -315,6 +316,7 @@ SELECT
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
+            lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]
             # lpo_#df.to_excel('lpo_df.xlsx')
 
             

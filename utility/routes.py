@@ -6,8 +6,10 @@ from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
-from Vendor_Portal.test import process_invoice_ocr_kra_portal
+# from Vendor_Portal.test import process_invoice_ocr_kra_portal
 import asyncio
+from Vendor_Portal.ERP_Upload import InvoiceApiHandler
+from Vendor_Portal.data_conversion import   data_conversion_pipeline
 
 # Initialize logger
 loggs = Logs()
@@ -53,10 +55,10 @@ def process_invoice_ocr(file_path):
 
 
 # Helper function to handle the reconciliation process
-def perform_reconciliation(lpo_number,invoice_number,item_count):
+def perform_reconciliation(lpo_number,invoice_number,rel_num,item_count):
     """Runs the reconciliation process with the provided LPO numbers."""
     try:
-        result = Reconcillation_process(lpo_number,invoice_number,item_count)
+        result = Reconcillation_process(lpo_number,invoice_number,rel_num,item_count)
         loggs.info(f"Reconciliation result: {result}")
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
@@ -65,7 +67,7 @@ def perform_reconciliation(lpo_number,invoice_number,item_count):
     return {"result": result}
 
 # Function to manage the OCR and reconciliation steps asynchronously
-def process_invoice_and_reconcile(file_path):
+def process_invoice_and_reconcile(file_path,rel_num):
     """Process the invoice OCR and then perform reconciliation in background."""
     lpo_invoice_number = process_invoice_ocr(file_path)
     
@@ -80,7 +82,7 @@ def process_invoice_and_reconcile(file_path):
 
     print("LPo numbers :",lpo_numbers )
     print("invoice_number :", invoice_number)
-    reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,item_count=0)
+    reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,rel_num,item_count=0)
     return reconciliation_result
 
 # Route to trigger the invoice processing and reconciliation
@@ -90,18 +92,33 @@ from flask import request
 def invoice_trigger():
     """Trigger the invoice processing and reconciliation via an API endpoint."""
     # Get the file path from the request body
-    file_path = request.json.get('invoice_image')
     
-    # Check if file_path is provided in the request
-    if not file_path:
-        return jsonify({"error": "File path is required."}), 400
+    submission_type=request.json.get('submission_type')
     
-    # Run the processing in a background thread
-    thread = Thread(target=process_invoice_and_reconcile, args=(file_path,))
-    thread.start()
+    if submission_type == 'form' :
+        invoice_number = request.json.get('invoice_number')
+        lpo_number = request.json.get('lpo_number')
+        rel_num=request.json.get('rel_num')
+        item_count=0
+        result = data_conversion_pipeline (invoice_number)
+        thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,item_count))
+        thread.start()
+        return jsonify({"message": "Invoice processing and reconciliation started"}), 202
+    
+    
+    else :
 
-    # Respond to the client immediately while the background process runs
-    return jsonify({"message": "Invoice processing and reconciliation started."}), 202
+        file_path = request.json.get('invoice_image')
+        # Check if file_path is provided in the request
+        if not file_path:
+            return jsonify({"error": "File path is required."}), 400
+        
+        # Run the processing in a background thread
+        thread = Thread(target=process_invoice_and_reconcile, args=(file_path,))
+        thread.start()
+
+        # Respond to the client immediately while the background process runs
+        return jsonify({"message": "Invoice processing and reconciliation started."}), 202
 
 
 @app.route("/extraction_page",methods=["POST"], strict_slashes=False)
@@ -109,8 +126,12 @@ def extraction_page():
     lpo_number=request.json.get('lpo_number')
     invoice_number=request.json.get('invoice_number')
     try:
-        reconciliation_result = perform_reconciliation(lpo_number,invoice_number,item_count=0)
-        loggs.info(f"Reconciliation result: {reconciliation_result}")
+        result = data_conversion_pipeline (invoice_number)
+        rel_num=result['rel_num']
+        rel_num=rel_num[0]
+        thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,0))
+        thread.start()
+        return jsonify({"message": "Reconcillation processing started."}), 202
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
         raise ValueError(f"Reconciliation failed: {str(e)}")
@@ -129,19 +150,35 @@ def extraction_page():
 #     # Return the result in the response
 #     return {"message" :result }
 
-# Flask route for handling the request
-# Flask route for handling the request
-@app.route("/kra_portal", methods=["POST"], strict_slashes=False)
-def kra_portal():
-    """Process the invoice image and store data in SQL."""
-    # Get the PDF path from the request body
-    pdf_path = request.json.get('invoice_image')
 
-    if not pdf_path:
-        return jsonify({"error": "No invoice_image provided"}), 400
+# #Flask route for handling the request
+# @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
+# def kra_portal():
+#     """Process the invoice image and store data in SQL."""
+#     # Get the PDF path from the request body
+#     pdf_path = request.json.get('invoice_image')
 
-    # Call the function to process the PDF and get the result
-    result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+#     if not pdf_path:
+#         return jsonify({"error": "No invoice_image provided"}), 400
 
-    # Return the result in the response
-    return jsonify(result)
+#     # Call the function to process the PDF and get the result
+#     result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+
+#     # Return the result in the response
+#     return jsonify(result)
+# #Flask route for handling the request
+
+@app.route("/erp_upload",methods=["POST"], strict_slashes=False)
+def erp_upload():
+    
+    dsn = "TEST"
+    username = "Apps"
+    password = "apps085"
+    data_list=request.get_json()
+    handler=InvoiceApiHandler(dsn,username,password)
+    print("handler")
+    result=handler.insert_data_and_call_api(data_list)
+    print("result:", result)
+    # message =handler.grn_generation(result)
+
+    return result

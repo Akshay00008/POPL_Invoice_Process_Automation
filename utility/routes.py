@@ -110,7 +110,7 @@ def invoice_trigger():
 
         file_path = request.json.get('invoice_image')
         rel_num=request.json.get('rel_num')
-        print(rel_num)
+        print("rel_num :" , rel_num)
         # Check if file_path is provided in the request
         if not file_path:
             return jsonify({"error": "File path is required."}), 400

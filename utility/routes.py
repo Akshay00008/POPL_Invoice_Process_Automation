@@ -98,7 +98,7 @@ def invoice_trigger():
     if submission_type == 'form' :
         invoice_number = request.json.get('invoice_number')
         lpo_number = request.json.get('lpo_number')
-        rel_num=request.json.get('rel_num')
+        rel_num=request.json.get('REL_NUM')
         item_count=0
         result = data_conversion_pipeline (invoice_number)
         thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,item_count))
@@ -109,7 +109,7 @@ def invoice_trigger():
     else :
 
         file_path = request.json.get('invoice_image')
-        rel_num=request.json.get('rel_num')
+        rel_num=request.json.get('REL_NUM')
         print("rel_num :" , rel_num)
         # Check if file_path is provided in the request
         if not file_path:

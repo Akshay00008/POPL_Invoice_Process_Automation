@@ -6,7 +6,7 @@ from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
-# from Vendor_Portal.test import process_invoice_ocr_kra_portal
+from Vendor_Portal.test import process_invoice_ocr_kra_portal
 import asyncio
 from Vendor_Portal.ERP_Upload import InvoiceApiHandler
 from Vendor_Portal.data_conversion import   data_conversion_pipeline
@@ -152,20 +152,20 @@ def extraction_page():
 
 
 # #Flask route for handling the request
-# @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
-# def kra_portal():
-#     """Process the invoice image and store data in SQL."""
-#     # Get the PDF path from the request body
-#     pdf_path = request.json.get('invoice_image')
+@app.route("/kra_portal", methods=["POST"], strict_slashes=False)
+def kra_portal():
+    """Process the invoice image and store data in SQL."""
+    # Get the PDF path from the request body
+    pdf_path = request.json.get('invoice_image')
 
-#     if not pdf_path:
-#         return jsonify({"error": "No invoice_image provided"}), 400
+    if not pdf_path:
+        return jsonify({"error": "No invoice_image provided"}), 400
 
-#     # Call the function to process the PDF and get the result
-#     result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+    # Call the function to process the PDF and get the result
+    result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
 
-#     # Return the result in the response
-#     return jsonify(result)
+    # Return the result in the response
+    return jsonify(result)
 # #Flask route for handling the request
 
 @app.route("/erp_upload",methods=["POST"], strict_slashes=False)

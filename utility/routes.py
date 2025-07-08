@@ -24,7 +24,7 @@ def process_invoice_ocr(file_path,rel_num):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
-        result = fields_matching(file_path)
+        result = fields_matching(file_path,rel_num)
         
         # Check if the result is an error message
         if isinstance(result, dict) and "message" in result:
@@ -69,7 +69,7 @@ def perform_reconciliation(lpo_number,invoice_number,rel_num,item_count):
 # Function to manage the OCR and reconciliation steps asynchronously
 def process_invoice_and_reconcile(file_path,rel_num):
     """Process the invoice OCR and then perform reconciliation in background."""
-    lpo_invoice_number = process_invoice_ocr(file_path)
+    lpo_invoice_number = process_invoice_ocr(file_path,rel_num)
     
     print("lpo_invoice_number :",lpo_invoice_number)
 

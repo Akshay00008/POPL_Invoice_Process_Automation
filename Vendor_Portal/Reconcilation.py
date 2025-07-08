@@ -440,6 +440,7 @@ SELECT
 
             # Then, merge the resulting DataFrame with grn_df on 'Matched_GRN_Description'
             final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
+            # final_df = final_df[(final_df['LPO_Similarity'] > 0.80) & (final_df['GRN_Similarity'] > 0.80)]
 
             if (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
             # Setup the SQL connection

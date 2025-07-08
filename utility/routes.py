@@ -131,6 +131,7 @@ def extraction_page():
         result = data_conversion_pipeline(invoice_number)
         rel_num=result['release_number']
         rel_num=rel_num[0]
+        print("1345")
         thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,0))
         thread.start()
         return jsonify({"message": "Reconcillation processing started."}), 202

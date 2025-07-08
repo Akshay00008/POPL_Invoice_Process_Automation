@@ -115,4 +115,4 @@ def data_conversion_pipeline(invoice_number) :
  
     print("✅ Data migrated successfully to invoice_data_collection.")
 
-    return {"messgae" : "Data migrated successfully to invoice_data_collection."} , 200
+    return result_df #{"messgae" : "Data migrated successfully to invoice_data_collection."} , 200

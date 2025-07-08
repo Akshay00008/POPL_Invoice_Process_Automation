@@ -127,7 +127,7 @@ def extraction_page():
     invoice_number=request.json.get('invoice_number')
     try:
         result = data_conversion_pipeline(invoice_number)
-        rel_num=result['RELEASE_NUM']
+        rel_num=result['rel_num']
         rel_num=rel_num[0]
         thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,0))
         thread.start()

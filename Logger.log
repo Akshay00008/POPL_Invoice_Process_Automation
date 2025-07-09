@@ -149,3 +149,15 @@ Name: po_number, dtype: object
 2025-07-09 16:06:07,110 - INFO - Validated Invoice Data: 0    24003596
 Name: po_number, dtype: object
 2025-07-09 16:06:17,139 - ERROR - Reconciliation failed: Error code: 400 - {'error': {'message': "'$.input' is invalid. Please check the API reference: https://platform.openai.com/docs/api-reference.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-09 17:35:44,338 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:35:48,639 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 17:41:21,329 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:41:32,060 - ERROR - Reconciliation failed: 'DESCRIPTION'
+2025-07-09 17:45:36,273 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:45:54,689 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 18:28:31,423 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 18:28:50,315 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}

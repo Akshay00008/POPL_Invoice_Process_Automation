@@ -337,7 +337,7 @@ WHERE
     AND NVL(msi.organization_id,'83' ) = '83' 
     -- Optional filter
     --AND ph.type_lookup_code = 'STANDARD'
-    AND ph.segment1 >= NVL(:p_po_number, ph.segment1) order by ph.segment1,pl.po_line_id  --25003143''' '''
+    AND ph.segment1 = :lpo_number
     '''
     dsn = "TEST"
     username = "Apps"
@@ -419,7 +419,7 @@ WHERE
             # model = SentenceTransformer('all-MiniLM-L6-v2')
             invoice_descriptions = df_invoice['description'].astype(str).tolist()
             print("invoice_descriptions:","invoice_descriptions")
-            lpo_descriptions = lpo_df['DESCRIPTION'].astype(str).tolist()
+            lpo_descriptions = lpo_df['ITEM_DESCRIPTION'].astype(str).tolist()
             grn_descriptions = grn_df['ITEM_NAME'].astype(str).tolist()
 
             # invoice_emb = model.encode(invoice_descriptions, convert_to_tensor=True)
@@ -481,14 +481,15 @@ WHERE
             df_invoice['Matched_GRN_Description'] = [grn_descriptions[i] for i in invoice_to_grn_indices]
             df_invoice['LPO_Similarity'] = [round(float(invoice_lpo_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_lpo_indices)]
             df_invoice['GRN_Similarity'] = [round(float(invoice_grn_sim_matrix[j, i]), 2) for j, i in enumerate(invoice_to_grn_indices)]
+            
             # df_invoice.drop(['Unnamed: 0'],inplace=True)
             # df_invoice.to_excel("invoice_validation.xlsx")
 
-            lpo_df = lpo_df[['DESCRIPTION', 'UNIT_PRICE', 'QUANTITY']]
+            lpo_df = lpo_df[['ITEM_DESCRIPTION', 'UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
-
+            lpo_df['Total_after_tax'] = lpo_df['ENCUMBERED_AMOUNT'] + lpo_df['RECOVERABLE_TAX']
             # Rename columns using the 'columns' keyword argument
-            lpo_df.rename(columns={"DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY"}, inplace=True)
+            lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY", "ENCUMBERED_AMOUNT" : "lpo_amnt_bfr_tax","RECOVERABLE_TAX" : "Lpo_Tax_Amount",  }, inplace=True)
             grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)
 
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
@@ -512,7 +513,7 @@ WHERE
                 print("451")
                 final_df['Error_state']="Line_Item, Tax_amount"
 
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
 
                 
 
@@ -528,10 +529,10 @@ WHERE
               # Store the invoice_df into 'reconciliation_data' table if the condition is met
               final_df['Error_state'] = "Line_Item"
               print("465")
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :
                 print (470)
-                final_df.to_sql('Saved_Data', con=engine, if_exists='append', index=False)  
+                final_df.to_sql('Saved_Data', con=engine, if_exists='replace', index=False)  
                 return {"Message" : "Data Saved to saved page"}

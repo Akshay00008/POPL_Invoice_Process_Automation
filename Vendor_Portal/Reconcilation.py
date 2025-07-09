@@ -357,12 +357,12 @@ SELECT
 
 # Read the data into a DataFrame
             df_invoice = pd.read_sql_query(query, engine)
-            print("line 357 :", df_invoice)
+            print("line 357 :", "df_invoice")
             # df_invoice = pd.read_excel('invoice_data.xlsx')
             # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)
             # model = SentenceTransformer('all-MiniLM-L6-v2')
             invoice_descriptions = df_invoice['description'].astype(str).tolist()
-            print("invoice_descriptions:",invoice_descriptions)
+            print("invoice_descriptions:","invoice_descriptions")
             lpo_descriptions = lpo_df['DESCRIPTION'].astype(str).tolist()
             grn_descriptions = grn_df['ITEM_NAME'].astype(str).tolist()
 

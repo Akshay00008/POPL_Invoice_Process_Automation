@@ -47,9 +47,9 @@ def LPO(data):
                         lpo_numbers.extend(lpo_value)
 
     # Print results
-    print("Delivery Notes DataFrame:\n", df_delivery_notes)
-    print("Delivery Note Numbers List:", deliveryNoteNumbers)
-    print("LPO Numbers List:", lpo_numbers)
+    print("Delivery Notes DataFrame:\n", "Done")
+    print("Delivery Note Numbers List:", "Done")
+    print("LPO Numbers List:", "Done")
 
     query_2 = '''SELECT
 

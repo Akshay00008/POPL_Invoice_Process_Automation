@@ -149,7 +149,7 @@ SELECT
 
     ph.segment1                AS po_number,
 
-    Null RELEASE_NUM,
+    por.RELEASE_NUM,
 
     ph.po_header_id,
 
@@ -211,9 +211,9 @@ FROM
 
     po_vendor_sites_all pvs,
 
-    mtl_system_items_b msi
+    mtl_system_items_b msi,
 
-    --,PO_RELEASES_ALL por 
+    PO_RELEASES_ALL por 
 
 WHERE 
 
@@ -344,12 +344,11 @@ WHERE
 
     AND ph.segment1 = :p_po_number
 
-    and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
+    --and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
 
     --and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
 
     --order by ph.segment1;
- 
       '''
    
     query_GRN__Details = '''SELECT a.po_header_id,
@@ -408,9 +407,11 @@ WHERE
          AND TO_NUMBER (a.segment1) =
                 NVL (TO_NUMBER (:p_lpo_numbers), TO_NUMBER (a.segment1))'''
    
-    query_lpo_with_tax= '''SELECT 
+    query_lpo_with_tax= '''
+SELECT 
     ph.segment1                AS po_number,
     ph.po_header_id,
+    por.RELEASE_NUM,
     ph.type_lookup_code        AS po_type,
     ph.authorization_status,
     ph.creation_date           AS po_date,
@@ -440,7 +441,8 @@ FROM
     po_distributions_all pd,
     po_vendors pv,
     po_vendor_sites_all pvs,
-    mtl_system_items_b msi 
+    mtl_system_items_b msi,
+    PO_RELEASES_ALL por 
 WHERE 
     ph.po_header_id = pl.po_header_id
     AND pl.po_line_id = pll.po_line_id
@@ -469,9 +471,12 @@ WHERE
             connection = cx_Oracle.connect(username, password, dsn)
             cursor = connection.cursor()
 
-            
+            print("gonognoenomvpd,pvdpfkvdfvpfdkvdfmbpdfmpvdfpv,,v[pekvpk]")
             cursor.execute(query_lpo_with_tax, lpo_number=lpo_number)
+            print("tttttttttttttttttttttt")
             results = cursor.fetchall()
+            print("results")
+            print(results)
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)

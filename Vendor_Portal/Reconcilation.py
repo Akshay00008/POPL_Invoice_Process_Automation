@@ -342,9 +342,9 @@ SELECT
     if lpo_df.empty and grn_df.empty:
         return {"message": "LPO and GRN details not found"}
     elif lpo_df.empty:
-        return {"message": "LPO details not found", "GRn_details": grn_df.to_dict(orient='records')}
+        return {"message": "LPO details not found GRn_details found" }
     elif grn_df.empty:
-        return {"Lpo_details": lpo_df.to_dict(orient='records'), "message": "GRN details not found"}
+        return {"message" : "Lpo_details Found , GRN details not found"}
     else :
 
         

@@ -457,17 +457,18 @@ SELECT
             erroe_state=[]
 
 
-            if (final_df['quantity'] != final_df['GRN_QUANTITY']) or (final_df['quantity'] != final_df['LPO_QUANTITY']):
-                erroe_state.append("Line_Item")
+          
 
             if (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
-                erroe_state.append("Tax_amount")
+                
             
               # final_df['Error_state'].append = "Tax_amount"
                 print("451")
-                final_df['Error_state']=erroe_state
+                final_df['Error_state']="Line_Item, Tax_amount"
 
                 final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+
+                
 
                 print("Message:", "Data Saved to Reconcillateion stage")
               # return df

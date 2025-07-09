@@ -435,6 +435,7 @@ SELECT
     pd.ENCUMBERED_AMOUNT,
     pd.RECOVERABLE_TAX 
 FROM 
+    
     po_headers_all ph,
     po_lines_all pl,
     po_line_locations_all pll,
@@ -446,6 +447,7 @@ FROM
 WHERE 
     ph.po_header_id = pl.po_header_id
     AND pl.po_line_id = pll.po_line_id
+    and ph.PO_HEADER_ID = por.PO_HEADER_ID(+)
     AND pll.line_location_id = pd.line_location_id
     AND ph.vendor_id = pv.vendor_id
     AND ph.vendor_site_id = pvs.vendor_site_id
@@ -453,6 +455,7 @@ WHERE
     AND NVL(msi.organization_id,'83' ) = '83' 
     -- Optional filter
     --AND ph.type_lookup_code = 'STANDARD'
+    and ph.PO_HEADER_ID = por.PO_HEADER_ID(+)
     AND ph.segment1 = :lpo_number
     '''
     dsn = "TEST"
@@ -532,7 +535,7 @@ WHERE
             if df_invoice.empty :
                   query_2 = f"SELECT * FROM Invoice_data_collection_two WHERE invoice_number = '{invoice_number}'"
                   df_invoice = pd.read_sql_query(query_2, engine)
-            df_invoice.drop(['LPO_UNIT_PRICE_x'  , 'LPO_QUANTITY_x', 'GRN_QUANTITY_x', 'GRN_NO_x' ], axis=1, inplace=True)   
+                  df_invoice.drop(['LPO_UNIT_PRICE'  , 'LPO_QUANTITY', 'GRN_QUANTITY', 'GRN_NO' ], axis=1, inplace=True)   
             print("line 357 :", "df_invoice")
             # df_invoice = pd.read_excel('invoice_data.xlsx')
             # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)

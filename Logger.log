@@ -213,3 +213,21 @@ Name: po_number, dtype: object
 1    24002984
 2    24002984
 Name: po_number, dtype: object
+2025-07-09 20:39:49,446 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:41:01,638 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:42:24,247 - ERROR - Reconciliation failed: "['LPO_UNIT_PRICE_x', 'LPO_QUANTITY_x', 'GRN_QUANTITY_x', 'GRN_NO_x'] not found in axis"
+2025-07-09 20:44:12,446 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:44:16,854 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 20:47:21,426 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:47:39,191 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 20:48:17,108 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:48:30,889 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}

@@ -167,3 +167,15 @@ Name: po_number, dtype: object
 Name: po_number, dtype: object
 2025-07-09 19:21:44,639 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
 2025-07-09 19:35:41,927 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:43:57,779 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:48:20,964 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:51:09,574 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:51:13,992 - ERROR - Reconciliation failed: 'RELEASE_NUM'
+2025-07-09 19:55:07,334 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:55:11,516 - ERROR - Reconciliation failed: 'RELEASE_NUM'

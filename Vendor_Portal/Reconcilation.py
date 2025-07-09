@@ -344,7 +344,7 @@ WHERE
 
     AND ph.segment1 = :p_po_number
 
-    --and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
+    and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
 
     --and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
 

@@ -145,97 +145,211 @@ def Reconcillation_process(lpo_number,invoice_number,rel_num,item_count=0):
       '''
     
     query_3 = '''
-SELECT
+SELECT 
+
+    ph.segment1                AS po_number,
+
+    Null RELEASE_NUM,
+
+    ph.po_header_id,
+
+    ph.type_lookup_code        AS po_type,
+
+    ph.authorization_status,
+
+    ph.creation_date           AS po_date,
+
+    pv.vendor_name,
+
+    pvs.vendor_site_code,
+
+    pl.line_num,
+
+    pl.po_line_id,
+
+    msi.segment1               AS item_code,
+
+    msi.description            AS item_description,
+
+    pl.item_id,
+
+    pl.category_id,
+
+    pl.unit_price,
+
+    pl.quantity,
+
+    pl.unit_meas_lookup_code   AS uom,
+
+    pll.ship_to_location_id,
+
+    pll.need_by_date,
+
+    pll.quantity               AS line_location_qty,
+
+    pd.PO_DISTRIBUTION_ID,
+
+    pd.code_combination_id,
+
+    pd.AMOUNT_BILLED,
+
+    pd.ENCUMBERED_AMOUNT,
+
+    pd.RECOVERABLE_TAX 
+
+FROM 
+
+    po_headers_all ph,
+
+    po_lines_all pl,
+
+    po_line_locations_all pll,
+
+    po_distributions_all pd,
+
+    po_vendors pv,
+
+    po_vendor_sites_all pvs,
+
+    mtl_system_items_b msi
+
+    --,PO_RELEASES_ALL por 
+
+WHERE 
+
+    ph.po_header_id = pl.po_header_id
+
+    AND pl.po_line_id = pll.po_line_id
+
+    AND pll.line_location_id = pd.line_location_id
+
+    AND ph.vendor_id = pv.vendor_id
+
+    AND ph.vendor_site_id = pvs.vendor_site_id
+
+    AND msi.inventory_item_id (+) = pl.item_id
+
+    AND NVL(msi.organization_id,'83' ) = '83'
+
+    --and ph.PO_HEADER_ID = por.PO_HEADER_ID(+)
+
+    -- Optional filter
+
+    --AND ph.type_lookup_code = 'STANDARD'
+
+    AND ph.segment1 = NVL(:p_po_number, ph.segment1)
+
+    and ph.type_lookup_code <>'BLANKET' 
+
+    --and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
+
+    --and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
+
+    --order by ph.segment1,pl.po_line_id
+
+    union all
+
+
+    SELECT 
+
+    ph.segment1                AS po_number,
+
+    por.RELEASE_NUM,
+
+    ph.po_header_id,
+
+    ph.type_lookup_code        AS po_type,
+
+    ph.authorization_status,
+
+    ph.creation_date           AS po_date,
+
+    pv.vendor_name,
+
+    pvs.vendor_site_code,
+
+    pl.line_num,
+
+    pl.po_line_id,
+
+    msi.segment1               AS item_code,
+
+    msi.description            AS item_description,
+
+    pl.item_id,
+
+    pl.category_id,
+
+    pl.unit_price,
+
+    pl.quantity,
+
+    pl.unit_meas_lookup_code   AS uom,
+
+    pll.ship_to_location_id,
+
+    pll.need_by_date,
+
+    pll.quantity               AS line_location_qty,
+
+    pd.PO_DISTRIBUTION_ID,
+
+    pd.code_combination_id,
+
+    pd.AMOUNT_BILLED,
+
+    pd.ENCUMBERED_AMOUNT,
+
+    pd.RECOVERABLE_TAX 
+
+FROM 
+
+    po_headers_all ph,
+
+    po_lines_all pl,
+
+    po_line_locations_all pll,
+
+    po_distributions_all pd,
+
+    po_vendors pv,
+
+    po_vendor_sites_all pvs,
+
+    mtl_system_items_b msi
+
+    ,PO_RELEASES_ALL por 
+
+WHERE 
+
+    ph.po_header_id = pl.po_header_id
+
+    AND pl.po_line_id = pll.po_line_id
+
+    AND pll.line_location_id = pd.line_location_id
+
+    AND ph.vendor_id = pv.vendor_id
+
+    AND ph.vendor_site_id = pvs.vendor_site_id
+
+    AND msi.inventory_item_id (+) = pl.item_id
+
+    AND NVL(msi.organization_id,'83' ) = '83'
+
+    and ph.PO_HEADER_ID = por.PO_HEADER_ID(+)
+
+    -- Optional filter
+
+    --AND ph.type_lookup_code = 'STANDARD'
+
+    AND ph.segment1 = NVL(:p_po_number, ph.segment1) 
+
+    --and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
+
+    and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
+
+    --order by ph.segment1;
  
-      poh.po_header_id, poh.CREATION_DATE,
- 
-      poh.type_lookup_code PO_TYPE,
- 
-      poh.authorization_status PO_STATUS,
- 
-      poh.segment1 PO_NUMBER,
- 
-      por.RELEASE_NUM,
- 
-      pov.vendor_name SUPPLIER_NAME,
- 
-      povs.vendor_site_code Location,
- 
-      hrls.location_code Ship_To,
- 
-      hrlb.location_code Bill_to,
- 
-      pol.line_num,
- 
-      msib.segment1 Item, msib.DESCRIPTION,
- 
-      pol.unit_price,
- 
-      pol.quantity,
- 
-      pod.amount_billed Amount,
- 
-      pod.destination_subinventory,
- 
-      ppf.full_name Buyer_Name,
- 
-      poh.closed_Code
- 
-    FROM
- 
-      PO_HEADERS_ALL poh,
- 
-      PO_LINES_ALL pol,
- 
-      mtl_system_items_b msib,
- 
-      PO_LINE_LOCATIONS_ALL poll,
- 
-      PO_DISTRIBUTIONS_ALL pod,
- 
-      po_vendors pov,
- 
-      po_vendor_sites_All povs,
- 
-      hr_locations_all hrls,
- 
-      hr_locations_all hrlb,
- 
-      per_all_people_f ppf,
- 
-      po_line_types polt,
- 
-      PO_RELEASES_ALL por
- 
-    WHERE
- 
-      1 = 1
- 
-      AND polt.line_type_id     = pol.line_type_id
- 
-      AND povs.vendor_site_id   = poh.vendor_site_id
- 
-      AND pov.vendor_id         = poh.vendor_id
- 
-      AND pol.item_id           = msib.inventory_item_id
- 
-      AND msib.organization_id  = 83
- 
-      AND poh.po_header_id      = pol.po_header_id
- 
-      AND pol.po_line_id        = pod.po_line_id
- 
-      AND poll.line_location_id = pod.line_location_id
- 
-      AND poh.ship_to_location_id = hrls.location_id
- 
-      AND poh.bill_to_location_id = hrlb.location_id
- 
-      AND poh.agent_id          = ppf.person_id
- 
-      and poh.PO_HEADER_ID = por.PO_HEADER_ID(+)
- 
-      AND poh.segment1          = :lpo_number
       '''
    
     query_GRN__Details = '''SELECT a.po_header_id,
@@ -356,7 +470,7 @@ WHERE
             cursor = connection.cursor()
 
             
-            cursor.execute(query_lpo_with_tax, lpo_number=lpo_number)
+            cursor.execute(query_3, lpo_number=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
@@ -368,6 +482,7 @@ WHERE
 
             if po_type == 'BLANKET' :
                   lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]
+                                            
             # lpo_#df.to_excel('lpo_df.xlsx')
             # else :
             #       lpo_df=lpo_df

@@ -446,20 +446,28 @@ SELECT
 
             # Then, merge the resulting DataFrame with grn_df on 'Matched_GRN_Description'
             final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
+            final_df.drop_duplicates(subset=['description'],keep='first',inplace=True)
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.80) & (final_df['GRN_Similarity'] > 0.80)]
 
+
+            erroe_state=[]
+
+
+            if (final_df['quantity'] != final_df['GRN_QUANTITY'] or final_df['quantity'] != final_df['LPO_QUANTITY']):
+                erroe_state.append("Line_Item")
+
             if (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
-            # Setup the SQL connection
-              # engine = create_engine('your_database_connection_string')
+                erroe_state.append("Tax_amount")
+            
+              # final_df['Error_state'].append = "Tax_amount"
+                print("451")
+                final_df['Error_state']=erroe_state
 
-              # Store the entire DataFrame into 'reconciliation_data' table if condition is met
-              final_df['Error_state'] = "Tax_amount"
-              print("451")
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
-              print("Message:", "Data Saved to Reconcillateion stage")
+                print("Message:", "Data Saved to Reconcillateion stage")
               # return df
-              return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+                return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
 
             elif (df_invoice['LPO_Similarity'] < 0.75).any() :
                   # Assuming 'invoice_df' is the DataFrame you want to store

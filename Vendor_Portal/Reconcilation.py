@@ -294,6 +294,51 @@ SELECT
          AND TO_NUMBER (a.segment1) =
                 NVL (TO_NUMBER (:p_lpo_numbers), TO_NUMBER (a.segment1))'''
    
+    query_lpo_with_tax= '''SELECT 
+    ph.segment1                AS po_number,
+    ph.po_header_id,
+    ph.type_lookup_code        AS po_type,
+    ph.authorization_status,
+    ph.creation_date           AS po_date,
+    pv.vendor_name,
+    pvs.vendor_site_code,
+    pl.line_num,
+    pl.po_line_id,
+    msi.segment1               AS item_code,
+    msi.description            AS item_description,
+    pl.item_id,
+    pl.category_id,
+    pl.unit_price,
+    pl.quantity,
+    pl.unit_meas_lookup_code   AS uom,
+    pll.ship_to_location_id,
+    pll.need_by_date,
+    pll.quantity               AS line_location_qty,
+    pd.PO_DISTRIBUTION_ID,
+    pd.code_combination_id,
+    pd.AMOUNT_BILLED,
+    pd.ENCUMBERED_AMOUNT,
+    pd.RECOVERABLE_TAX 
+FROM 
+    po_headers_all ph,
+    po_lines_all pl,
+    po_line_locations_all pll,
+    po_distributions_all pd,
+    po_vendors pv,
+    po_vendor_sites_all pvs,
+    mtl_system_items_b msi 
+WHERE 
+    ph.po_header_id = pl.po_header_id
+    AND pl.po_line_id = pll.po_line_id
+    AND pll.line_location_id = pd.line_location_id
+    AND ph.vendor_id = pv.vendor_id
+    AND ph.vendor_site_id = pvs.vendor_site_id
+    AND msi.inventory_item_id (+) = pl.item_id
+    AND NVL(msi.organization_id,'83' ) = '83' 
+    -- Optional filter
+    --AND ph.type_lookup_code = 'STANDARD'
+    AND ph.segment1 >= NVL(:p_po_number, ph.segment1) order by ph.segment1,pl.po_line_id  --25003143''' '''
+    '''
     dsn = "TEST"
     username = "Apps"
     password = "apps085"
@@ -311,7 +356,7 @@ SELECT
             cursor = connection.cursor()
 
             
-            cursor.execute(query_3, lpo_number=lpo_number)
+            cursor.execute(query_lpo_with_tax, lpo_number=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)

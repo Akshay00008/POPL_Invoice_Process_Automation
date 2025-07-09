@@ -453,7 +453,7 @@ SELECT
             erroe_state=[]
 
 
-            if (final_df['quantity'] != final_df['GRN_QUANTITY'] or final_df['quantity'] != final_df['LPO_QUANTITY']):
+            if (final_df['quantity'] != final_df['GRN_QUANTITY']) or (final_df['quantity'] != final_df['LPO_QUANTITY']):
                 erroe_state.append("Line_Item")
 
             if (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():

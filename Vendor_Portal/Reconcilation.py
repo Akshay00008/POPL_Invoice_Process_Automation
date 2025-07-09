@@ -317,9 +317,14 @@ SELECT
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             rel_num=int(rel_num)
-            lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]
-            # lpo_#df.to_excel('lpo_df.xlsx')
+            po_type = lpo_df['PO_TYPE']
+            po_type=po_type[0]
 
+            if po_type == 'BLANKET' :
+                  lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]
+            # lpo_#df.to_excel('lpo_df.xlsx')
+            # else :
+            #       lpo_df=lpo_df
             
             print("lpo:", lpo_number)
             cursor.execute(query_GRN__Details, p_lpo_numbers=lpo_number)

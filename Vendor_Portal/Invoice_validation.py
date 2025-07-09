@@ -90,6 +90,10 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     print(df)
     print("updated abcdf")
     print(rows)
+
+   
+
+
     df['release_number'] = rel_num
 
     # Check if any value is None or 0 and save to the database immediately

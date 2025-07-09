@@ -146,6 +146,8 @@ def fields_matching(file_path,rel_num):
         
         lpo_number = df['po_number']
         invoice_number= df['invoice_number']
+
+        print ("Number :", lpo_number,  "   ", invoice_number)
         
         print("Invoice data validation successful!")
         return lpo_number,invoice_number

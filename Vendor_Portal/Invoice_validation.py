@@ -122,7 +122,45 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
 
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     print("line number 116")
-    df.to_sql('Invoice_data_collection', engine, if_exists='append', index=False)
+    
+    columns_to_null = [
+        'Matched_LPO_Description',
+        'Matched_GRN_Description',
+        'GRN_Similarity',
+        'LPO_UNIT_PRICE',
+        'LPO_QUANTITY',
+        'GRN_QUANTITY',
+        'Error_state',
+        'GRN_NO',
+        'extracted_by',
+        'extraction_at',
+        'LPO_Similarity'
+    ]
+
+    for col in columns_to_null:
+        df[col] = np.nan
+    # print(df)
+    required_columns = [
+    "invoice_number", "date", "cuin", "vendor_name", "vendor_address", "vendor_contact",
+    "po_number", "sub_total", "total_amount", "currency", "total_tax_amount", "tax_id",
+    "vat_pin", "description", "quantity", "unit_price", "subject", "received_on",
+    "calculated_subtotal", "subtotal_match", "tax_amount_match", "Matched_LPO_Description",
+    "Matched_GRN_Description", "LPO_Similarity", "GRN_Similarity", "LPO_UNIT_PRICE",
+    "LPO_QUANTITY", "GRN_QUANTITY", "Error_state", "file_path", "GRN_NO", "extracted_by",
+    "OCR_Confidence_Score", "extraction_at", "release_number"
+]
+
+# Check for presence
+    missing_columns = [col for col in required_columns if col not in df.columns]
+
+    if not missing_columns:
+        print("OK")
+        print(df.columns)
+    else:
+        print("Not OK")
+        print("Missing columns:", missing_columns)
+    df.to_excel('invoice_data.xlsx')
+    df.to_sql('Invoice_data_collection_two', engine, if_exists='replace', index=False)
     # df.to_excel('invoice_data.xlsx')
 
     
@@ -142,7 +180,11 @@ def fields_matching(file_path,rel_num):
         # Validate and convert to DataFrame
         df = validate_and_convert_to_dataframe(result,file_path,rel_num)
 
-        # df.to_excel('invoice_data.xlsx')
+        print("*********")
+
+        print(df)
+
+        df.to_excel('invoice_data.xlsx')
         
         lpo_number = df['po_number']
         invoice_number= df['invoice_number']

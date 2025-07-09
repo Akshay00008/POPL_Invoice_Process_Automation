@@ -6,7 +6,7 @@ from Vendor_Portal.Invoice_validation import fields_matching
 from Vendor_Portal.Reconcilation import Reconcillation_process
 from Vendor_Portal.kra_portal import check_qr_code_in_pdf
 from threading import Thread
-from Vendor_Portal.test import process_invoice_ocr_kra_portal
+# from Vendor_Portal.test import process_invoice_ocr_kra_portal
 import asyncio
 from Vendor_Portal.ERP_Upload import InvoiceApiHandler
 from Vendor_Portal.data_conversion import   data_conversion_pipeline
@@ -26,6 +26,8 @@ def process_invoice_ocr(file_path,rel_num):
         # Extract invoice data and validate fields
         result = fields_matching(file_path,rel_num)
         
+        print("**********")
+        print(result )
         # Check if the result is an error message
         if isinstance(result, dict) and "message" in result:
             # Return the error message
@@ -50,7 +52,7 @@ def process_invoice_ocr(file_path,rel_num):
         return lpo_numbers, invoice_number
 
     except Exception as e:
-        loggs.error(f"Invoice processing failed: {str(e)}")
+        loggs.error(f"Invoice processing failed at line 53 : {str(e)}")
         return {"message": "Data with None or 0 found, saved to SQL."}
 
 

@@ -363,6 +363,10 @@ SELECT
 
 # Read the data into a DataFrame
             df_invoice = pd.read_sql_query(query, engine)
+            if df_invoice.empty :
+                  query_2 = f"SELECT * FROM Invoice_data_collection_two WHERE invoice_number = '{invoice_number}'"
+                  df_invoice = pd.read_sql_query(query_2, engine)
+                  
             print("line 357 :", "df_invoice")
             # df_invoice = pd.read_excel('invoice_data.xlsx')
             # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)

@@ -111,7 +111,7 @@ def data_conversion_pipeline(invoice_number) :
     result_df['release_number']=1
     
     # Insert into MySQL
-    result_df.to_sql("Invoice_data_collection", engine, if_exists="append", index=False)
+    result_df.to_sql("Invoice_data_collection", engine, if_exists="replace", index=False)
  
     print("✅ Data migrated successfully to invoice_data_collection.")
 

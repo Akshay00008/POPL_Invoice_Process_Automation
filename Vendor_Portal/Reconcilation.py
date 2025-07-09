@@ -316,6 +316,7 @@ SELECT
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
+            rel_num=int(rel_num)
             lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]
             # lpo_#df.to_excel('lpo_df.xlsx')
 

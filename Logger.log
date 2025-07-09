@@ -161,3 +161,9 @@ Name: po_number, dtype: object
 2025-07-09 18:28:31,423 - INFO - Validated Invoice Data: 0    24003596
 Name: po_number, dtype: object
 2025-07-09 18:28:50,315 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 19:21:41,058 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:21:44,639 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 19:35:41,927 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)

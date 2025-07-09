@@ -342,11 +342,11 @@ WHERE
 
     --AND ph.type_lookup_code = 'STANDARD'
 
-    AND ph.segment1 = NVL(:p_po_number, ph.segment1) 
+    AND ph.segment1 = :p_po_number
 
     --and por.RELEASE_NUM = nvl(:R_NUM, RELEASE_NUM)
 
-    and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
+    --and por.PO_RELEASE_ID (+) = pll.PO_RELEASE_ID
 
     --order by ph.segment1;
  
@@ -470,7 +470,7 @@ WHERE
             cursor = connection.cursor()
 
             
-            cursor.execute(query_3, lpo_number=lpo_number)
+            cursor.execute(query_lpo_with_tax, lpo_number=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
@@ -527,7 +527,7 @@ WHERE
             if df_invoice.empty :
                   query_2 = f"SELECT * FROM Invoice_data_collection_two WHERE invoice_number = '{invoice_number}'"
                   df_invoice = pd.read_sql_query(query_2, engine)
-                  
+            df_invoice.drop(['LPO_UNIT_PRICE_x'  , 'LPO_QUANTITY_x', 'GRN_QUANTITY_x', 'GRN_NO_x' ], axis=1, inplace=True)   
             print("line 357 :", "df_invoice")
             # df_invoice = pd.read_excel('invoice_data.xlsx')
             # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)

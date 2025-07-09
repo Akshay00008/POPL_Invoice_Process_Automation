@@ -352,7 +352,7 @@ SELECT
             # return {"Lpo_details": lpo_df.to_dict(orient='records'), "GRn_details": grn_df.to_dict(orient='records')}
 
             # Semantic matching for all invoice items with all LPO and GRN entries
-
+            print("355 xxxyyxyxy")
             query = f"SELECT * FROM Invoice_data_collection WHERE invoice_number = '{invoice_number}'"
 
 # Read the data into a DataFrame

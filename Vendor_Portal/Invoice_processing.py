@@ -60,7 +60,7 @@ Extract invoice fields from the text below with strict accuracy. Follow these gu
 3. Return JSON with null for missing fields
 
 Field Specifications:
-- Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.) (only take the number for example inv123455 Invoice number will be 12345)
+- Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.) (only take the number for example inv123455 Invoice number will be 12345) IF NOT FOUND GIVE 000000
 - Date: Convert to YYYY-MM-DD format (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated),
 - CUIN: Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, NO beneath the QR Code) 
 - Vendor Name: Full legal name
@@ -68,8 +68,8 @@ Field Specifications:
 - Vendor Contact: Phone/email if available
 - PO Number: (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )
 - Delivery Note/Challan Number: Extract with original formatting
-- SubTotal: Numeric value only
-- Total Amount: Numeric value only  
+- SubTotal: Numeric value only (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )
+- Total Amount: Numeric value only  (aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT,)
 - Currency: 3-letter code (default to KES if missing)
 - Total Tax Amount: Numeric value
 - Goods/Services Details: List of objects with:
@@ -79,7 +79,7 @@ Field Specifications:
 - Tax Details: List of objects with:
   - tax_type: (e.g., VAT, GST, Sales Tax)
   - rate: Percentage (e.g., 16%)
-  - amount: Numeric value
+  - amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT)
 - Tax ID: Government-issued tax identifier
 - vat pin: PIN on invoice
 

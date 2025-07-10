@@ -618,12 +618,12 @@ WHERE
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
             merged_df = df_invoice.merge(lpo_df, on='Matched_LPO_Description', how='left')
 
-            final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
+            
             # Then, merge the resulting DataFrame with grn_df on 'Matched_GRN_Description'
             final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
             final_df.drop_duplicates(subset=['description'],keep='first',inplace=True)
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.80) & (final_df['GRN_Similarity'] > 0.80)]
-
+            final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
 
             erroe_state=[]
 

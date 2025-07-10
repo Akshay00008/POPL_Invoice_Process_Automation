@@ -618,6 +618,7 @@ WHERE
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
             merged_df = df_invoice.merge(lpo_df, on='Matched_LPO_Description', how='left')
 
+            final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
             # Then, merge the resulting DataFrame with grn_df on 'Matched_GRN_Description'
             final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
             final_df.drop_duplicates(subset=['description'],keep='first',inplace=True)
@@ -648,7 +649,11 @@ WHERE
                 final_df['Error_state'] = "Line_Item, Tax_amount"
                 print("648")
                 final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
-                  
+                return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+            elif not (final_df['LPO_Subtotal'] ==  final_df['calculated_subtotal']).all():
+                final_df['Error_state'] = "Line_Item, Tax_amount"
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
                   
             elif (df_invoice['LPO_Similarity'] < 0.75).any() :
                   

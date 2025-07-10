@@ -643,10 +643,11 @@ WHERE
                 print("Message:", "Data Saved to Reconcillateion stage")
               # return df
                 return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
-            elif (final_df['unit_price']).any() != (final_df['LPO_UNIT_PRICE'] ).any():
-                  final_df['Error_state'] = "Line_Item, Tax_amount"
-                  print("648")
-                  final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+            
+            elif not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
+                final_df['Error_state'] = "Line_Item, Tax_amount"
+                print("648")
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
                   
                   
             elif (df_invoice['LPO_Similarity'] < 0.75).any() :

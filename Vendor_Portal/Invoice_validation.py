@@ -159,7 +159,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     else:
         print("Not OK")
         print("Missing columns:", missing_columns)
-    df.to_excel('invoice_data.xlsx')
+    # df.to_excel('invoice_data.xlsx')
     df.to_sql('Invoice_data_collection_two', engine, if_exists='replace', index=False)
     # df.to_excel('invoice_data.xlsx')
 

@@ -60,9 +60,9 @@ Extract invoice fields from the text below with strict accuracy. Follow these gu
 3. Return JSON with null for missing fields
 
 Field Specifications:
-- Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.)
-- Date: Convert to YYYY-MM-DD format (aliases : Invoice Date , Invoice date, DATE, date)
-- CUIN: Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, ) 
+- Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.) (only take the number for example inv123455 Invoice number will be 12345)
+- Date: Convert to YYYY-MM-DD format (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated),
+- CUIN: Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, NO beneath the QR Code) 
 - Vendor Name: Full legal name
 - Vendor Address: Multi-line format if available
 - Vendor Contact: Phone/email if available

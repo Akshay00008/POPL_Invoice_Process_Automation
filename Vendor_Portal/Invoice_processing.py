@@ -63,7 +63,7 @@ Field Specifications:
 - Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.) Please extract correct value donot get confused between 2,5,6,9,3 and 4 ,1
 - Date: Convert to YYYY-MM-DD format (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated),
 - CUIN: Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO) 
-- Vendor Name: Full legal name (Be specific between L and l dont take it as i ,)
+- Vendor Name: Full legal name (Be specific between L and l dont take it as i ,) you are reading all pack as salipack or ali pack please be correct.
 - Vendor Address: Multi-line format if available
 - Vendor Contact: Phone/email if available
 - PO Number: (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )

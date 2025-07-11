@@ -616,7 +616,7 @@ WHERE
             lpo_df['Lpo_Tax_Amount'] = lpo_df['RECOVERABLE_TAX'].sum()
             lpo_df['Total_after_tax'] = lpo_df['lpo_amnt_bfr_tax'] + lpo_df['Lpo_Tax_Amount']
 
-            lpo_df.drop(['ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX'],Axis=1,inplace=True)
+            lpo_df.drop(['ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX'],axis=1,inplace=True)
 
             lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY" }, inplace=True)
             grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)

@@ -610,9 +610,13 @@ WHERE
 
             lpo_df = lpo_df[['ITEM_DESCRIPTION', 'UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
-            lpo_df['Total_after_tax'] = lpo_df['ENCUMBERED_AMOUNT'] + lpo_df['RECOVERABLE_TAX']
+            
             # Rename columns using the 'columns' keyword argument
-            lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY", "ENCUMBERED_AMOUNT" : "lpo_amnt_bfr_tax","RECOVERABLE_TAX" : "Lpo_Tax_Amount",  }, inplace=True)
+            lpo_df['lpo_amnt_bfr_tax'] = lpo_df['ENCUMBERED_AMOUNT'].sum()
+            lpo_df['Lpo_Tax_Amount'] = lpo_df['RECOVERABLE_TAX'].sum()
+            lpo_df['Total_after_tax'] = lpo_df['lpo_amnt_bfr_tax'] + lpo_df['Lpo_Tax_Amount']
+
+            lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY" }, inplace=True)
             grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)
 
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'

@@ -1,0 +1,202 @@
+invoice_number,date,cuin,vendor_name,vendor_address,vendor_contact,po_number,delivery_note_challan_number,sub_total,total_amount,currency,total_tax_amount,goods_services_details,tax_details,tax_id,vat_pin,source_file
+266900,2024-10-09,0010196450000046096,allpack indUStries itd.,"P.O. Box 3741 - 00506 nyayo stadium, nairobi, kenya","Tel.: (020) 2015680, 2044638, 2014403, 2099007
+Mob.; +254 - 722 - 205512, 733 - 601590 ny
+Email: info@allpack.co.ke OF",24004602,C132893,,,KES,,"[{'description': 'NDUME SUPERIOR WASHING BAR SOAP 10XiKG', 'quantity': 11600, 'unit_price': 24.61}]","[{'tax_type': 'VAT', 'rate': None, 'amount': None}]",0019791K,P000606242R,ALLPACK 266900.pdf
+267249,2024-10-14,0010196450000046492,allpack indUStries ltd.,"P.O. Box 3741 - 00506 nyayo stadium, nairobi, kenya","Tel.: (020) 2015680, 2044638, 9014403, 2099007
+Mob.: +254 - 722 - 905519, 733 - 601590
+Email: info@allpack.co.ke",24004602,,138268.36,,KES,32.35,"[{'description': 'DETREX 72 X 80GMS COMBINED VARIANTS 27.89 32.35 138,268.36) WRAPPED/BLUE', 'quantity': 4958, 'unit_price': 27.89}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 32.35}]",0019791K,PO00606249R,ALLPACK 267249.pdf
+267705,2024-10-32,0010196450000046084,alipack indtitries ltd.,"P.O. Box 3741 - 00506 ayayo stadium, nairobi, kenya
+P O Box 81927
+5 MOMBASA et","Tel.: (020) 2015680, 2044638, 2014403, 2099007
+Mob.: +254 - 729 - 905519, 733 - 601590
+Email: info@allpack.co.ke",24004602,,4153.29,,KES,,"[{'description': 'ONJA MARGARINE (PREMIUM) EMPTY CARTON 10KG', 'quantity': 518, 'unit_price': 50.11}]","[{'tax_type': 'V.A.T', 'rate': '16%', 'amount': 4153.29}]",0019791K,P000606249R,ALLPACK 267709.pdf
+268037,2024-10-26,9019196450000047335,alipack industries ltd.,"P.O. Box 3741 - 00506 nyayo stadium, nairobi, kenya
+Tel.: (020) 2015680, 2044638, 2014403, 2099007
+Mob.: +254 - 722 - 205512, 733 - 601590
+Email: info@allpack.co.ke","+254 - 722 - 205512, 733 - 601590, info@allpack.co.ke",24004602,94904602-8,109684.8,,KES,45.0,"[{'description': 'FG/PWO001/455', 'quantity': 33, 'unit_price': 36.16}, {'description': 'FG/PWO001/455', 'quantity': 3000, 'unit_price': 36.16}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 45}]",0019791K,P000606249R,ALLPACK 268037.pdf
+000000,2024-10-19,,Ashut Plastics limited,"HEAD OFFICE NAIROBI BRANCH
+MIKINDANI STREET ‘LOKITAUNG ROAD OFF LIKONI ROAD
+P.O. BOX 98545, 80100, INDUSTRIAL AREA
+MOMBASA P.O. BOX 44669-00100, NAIROBI",+254715370864/+254737552222,24004592,GRN# : 32413390,,,KES,,"[{'description': 'Fresh Fri Jerry Can 2LT (N)', 'quantity': 10000, 'unit_price': 0}]",[],PO510924 65B,P051897122Z,ASHUT 4908.pdf
+000000,2024-10-07,,ASHUT PLASTICS LTD.,"HEAD OFFICE NAIROBI BRANCH
+MIKINDANI STREET LOKITAUNG ROAD OFF LIKONI ROAD
+P.O. BOX 98545, 80100, INDUSTRIAL AREA
+MOMBASA : P.O. BOX 44669-00100, NAIROBI","+254715370864/+254737552222, customercare@ashut.com, sales@ashut.com",24004592,GRN# : 32412730,2982.0,,KES,,"[{'description': 'Fresh Fri Jerry Can SLT (N)', 'quantity': 2982, 'unit_price': 0}]",[],,P051897122Z,ASHUT IK4814.pdf
+000000,2024-10-07,,ASHUT PLASTICS LTD.,"HEAD OFFICE NAIROBI BRANCH
+MIKINDANI STREET ‘ LOKITAUNG ROAD OFF LIKONI ROAD
+ASHUT P.O. BOX 98545, 80100, INDUSTRIAL AREA
+MOMBASA P.O. BOX 44669-00100, NAIROBI","PHONE: +254715370864/+254737552222
+E-MAIL: customercare@ashut.com, sales@ashut.com",24004592,GRN# : 32412726,,,KES,,"[{'description': 'Fresh Fri Jerry Can 2LT (N)', 'quantity': 11600, 'unit_price': 0}]",[],P051897122Z,P051897122Z,ASHUT IK4816.pdf
+000000,2024-10-11,,ASHUT PLASTICS LTD.,"HEAD OFFICE NAIROBI BRANCH
+MIKINDANI STREET LOKITAUNG ROAD OFF LIKONI ROAD
+P.O. BOX 98545, 80100, INDUSTRIAL AREA
+MOMBASA P.O. BOX 44669-00100, NAIROBI","+254715370864/+254737552222
+customercare@ashut.com, sales@ashut.com",00000000,GRN# : 32413056,,,KES,,"[{'description': 'Fresh Fri Jerry Can 5LT (N) Rl', 'quantity': None, 'unit_price': 0}]",[],,P051 897122Z,ASHUT IK4841.pdf
+000000,2024-10-16,,Ashut Plastics limited,"HEAD OFFICE
+MIKINDANI STREET
+P.O. BOX 98545, 80100, INDUSTRIAL AREA
+MOMBASA
+P.O. BOX 44669-00100, NAIROBI","+254715370864/+254737552222; customercare@ashut.com, sales@ashut.com",24004592,GRN# : 32413267,,,KES,,"[{'description': 'Fresh Fri Jerrycan 500ML -Type B', 'quantity': 9750, 'unit_price': 0}, {'description': 'Fresh Fri Jerry Can 1LT Type B', 'quantity': 14952, 'unit_price': 0}]",[],,P051897122Z,ASHUT IK4862.pdf
+BP2/SHOOQ6986/2024,2024-10-25,0010193320000070765,BLOWPLAST LIMITED,"PO BOX : 19029-00500, Phy Address: Kuich Road, OF Mombasa
+Read, Kutch Road., Miclonge town, Machakas, Kenya.","Tel » 202107 197
+Fax  ; 254-020-565358
+Email : adming@blawplastkenya.com",24004593,BPZIDNOTOOT24 42024,1786.4,12951.4,KES,,"[{'description': '20LTRPWAN! pant 20LTR 100CM140CM* GUNIA', 'quantity': 154, 'unit_price': 72.5}]",[],PQ51108549D,G103156A,BLOW  6986.pdf
+BP2/SL0069235/2024,2024-10-23,OOTOIBaS200N00704a8,Blowplast LIMITED,"PO BOX: 19029-00500, Phy Address: Kutch Road, Off Mombasa Road, Kuich Road., Miolonge town, Machakes, Kenya.","Tel - 202107197
+Fax ; 284-020-585368
+Email : admin@blowplastkenya.com",24004693,BPAIDNOTIO07187\2024,579150.0,671814.0,KES,92664.0,"[{'description': 'S07SSS/E-HlG SPOUT BASE IND. SKY BLUE CAP WITH ~~ oe eel ASSEMBLE- MEASURING JAR TOP CAP LIGHT SKY', 'quantity': 11880, 'unit_price': 8.29}, {'description': '', 'quantity': 11880, 'unit_price': 40.46}]","[{'tax_type': 'VAT OUTPUT', 'rate': '16%', 'amount': 92664.0}]",POS1108549,0103 158A,BLOW 6935.pdf
+SU006S48/2024,2024-10-24,GO10193320000070558,PWANl Oil Products Lid( Dr,"P.O, BOX 81927, MOMBASA-MALINDI ROAD, KILIFI TOVYN, KILIFI-000, Kenya.","+254-41-2496554) 2484766
+Office Cells +254 734 495563
+i +254 722 207826",24004593,BPAONOTOT200K0004,345748.0,366267.68,KES,50519.68,"[{'description': 'R-BLU  20LTR BUNG CAP BLUE WITH RING.', 'quantity': 1844, 'unit_price': 0}, {'description': '61207312-PLAIN', 'quantity': 1844, 'unit_price': 0}]","[{'tax_type': 'VAT OUTPUT', 'rate': '16%', 'amount': 50519.68}]",01031568,PO&1Og2Ta5B,BLOW 6948.pdf
+BP2ISVOCESSTIZ024,2024-10-26,0010193320000070767,BLOWPLAST LIMITED,"PO BOX : 19029-00500, Phy Address: Kutch Road, Of Mombasa
+Road, Kutch Road., Miolonge town, Machakos, Kenya.","Tel » 202107 197
+Fax  : 264.020-855368
+Email : admin@blowplastkenya.com",24004593,BP2ADNOM07243\2024,488958.0,219191.28,KES,30233.28,"[{'description': '20LTR BUNG CAP BLUE WITH RING. gd 00 Pe', 'quantity': 8, 'unit_price': 8.0}, {'description': '27 LTR ROUND B00GMS L.WPLAIN J/CAN', 'quantity': 924, 'unit_price': 196.8}]","[{'tax_type': 'VAT OUTPUT', 'rate': '16%', 'amount': 30233.28}]",01031564,PaSt108s4eD,BLOW 6987.pdf
+BPIISHON7TOORI2004,2024-10-25,KRAWWVO01202203019332,BLOW OLAST LIMITED,"PO BOX : 19029-00500, Phy Address: Kutch Road, Off Mombasa lvaice Ne _ BPIISHON7TOORI2004
+Read, Kutch Road., Miclonge town, Machalees, Kenya.",Email: admin@blowplastkenya.cort,24004593,BP2IDNOTIOO728 7.2024,904286.0,352983.36,KES,43087.36,"[{'description': '20LTRBUNGCAPBLUEWITHRING.', 'quantity': 1488, 'unit_price': 0}, {'description': 'BO0GMS', 'quantity': 1486, 'unit_price': 196.5}]","[{'tax_type': 'VAT OUTPUT', 'rate': '16%', 'amount': 43087.36}]",1031564,POSTOG21@58,BLOW 7008.pdf
+084643,2024-01-40,KRAMWO19292298192574,Coast Industrial & Safety Supplies Ltd,"P.O. BOX 80830, MOMBASA 80100 - KENYA
+TEL: +254 (0)41 2496076/7
+CDMA: + 254 (0)20 2040322, 2040323","+254 (0)41 2496076/7, + 254 (0)20 2040322, 2040323, + 254 771 429576, sales@cissl.co.ke",24004482,98284,1600.0,1856.0,KES,256.0,"[{'description': 'BOLT (SEAL) CUTTER SIZE 36', 'quantity': 1, 'unit_price': 1600.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 256.0}]",0132903 N,P051155275D,COAST INDUSTRIAL 084643.pdf
+084648,2024-10-03,KRAMN0192522598192579,Coast Industrial & Safety Supplies Ltd,"P.O. BOX 80830, MOMBASA 80100 - KENYA","+254 (0)41 2496076/7, CELL: +254 (0)724 695 292, (0)735 992999, EMAIL: sales@cissl.co.ke",24004491,98282,63410.0,79355.6,KES,,"[{'description': 'HACK SAW FRAME', 'quantity': 1, 'unit_price': 1600.0}, {'description': 'LONG NOSE CHISEL BULL POINT AND COLD (CROSS CUT CHISEL 125MM GERMANY)', 'quantity': 1, 'unit_price': 460.0}, {'description': 'PIPE WRENCH 12” (ECLIPSE)', 'quantity': 1, 'unit_price': 1650.0}, {'description': 'SCREW DRIVER FLAT 8"" (HARDEN)', 'quantity': 1, 'unit_price': 200.0}, {'description': 'STANDARD ALLEN KEY 12MM', 'quantity': 1, 'unit_price': 500.0}, {'description': 'COMBINED SPANNERS 6-32 HEYCO', 'quantity': 1, 'unit_price': 31500.0}, {'description': 'DOUBLE OPEN FIXED SPANNER 6-32 KENNEDY', 'quantity': 1, 'unit_price': 10150.0}, {'description': 'DOUBLE RING SPANNER 6-32 KENNEDY', 'quantity': 1, 'unit_price': 18400.0}, {'description': 'LONG NOSE CIRCLIP PLIERS INTERNAL BEND 7"" (HARDEN)', 'quantity': 1, 'unit_price': 750.0}, {'description': 'LONG NOSE CIRCLIP PLIERS INTERNAL STRAIGHT 7"" (KENNEDY)', 'quantity': 1, 'unit_price': 750.0}, {'description': 'LONG NOSE CIRCLIP PLIERS EXTERNAL STRAIGHT 7"" (KENNEDY)', 'quantity': 1, 'unit_price': 750.0}, {'description': 'LONG NOSE CIRCLIP PLIERS EXTERNAL BEND 7"" (KENNEDY)', 'quantity': 1, 'unit_price': 750.0}, {'description': '9PC LONG ALLEN KEYS IMPERIAL 1/6-3/8', 'quantity': 1, 'unit_price': 950.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': None}]",0132903 N,P051155275D,COAST INDUSTRIAL 084648.pdf
+084655,2024-07-10,KRAMN019292298192579,Coast Industrial & Safety Supplies Ltd,"P.O. BOX 80830, MOMBASA 80100 - KENYA","+254 (0)41 2496076/7, CELL: +254 (0)724 695 292, (0)735 992999, EMAIL: sales@cissl.co.ke",24004668,98303,43500.0,15660.0,KES,2160.0,"[{'description': 'M12 GI KEPS NUT', 'quantity': 270, 'unit_price': 50.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 2160.0}]",0132903 N,P051155275D,COAST INDUSTRIAL 084655.pdf
+134440,2024-08-06,KRAMWO19202208097777,Frigitec Supplies Ltd,"Gedion Rhimba Road, Mombasa
+P.O. BOX 2380 - 80100 MOMBASA, KENYA","TEL: 254. - 41- 2228625 / 2311562 / 2227402
+CELL: +254 - 721 786 440 / +254733 786 440
+Email: sales@frigitec.net",24003596,,17241.38,20000.0,KES,2758.0,"[{'description': 'FPRIGIGAS R22 PB', 'quantity': None, 'unit_price': None}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 2758.0}]",0022503C,P051096565L,FRIGITEC INV134410.pdf
+134506,2024-08-10,0190977770000011202,S U P P Li E gS LT D,"Gedion Rhimba Road, Mombasa
+P.O. BOX 2380 - 80100 MOMBASA, KENYA","TEL: 254 - 41- 2228625 / 2311562 / 2227402
+CELL: +254 - 721 786 440 / +254733 786 440
+Email: sales@frigitec.net",24003670,GRN# : 424001765,179000.0,207640.0,KES,28640.0,"[{'description': 'LASER STAINLESS STEEL ELECTRODES L316 - 2.50mi', 'quantity': 60, 'unit_price': 0}, {'description': 'LASER MILD STEEL ELECTRODES Ladi ~ 250mm', 'quantity': 100, 'unit_price': 0}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 28640.0}]",0022503C,P051096565L,FRIGITEC INV134506.pdf
+134513,2024-08-12,KRAMWO19202208097777,Frigitec Supplies Ltd,"Gedion Rhimba Road, Mombasa
+i P.O. BOX 2380 - 80100 MOMBASA, KENYA","TEL: 254 - 41- 2228625 / 2311562 / 2227402 / 2227402
+CELL: +254 - 721 786 440 / +254733 786 440
+Email: sales@frigitec.net",24003803,GRN# : 424001815,20300.0,20300.0,KES,2800.0,"[{'description': 'STAINLESS STEEL CORRUGATED HOSE 1/2"" Song z ~ 48,000.00 O.IMTRS C/W FITTINGS .', 'quantity': None, 'unit_price': None}, {'description': 'VALVE REPAIR Clavel ( See) : : 2,800.00', 'quantity': None, 'unit_price': None}, {'description': 'fittings eat: Each', 'quantity': 3, 'unit_price': 0.0}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 2800.0}]",0022503C,P051096565L,FRIGITEC INV134513.pdf
+134629,2024-08-19,0190977770000011328,Frigitec Supplies Ltd,"Gedion Rhimba Road, Mombasa
+P.O. BOX 2380 - 80100 MOMBASA, KENYA","TEL: 254 - 41- 2228625 / 2311562 / 2227402
+CELL: +254 - 721 786 440 / +254733 786 440
+Email: sales@frigitec.net",24003826,GRN# : 424001836,35000.0,40600.0,KES,5600.0,"[{'description': 'MS Welding Electrodes 3.2 mm', 'quantity': 100, 'unit_price': 0}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 5600.0}]",0022503C,P051096565L,FRIGITEC INV134629.pdf
+0190977770000011426,2024-08-23,KRAMWO19202208097777,Frigitec Supplies Ltd,"Gedion Rhimba Road, Mombasa
+P.O. BOX 2380 - 80100 MOMBASA, KENYA","TEL: 254 - 41- 2228625 / 2311562 / 2227402
+CELL: +254 - 721 786 440 / +254733 786 440
+Email: sales@frigitec.net",24003905,GRN# : 424001901,25000.0,29600.0,KES,4000.0,"[{'description': 'CRANKCASE HEATER 34321904', 'quantity': 5, 'unit_price': 25800.0}, {'description': 'Crankcase heater T+H 123036 HLPR 10.11 200 to 260 V, dia =11 mm, length _N Expense Item =161mm Each', 'quantity': 1, 'unit_price': 0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 4000.0}]",0022503C,P051096565L,FRIGITEC INV134727.pdf
+24004829,2024-10-16,P051092185B,INDUSTRIAL SUPPLIERS LTD.,"AGA KHAN
+ROAD
+NEAR BLOOD CENTRE
+P. O. Box 97044 - 80112, MOMBASA","Tel : 041 2314147, 041 2223422
+: 041 2314518, 041 2315013
+Mobile : 0723 338476, 0735 338478
+: 0794 895749/50, 0731 768851
+E-mail . : info@jalaramkenya.com",24004829,,10200.0,11832.0,KES,1632.0,"[{'description': 'Black Gasket Maker', 'quantity': 60, 'unit_price': 170.0}]","[{'tax_type': 'Vat', 'rate': None, 'amount': 1632.0}]",27266,P 051107439 Y,JALARAM 126757.pdf
+126772,2024-10-16,P051092185B,JALARAM INDUSTRIAL SUPPLIERS LTD.,"AGA KHAN ROAD
+NEAR BLOOD CENTRE
+P. 0. Box 97044 - 80112, MOMBASA","Tel : 041 2314147, 041 2223422
+: 041 2314518, 041 2315013
+Mobile : 0723 338478, 0735 338478
+: 0794 895749/50, 0731 768851
+E-mail : info@jalaramkenya.com",24004735,,63050.0,73138.0,KES,10088.0,"[{'description': ""Hdpe Elbow 2'"", 'quantity': 15, 'unit_price': 900.0}, {'description': 'Hdpe Elbow 4""', 'quantity': 12, 'unit_price': 3000.0}, {'description': 'Hdpe Reducer 4"" x 3""', 'quantity': 1, 'unit_price': 5150.0}, {'description': 'Hdpe Female Valve Socket 2""', 'quantity': 4, 'unit_price': 600.0}, {'description': 'Hdpe Male Valve Socket 2""', 'quantity': 10, 'unit_price': 600.0}]","[{'tax_type': 'Output Vat', 'rate': None, 'amount': 10088.0}]",27266,P 051107439 Y,JALARAM 126772.pdf
+126861,2024-10-18,P051092185B,Jalaram Industrial Supplies Ltd,"AGA KHAN ROAD
+NEAR BLOOD CENTRE
+P.O. Box 97044 - 80112, MOMBASA","Tel : 041 2314147, 041 2223422, 041 2314518, 041 2315013
+Mobile : 0723 338478, 0735 338478, 0794 895749/50, 0731 768851
+E-mail : info@jalaramkenya.com",24004735,,37900.0,43964.0,KES,6064.0,"[{'description': 'Hdpe Elbow 4""', 'quantity': 8, 'unit_price': 3000.0}, {'description': 'Hdpe Reducer 4"" x 3""', 'quantity': 2, 'unit_price': 5150.0}, {'description': 'Hdpe Female Valve Socket 2""', 'quantity': 6, 'unit_price': 600.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 6064.0}]",27266,P 051107439 Y,JALARAM 126861.pdf
+126883,2024-10-19,,Jalaram Industrial Supplies Ltd,"AGA KHAN ROAD
+NEAR BLOOD CENTRE
+P. O. Box 97044 - 80112, MOMBASA","Tel : 041 2314147, 041 2223422
+: 041 2314518, 041 2315013
+Mobile : 0723 338478, 0735 338478
+: 0794 895749/50, 0731 768851
+E-mail : info@jalaramkenya.com",24004968,,650.0,754.0,KES,104.0,"[{'description': 'Simplex Connecting Link Aps', 'quantity': 5, 'unit_price': 130.0}]","[{'tax_type': 'Output Vat', 'rate': None, 'amount': 104.0}]",27266,P 051107439 Y,JALARAM 126883.pdf
+126994,2024-10-23,P051092185B,Jalaram Industrial Supplies Ltd,"AGA KHAN ROAD
+P. O. Box 97044 - 80112, MOMBASA","Tel : 041 2314147, 041 2223422, 041 2314518, 041 2315013
+Mobile : 0723 338478, 0735 338478
+E-mail : info@jalaramkenya.com",24004935,"P-0. Box 27086-80112, MOMBASA",65700.0,76212.0,KES,10512.0,"[{'description': 'Double TT Spray', 'quantity': 48, 'unit_price': 450.0}, {'description': 'Webbing Tape 2""', 'quantity': 15, 'unit_price': 2800.0}, {'description': 'Bolt/Nut 14 x 40mm', 'quantity': 60, 'unit_price': 35.0}]","[{'tax_type': 'Output Vat', 'rate': None, 'amount': 10512.0}]",27266,P 051107439 Y,JALARAM 126994.pdf
+120667,2024-04-29,9110161960000005756,KOBIAN KENYA LIMITED,"KOBIAN HOUSE,MOMBASA ROAD
+P.O. BOX 46617- NAIROBI 00100 GPO","Office Line:0202161265/6
+Cell Phone: 0723888006 0786888006
+sales@kobianscientific.com",24001844,120667,31000.0,35960.0,KES,4960.0,"[{'description': 'Petroleum Spirit ACS Reagent,40-60°C,90+%-2.5L', 'quantity': 2, 'unit_price': 3450.0}, {'description': 'Acetic Acid Glacial Extra Pure,99.5%-2.5L', 'quantity': 2, 'unit_price': 2100.0}, {'description': '2,2,4-Trimethylpentane(Isooctane),99.5+%(GC)-2.5L', 'quantity': 2, 'unit_price': 6000.0}, {'description': 'Acetone Puriss.p.a.,ACS Reagent,99.5+%(GC)-2.5L', 'quantity': 2, 'unit_price': 2400.0}, {'description': 'Hydrochloric Acid Extra Pure,35%-2.5L', 'quantity': 1, 'unit_price': 1300.0}, {'description': 'Sulphuric Acid Extra Pure,98%-2.5L', 'quantity': 1, 'unit_price': 1800.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 4960.0}]",P051092185B,P0006118530,KOBIAN 120667.pdf
+121333,2024-07-15,9110161960000006422,KOBIAN KENYA LIMITED,"KOBIAN HOUSE,MOMBASA ROAD
+P.O. BOX 46617- NAIROBI 00100 GPO","Office Line:0202161265/6
+Cell Phone: 0723888006 0786888006
+sales@kobianscientific.com",24003149,121333,18000.0,20880.0,KES,2880.0,"[{'description': 'Buffer Sol pH 4.0(20°C),Red Colored-1L', 'quantity': 2, 'unit_price': 3000.0}, {'description': 'Buffer Sol pH 7.0(20°C),Green Colored-1L', 'quantity': 2, 'unit_price': 3000.0}, {'description': 'Buffer Sol pH 10.0(20°C), Violet Colored-1L', 'quantity': 2, 'unit_price': 3000.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 2880.0}]",P051092185B,P0006118530,KOBIAN 121333.pdf
+122061,2024-10-01,9110161960000007154,KOBIAN KENYA LIMITED,"KOBIAN HOUSE ,MOMBASA ROAD
+P.O. BOX 46617- NAIROBI 00100 GPO","Office Line:0202161265/6
+Cell Phone: 0723888006 0786888006
+sales@kobianscientific.com",24004326,122061,26700.0,30972.0,KES,4272.0,"[{'description': 'Conical flask Graduated 29/32,250ml - 1pcs', 'quantity': 3, 'unit_price': 3150}, {'description': 'Quickfit Glass Stopper Ends Closed 29/32-1pcs', 'quantity': 3, 'unit_price': 1150}, {'description': 'Conical flask Graduated 29/32,500ml - 1pcs', 'quantity': 3, 'unit_price': 3450}, {'description': 'Quickfit Glass Stopper Ends Closed 29/32-1pcs', 'quantity': 3, 'unit_price': 1150}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 4272}]",P0006118530,P0006118530,KOBIAN 122061.pdf
+122075,2024-10-03,9110161960000007168,KOBIAN KENYA LIMITED,"KOBIAN HOUSE,MOMBASA ROAD
+P.O. BOX 46617- NAIROBI 00100 GPO","Office Line:0202161265/6
+Cell Phone: 0723888006 0786888006
+sales@kobianscientific.com",24004618,122075,174000.0,201840.0,KES,27840.0,"[{'description': 'Lovibond Glass Cuvette W600/B/5 1/4""-1pcs', 'quantity': 2, 'unit_price': 39000.0}, {'description': 'Halogen Lamp 230V-1pes', 'quantity': 2, 'unit_price': 48000.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 12480.0}, {'tax_type': 'VAT', 'rate': '16%', 'amount': 15360.0}]",P0006118530,P051092185B,KOBIAN 122075.pdf
+122076,2024-10-03,914 10161960000007169,KOBIAN KENYA LIMITED,"KOBIAN HOUSE,MOMBASA ROAD
+P.O. BOX 46617- NAIROBI 00100 GPO","Office Line0202161265/6
+Cell Phone: 0723888006 0786888006
+sales@kobianscientific.com",24004642,122076,3500.0,4060.0,KES,560.0,"[{'description': 'Dropping Bottle with Pipette, 100mI-1pcs', 'quantity': 2, 'unit_price': 1750.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 560.0}]",P0006118530,P051092185B,KOBIAN 122076.pdf
+36679,2024-10-16,KRAMW011202201016630,SHREEJI CHEMICALS LTD.,"Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. O. Box 18291-00500, Nairobi, Kenya.
+Works: Nairobi: Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, Mlololongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 94007-80100, Mombasa, Miritini Area, Mombasa-Nairobi Highway","+254 20 682 4152 / 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007; Wireless Tel: 020-2320319/22, +254-709 921000, +254-717431379; Email: info@shreejichemical.com",24004663,SCL MRKN 005781,831430.0,964458.8,KES,133028.8,"[{'description': 'SALES - SODIUM SILICATE LIQUID', 'quantity': 500, 'unit_price': 0}, {'description': 'Sodium Silicate KGS', 'quantity': 27260, 'unit_price': 0}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 133028.8}]",P051317393N,P051317393N,LS-36679.pdf
+36713,2024-10-22,KRAMW011202201016630,SHREEJI CHEMICALS LTD.,"Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. O. Box 18291-00500, Nairobi, Kenya.
+Works: Nairobi: Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, Mlololongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 94007-80100, Mombasa, Miritini Area, Mombasa-Nairobi Highway
+P. 0. Box 26 - 80113
+Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. 0. Box 18291-500, Nairobi, Kenya.
+Works: Nairobi: Wireless Tel: +254 114516736, Email: info@shreejichemical.com, Mlolongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 26-80113, Mariakani - Kaloleni Road Kadzonzo, Mariakani Kilifi County","Telephone: +254 20 682 41527/ 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007
+Wireless Tel: 020-2320319/22, +254-709 921000, +254-717431379 Email: info@shreejichemical.com",,SCL MRKN 005706,823500.0,955260.0,KES,131760.0,"[{'description': 'SALES - SODIUM SILICATE LIQUID', 'quantity': 27, 'unit_price': 0}]","[{'tax_type': 'V.A.T.', 'rate': None, 'amount': 131760.0}]",P051317393N,P051317393N,LS-36713.pdf
+000000,2024-10-22,KRAMW011202201016630,SHREEJI CHEMICALS LTD.,"Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. O. Box 18291-00500, Nairobi, Kenya.
+Telephone: +254 20 682 4152 / 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007
+Works: Nairobi: Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, Mlololongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 94007-80100, Mombasa, Miritini Area, Mombasa-Nairobi Highway","+254 20 682 4152 / 153, 0734 330033 / 0722 203281, Fax: +254 20 682 4007, 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755",00000000,SCL mak 005794,831430.0,964458.8,KES,133028.8,"[{'description': 'SALES - SODIUM SILICATE LIQUID', 'quantity': 27, 'unit_price': 831430.0}]","[{'tax_type': 'V.A.T.', 'rate': None, 'amount': 133028.8}]",P051317393N,P051317393N,LS-36715.pdf
+36719,2024-10-22,KRAMWOi 1202201016630,SHREEJI CHEMICALS LTD.,"Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. O. Box 18291-00500, Nairobi, Kenya.
+Telephone: +254 20 682 4152 / 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007
+Works: Nairobi: Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, Mlololongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 94007-80100, Mombasa, Miritini Area, Mombasa-Nairobi Highway
+P. , Box 26 - 80113
+Works: Nairobi: Wireless Tel: +254 114516736, Email: info@shreejichemical.com, Mlolongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 26-80113, Mariakani - Kaloleni Road Kadzonzo, Mariakani Kilifi County
+Wireless Tel: 020-2320319/22, +254-709 921000, +254-717431379 Email: info@shreejichemical.com","+254 20 682 4152 / 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007, Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, +254 114516736, Email: info@shreejichemical.com, 020-2320319/22, +254-709 921000, +254-717431379",,SCL MRKN 005701,808250.0,937570.0,KES,129320.0,"[{'description': '26.50 SALES - SODIUM SILICATE LIQUID', 'quantity': 26, 'unit_price': 0}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 129320.0}]",P051317393N,P051317393N,LS-36719.pdf
+36720,2024-10-22,KRAMW01 7202201016630,SHREEJI CHEMICALS LTD.,"Head Office: Nairobi: Shreeji House, Shreeji Road, Off Airport North Rd, Embakasi, P. O. Box 18291-00500, Nairobi, Kenya.
+Telephone: +254 20 682 4152 / 153, Mobile: 0734 330033 / 0722 203281, Fax: +254 20 682 4007
+Works: Nairobi: Wireless Tel: 020- 210 6759, 020- 210 6762, 020- 210 6771, Fax: 020 - 210 6755, Mlololongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 94007-80100, Mombasa, Miritini Area, Mombasa-Nairobi Highway
+Works: Nairobi: Wireless Tel: +254 114516736, Email: info@shreejichemical. com, Mlolongo, Nairobi Mombasa Road,
+Works: Mombasa: P.O. Box 26-80113, Mariakani - Kaloleni Road Kadzonzo, Mariakani Kilifi County
+Wireless Tel: 020-2320319/22, +254- 709 921000, +254-717431379 Email: info@shreejicherical. com","+254 20 682 4152 / 153, 0734 330033 / 0722 203281, Fax: +254 20 682 4007, +254 114516736, info@shreejichemical. com, 020-2320319/22, +254- 709 921000, +254-717431379, info@shreejicherical. com",74331,SCL MRKN 005796,854000.0,990640.0,KES,136640.0,"[{'description': 'SALES - SODIUM SILICATE LIQUID', 'quantity': 28, 'unit_price': 0}]","[{'tax_type': 'V.A.T.', 'rate': None, 'amount': 136640.0}]",P051317393N,P051317393N,LS-36720.pdf
+000000,2024-10-01,0190276280000014247,MEGA PACK (K) LTD,"Stanley Mathenge Road, Industrial Area
+P.O Box 3204 - 20100 Nakuru, Kenya",+254 73 7839008/703833954/700781800 | megapack@megaspingroup.com,24004078,1016852,117573.81,117573.81,KES,16217.08,"[{'description': 'PWANI - DIVA 24X200G (COMBINED VARIANTS)', 'quantity': 28, 'unit_price': 28460}, {'description': 'PWANI - WHITE WASH 12X800G GRADE 1', 'quantity': 31, 'unit_price': 31510}]","[{'tax_type': 'VAT', 'rate': None, 'amount': 16217.08}]",P051237141X,P051237141X,MEGA PACK 68135.pdf
+000000,2024-10-07,0190276280000014406,MEGA PACK (K) LTD,"Stanley Mathenge Road, Industrial Area
+P.O Box 3204 - 20100 Nakuru, Kenya",+254 73 7839008/703833954/700781800 | megapack@megaspingroup.com,24004603,038330,1614907.54,1873292.75,KES,258385.21,"[{'description': 'PWANI - FRESHFRY 12X1LT PCS 382 X 25 & 18 PCS', 'quantity': 0, 'unit_price': 61.77}, {'description': 'PWANI - FRESH FRY 4X5LTRS WITH LF + SF PCS 0.0000 a', 'quantity': 0, 'unit_price': 0}, {'description': 'PWANI - FRESH FRY 4X5LTRS BOX PCS /|495 X 25 & 19 PCS', 'quantity': 0, 'unit_price': 65.59}, {'description': 'PWANI - FRESH FRY 4XS5LTRS SF PCS 123 X 100 & 94 PC', 'quantity': 0, 'unit_price': 6.11}, {'description': 'PWANI - FRESH FRY 4X5LTRS LF PCS 123 X 100 & 94 Pt', 'quantity': 0, 'unit_price': 10.27}, {'description': 'PWANI - FRESHFRY 12X500MI. Pcs 8 X 25 PCS', 'quantity': 0, 'unit_price': 39.78}]","[{'tax_type': 'V.A.T', 'rate': None, 'amount': 258385.21}]",P051237141x,P051237141x,MEGA PACK 68294.pdf
+t8/t0/2024,2024-10-18,0190276280000014703,PWANI OIL PRODUCTS LTD,"Tel: 0709294000
+Mobile: 0709294000
+Email: procurement@pwani.net","Tel: 0709294000
+Mobile: 0709294000
+Email: procurement@pwani.net",24004603,gon7g0z_,660225.28,765861.32,KES,105636.04,"[{'description': 'PWANI - WHITE WASH 10X1KGS', 'quantity': 4991, 'unit_price': 36.03}, {'description': 'PWANI - WHITE WASH 48X175G', 'quantity': 15000, 'unit_price': 32.01}]","[{'tax_type': 'V.A.T', 'rate': None, 'amount': 105636.04}]",P051092185B,P051092185B,MEGA PACK 68585.pdf
+MA109185,2024-07-05,KRAMW01 1202206039672,Sanpac Africa Limited,"P O Box 20496 - 00200 Nairobi, Kenya
+P O Box 87025 - 80100 Mombasa, Kenya","Tel: +254 (0)20 2112100/1/2/3
+Cell : +254 (0)733 201 338, (0)722 201 338, (0)756 201 338
+Email: sansales@sanpac.com",24002984,45556,316710.0,367383.6,KES,50673.6,"[{'description': 'Round Jerryean Yellow 20ltr 800gms', 'quantity': 1530, 'unit_price': 185.7}, {'description': 'Bung Cap & Gasket Sky Blue 10/20ltr', 'quantity': 1530, 'unit_price': 5.3}, {'description': 'Woven Bags for 20ltr 95 x 135', 'quantity': 255, 'unit_price': 96.0}]","[{'tax_type': 'Value Added Tax', 'rate': '16%', 'amount': 50673.6}]",P0005943160,P051092185B,SANPAC MA109185.pdf
+109188,2024-07-05,KRAMWO1 1202206039672,Sanpac Africa Limited,"P O Box 20496 - 00200 Nairobi, Kenya
+P O Box 87025 - 80100 Mombasa, Kenya","Tel: +254 (0)20 2112100/1/2/3
+Cell : +254 (0)733 201 338, (0)722 201 338, (0)756 201 338
+Email: sansales @ sanpac.com",24002984,45562,199962.0,231955.92,KES,31993.92,"[{'description': 'Round Jerrycan Yellow 20itr 800gms', 'quantity': 966, 'unit_price': 185.7}, {'description': 'Bung Cap & Gasket Sky Blue', 'quantity': 966, 'unit_price': 5.3}, {'description': 'Woven Bags for 20Itr 95 x 135', 'quantity': 16, 'unit_price': 96.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 31993.92}]",P0005943160,P051092185B,SANPAC MA109188.pdf
+109229,2024-07-10,KRAMWO1 1202206039672,Sanpac Africa Ltd,"P O Box 20496 - 00200 Nairobi, Kenya
+P O Box 87025 - 80100 Mombasa, Kenya","Tel: +254 (0)20 2112100/1/2/3
+Cell : +254 (0)733 201 338, (0)722 201 338, (0)756 201 338
+Email: sansales @ sanpac.com",24002984,45678,319194.0,370265.04,KES,51071.04,"[{'description': 'Round Jerrycan Yellow 20ltr 800gms', 'quantity': 1542, 'unit_price': 185.7}, {'description': 'Bung Cap & Gasket Sky Blue 10/20ltr', 'quantity': 1542, 'unit_price': 5.3}, {'description': 'Woven Bags for 20ltr 95 x 135', 'quantity': 257, 'unit_price': 96.0}]","[{'tax_type': 'Value Added Tax', 'rate': '16.00%', 'amount': 51071.04}]",P051092185B,70510921858,SANPAC MA109229.pdf
+MA109250,2024-07-15,KRAMW01 1202206039672,Sanpac Africa Limited,"P O Box 20496 - 00200 Nairobi, Kenya
+P O Box 87025 - 80100 Mombasa, Kenya","Tel: +254 (0)20 2112100/1/2/3
+Cell : +254 (0)733 201 338, (0)722 201 338, (0)756 201 338
+Email: sansales @sanpac.com",24002984,45782,452088.0,524422.08,KES,72334.08,"[{'description': 'Round Jerrycan Yellow 2oitr 808gms', 'quantity': 2184, 'unit_price': 185.7}, {'description': 'Bung Cap & Gasket Sky Blue', 'quantity': 2184, 'unit_price': 5.3}, {'description': 'Woven Bags for 20Itr 95 x 135', 'quantity': 864, 'unit_price': 96.0}]","[{'tax_type': 'Value Added Tax', 'rate': '16%', 'amount': 72334.08}]",P0005943160,P0005943160,SANPAC MA109250.pdf
+109305,2024-07-27,KRAMW01 1202206039672,Sanpac Africa Ltd,"P O Box 20496 - 00200 Nairobi, Kenya
+P O Box 87025 - 80100 Mombasa, Kenya","+254 (0)20 2112100/1/2/3, +254 (0)733 201 338, (0)722 201 338, (0)756 201 338
+Email: sansales @ sanpac.com",24002984,46046,568980.0,660016.8,KES,91036.8,"[{'description': 'Round Jerryean Yellow 10ltr', 'quantity': 4360, 'unit_price': 118.8}, {'description': 'Bung Cap & Gasket Sky Blue', 'quantity': 4360, 'unit_price': 5.3}, {'description': 'Woven Bags for 10ltr', 'quantity': 4360, 'unit_price': 64.0}]","[{'tax_type': 'Value Added Tax', 'rate': '16%', 'amount': 91036.8}]",P0005943160,P051092185B,SANPAC MA109305.pdf
+100089756,2024-10-07,KRAMWOT 1202206039289,SYNERGY GASES (K) LTD,"P.O. Box 83225-80100 Mombasa, Kenya
+DELIVERY NOTE P.O. BOX 83225 80100 MOMBASA KENYA","Tel: (020) 2353331 (2/3 %
+Fax: (020) 2353334 Mob: +254 735 822333 / 711 435333
+TEL: 0735822333 0711435333
+Email: info@synergygases.com
+Original EMAIL:ygasesmailer@gmail.com",24004564,S1s2178,3500.0,4060.0,KES,560.0,"[{'description': 'industrial oxygen 6.0m3', 'quantity': 5, 'unit_price': 700.0}]","[{'tax_type': 'VAT', 'rate': '16%', 'amount': 560.0}]",,PO51197854M,SYNERGY 100089756.pdf
+100089757,2024-10-07,KRAM WOT T202¢ 206039289,SYNERGY GASES (K) LIMITED,P.O. BOX 83225 80100 MOMBASA KENYA,"Tel: (020) 2353331 /2/3, Fax: (020) 2353334, Mob: +254 735 822333 / 711 435333, TEL: 0735822333 0711435333, EMAIL:ygasesmailer@gmail.com",24003928,5182177,6264.0,,KES,,"[{'description': 'industrial by', 'quantity': 2, 'unit_price': 700.0}, {'description': 'industrial i. ir ae Hh', 'quantity': 4, 'unit_price': 1000.0}, {'description': 'industrial oxygen 6.0m3', 'quantity': 2, 'unit_price': 0}, {'description': 'industrial nitrogen 6.0m3', 'quantity': 5, 'unit_price': 0}]",[],POSL197854M,POSLO92185B,SYNERGY 100089757.pdf
+100090197,2024-10-19,KRAMWOl 1202 206089289,SYNERGY GASES (K) LTD,"P.O. Box 83225-80100 Mombasa, Kenya!
+Fax: (020) 2353334 Mob: +254 735 822333 / 711 435333","Tel: (020) 2353331 /2/3
+Email: info@synergygases.com",24004504,5183012,3500.0,760.0,KES,,"[{'description': 'industrial oxygen 6.0m3', 'quantity': 5, 'unit_price': 700}, {'description': 'Dissolved acatyvlene 6,0nm3', 'quantity': 5, 'unit_price': 0}]",[],,POS119785¢M,SYNERGY 100090197.pdf
+100090220,2024-10-22,KRAMMAOT 1 202206039289,SYNERGY GASES (K) LIMITED,"P.O. Box 83225-80100 Mombasa, Kenya","Tel: (020) 2353331 /2/3
+Fax: (020) 2353334 Mob: +254 735 822333 / 711 435333
+Email: info@synergygases.com Web: www.synergygases.com",24003928,5183060,22000.0,32480.0,KES,,"[{'description': 'High Purity Argon 7. oM3', 'quantity': 2, 'unit_price': 14000}]",[],,,SYNERGY 100090220.pdf

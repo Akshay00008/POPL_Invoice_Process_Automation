@@ -2,59 +2,44 @@ import os
 import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
-from openai import OpenAI  # Using OpenAI class for initialization
+from openai import OpenAI
 import json
 from dotenv import load_dotenv
+import pandas as pd
 
-# Load environment variables from the .env file
+# Load environment variables
 load_dotenv()
-
-# Retrieve OpenAI API Key from environment variables
-openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
-
-# Check if the API key is loaded correctly
+openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
-
-# Initialize OpenAI client using the loaded API key
 client = OpenAI(api_key=openai_api_key)
 
-# Configure Tesseract path if needed (uncomment and modify if necessary)
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
+# OCR functions
 def ocr_from_image(image_path):
-    """Extract text from an image file using OCR"""
     with Image.open(image_path) as img:
-        text = pytesseract.image_to_string(img)
-    return text.strip()
+        return pytesseract.image_to_string(img).strip()
 
 def ocr_from_pdf(pdf_path):
-    """Extract text from a PDF file using OCR"""
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"PDF file not found: {pdf_path}")
-    
     try:
         pages = convert_from_path(
             pdf_path, 
             dpi=300,
-            # poppler_path=r"C:\Users\hp\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
-            poppler_path=r"/usr/bin"
+            poppler_path=r"C:\Users\hp\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
         )
     except Exception as e:
         raise RuntimeError(f"PDF conversion failed: {e}") from e
-    
     if not pages:
         raise ValueError("PDF file is empty or could not be processed")
-    
     return "\n".join(pytesseract.image_to_string(page).strip() for page in pages)
 
+# LLM Extraction
 def extract_invoice_data_with_llm(text):
-    """Extract structured data from invoice text using LLM"""
     if not text.strip():
         raise ValueError("No text provided for LLM processing")
     
-    prompt = f"""
-Extract invoice fields from the text below with strict accuracy. Follow these guidelines:
+    prompt = f"""Extract invoice fields from the text below with strict accuracy. Follow these guidelines:
 1. Preserve EXACT original formatting including special characters and case sensitivity
 2. Handle alternative field name variations (see mappings below)
 3. Return JSON with null for missing fields
@@ -120,28 +105,27 @@ Example Format:
 
 Text Source:
 {text[:15000]}
-"""
+"""  # Your existing detailed prompt remains here unchanged
+
     try:
         response = client.chat.completions.create(
             model="gpt-4.1-2025-04-14",
-            messages=[ 
+            messages=[
                 {"role": "system", "content": "You are a JSON output machine. Return ONLY valid JSON."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0,
             max_tokens=2000,
         )
-        
         return json.loads(response.choices[0].message.content)
     except json.JSONDecodeError as e:
         raise ValueError("Failed to parse LLM response as JSON") from e
     except Exception as e:
         raise RuntimeError(f"LLM processing failed: {e}") from e
 
+# File processing
 def process_file(filepath):
-    """Process a file and return extracted invoice data"""
     if not os.path.exists(filepath):
-        print("File not found: {filepath}")
         raise FileNotFoundError(f"File not found: {filepath}")
     
     ext = filepath.lower().split('.')[-1]
@@ -152,10 +136,32 @@ def process_file(filepath):
             text = ocr_from_image(filepath)
         else:
             raise ValueError(f"Unsupported file format: {ext}")
-        
         print(f"Extracted {len(text)} characters from OCR")
         return extract_invoice_data_with_llm(text)
-    
     except Exception as e:
         print(f"Error processing {filepath}: {str(e)}")
-        raise
+        return None
+
+# NEW: Batch Process Folder and Create DataFrame
+def batch_process_folder(folder_path="input_pdfs"):
+    results = []
+    for filename in os.listdir(folder_path):
+        if filename.lower().endswith(".pdf"):
+            filepath = os.path.join(folder_path, filename)
+            print(f"Processing: {filepath}")
+            result = process_file(filepath)
+            if result:
+                result["source_file"] = filename  # Optionally add source
+                results.append(result)
+    if results:
+        df = pd.DataFrame(results)
+        print("All PDFs processed.")
+        return df
+    else:
+        print("No valid results.")
+        return pd.DataFrame()
+
+# Run this if you want to execute immediately
+if __name__ == "__main__":
+    df = batch_process_folder("Invoices")  # Folder where PDFs are stored
+    df.to_csv("invoice_output_second.csv", index=False)  # Save to CSV

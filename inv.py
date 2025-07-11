@@ -100,3 +100,10 @@ if __name__ == "__main__":
         print(result["qr_content"] or "No QR code detected")
     except Exception as e:
         print(f"Processing failed: {str(e)}")
+
+
+
+
+
+
+        

@@ -230,13 +230,16 @@ def kra_portal():
     # Call the function to process the PDF and get the result
     # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
     final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
-    print(final_details)
+    # print(final_details)
+    control_unit_invoice_number = final_details["/apps/POPL_Invoice_Process_Automation/Invoices/JALARAM 126757.pdf"]["invoice_data"]["control_unit_invoice_number"]
+
+    print(control_unit_invoice_number)
 
     result=asyncio.run(Buyer_validation(final_details))
     
 
     # Return the result in the response
-    return jsonify(final_details)
+    return jsonify(control_unit_invoice_number)
 # #Flask route for handling the request
 
 @app.route("/erp_upload",methods=["POST"], strict_slashes=False)

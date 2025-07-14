@@ -99,6 +99,8 @@ def data_conversion_pipeline(invoice_number):
     # Convert to DataFrame
     result_df = pd.DataFrame(transformed)
 
+    print(result_df)
+
     # Sum the calculated subtotals and check if it matches the sub_total
     calculated_subtotal_sum = result_df['calculated_subtotal'].sum()
     result_df['subtotal_match'] = calculated_subtotal_sum == result_df['sub_total']
@@ -107,9 +109,11 @@ def data_conversion_pipeline(invoice_number):
     result_df['tax_amount_match'] = (result_df['sub_total'] + result_df['total_tax_amount']) == result_df['total_amount']
 
     result_df['release_number'] = 1
+
+    result_df.to_excel('ref.xlsx')
     
     # Insert into MySQL
-    result_df.to_sql("Invoice_data_collection", engine, if_exists="append", index=False)
+    result_df.to_sql("Invoice_data_collection", engine, if_exists="replace", index=False)
  
     print("✅ Data migrated successfully to invoice_data_collection.")
 

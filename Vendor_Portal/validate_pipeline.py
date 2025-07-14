@@ -1,4 +1,4 @@
-from test import process_invoice_ocr_kra_portal
+from Vendor_Portal.test import process_invoice_ocr_kra_portal
 import asyncio
 from playwright.async_api import async_playwright
 

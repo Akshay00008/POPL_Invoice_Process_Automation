@@ -236,7 +236,7 @@ def kra_portal():
     
 
     # Return the result in the response
-    return jsonify(result)
+    return jsonify(final_details)
 # #Flask route for handling the request
 
 @app.route("/erp_upload",methods=["POST"], strict_slashes=False)

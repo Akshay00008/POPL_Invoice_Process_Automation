@@ -233,3 +233,12 @@ Name: po_number, dtype: object
 2025-07-09 20:48:30,889 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
 2025-07-11 14:22:52,544 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
 2025-07-11 17:26:03,951 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-14 16:47:07,097 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-14 16:47:25,406 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-14 16:48:00,339 - INFO - Validated Invoice Data: 0    24004482
+Name: po_number, dtype: object
+2025-07-14 16:48:07,531 - INFO - Reconciliation result: {'message': 'Lpo_details Found , GRN details not found'}
+2025-07-14 16:48:23,022 - INFO - Validated Invoice Data: 0    24004078
+1    24004078
+Name: po_number, dtype: object
+2025-07-14 16:48:46,020 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}

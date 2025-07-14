@@ -1,30 +1,15 @@
-import os
-from sqlalchemy import create_engine
-import pandas as pd
 import cv2
 from pdf2image import convert_from_path
 import numpy as np
+import os
 from pyzbar.pyzbar import decode
-from flask import request, jsonify
-import nest_asyncio
+import asyncio
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
+import nest_asyncio
 
-# Apply nest_asyncio to allow running asyncio event loop in Jupyter or other async event loops
 nest_asyncio.apply()
 
-# Database connection setup using environment variables
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = int(os.getenv("DB_PORT", "3306"))  # Default to 3306 if not provided
-DB_NAME = os.getenv("DB_NAME")
-
-# Create a connection string for SQLAlchemy
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-# Create an SQLAlchemy engine
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 class QRCodeExtractor:
     def __init__(self, input_path, dpi_list=None):
@@ -33,7 +18,6 @@ class QRCodeExtractor:
         self.pdf_list = self._get_pdf_list()
 
     def _get_pdf_list(self):
-        """Get list of PDFs from the provided path"""
         if os.path.isfile(self.input_path) and self.input_path.lower().endswith('.pdf'):
             return [self.input_path]
         elif os.path.isdir(self.input_path):
@@ -46,7 +30,6 @@ class QRCodeExtractor:
             raise ValueError("❌ Input path must be a .pdf file or a folder containing .pdf files.")
 
     def extract_qr_codes(self):
-        """Extract QR codes from the PDFs"""
         extracted_data = {}
         for pdf_path in self.pdf_list:
             print(f"\n📄 Processing PDF: {os.path.basename(pdf_path)}")
@@ -72,7 +55,6 @@ class QRCodeExtractor:
         return extracted_data
 
     def _process_image(self, image):
-        """Process the image to detect QR codes"""
         open_cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
 
@@ -93,19 +75,14 @@ class WebPageScraper:
         self.url = url
 
     async def fetch_html(self):
-        """Fetch HTML content from a URL using Playwright"""
-        try:
-            async with async_playwright() as p:
-                browser = await p.chromium.launch(headless=True)
-                page = await browser.new_page()
-                await page.goto(self.url, timeout=20000)
-                await page.wait_for_selector("body")
-                html = await page.content()
-                await browser.close()
-                return html
-        except Exception as e:
-            print(f"❌ Failed to fetch HTML from {self.url}: {e}")
-            return None
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.goto(self.url, timeout=20000)
+            await page.wait_for_selector("body")
+            html = await page.content()
+            await browser.close()
+            return html
 
 
 class KRAInvoiceParser:
@@ -113,26 +90,25 @@ class KRAInvoiceParser:
         self.html = html
 
     def extract_data(self):
-        """Extract invoice data from HTML content"""
         soup = BeautifulSoup(self.html, "html.parser")
         result = {
             "control_unit_invoice_number": None,
-            "invoice_number": None,
-            "invoice_date": None,
-            "total_taxable_amount": None,
-            "total_tax_amount": None,
-            "total_invoice_amount": None,
-            "supplier_name": None
+            # "invoice_number": None,
+            # "invoice_date": None,
+            # "total_taxable_amount": None,
+            # "total_tax_amount": None,
+            # "total_invoice_amount": None,
+            # "supplier_name": None
         }
 
         key_map = {
             "control unit invoice number": "control_unit_invoice_number",
-            "trader system invoice no": "invoice_number",
-            "invoice date": "invoice_date",
-            "total taxable amount": "total_taxable_amount",
-            "total tax amount": "total_tax_amount",
-            "total invoice amount": "total_invoice_amount",
-            "supplier name": "supplier_name"
+            # "trader system invoice no": "invoice_number",
+            # "invoice date": "invoice_date",
+            # "total taxable amount": "total_taxable_amount",
+            # "total tax amount": "total_tax_amount",
+            # "total invoice amount": "total_invoice_amount",
+            # "supplier name": "supplier_name"
         }
 
         tables = soup.find_all("table", {"width": "100%"})
@@ -158,43 +134,31 @@ class KRAInvoiceParser:
         return result
 
 
-async def process_invoice_ocr_kra_portal(file_path):
-    """Process the invoice using OCR and validate the fields."""
-    try:
-        # Extract QR codes and data
-        qr_extractor = QRCodeExtractor(input_path=file_path)  
-        qr_data = qr_extractor.extract_qr_codes()
-
-        if not qr_data:
-            return {"message": "No QR code found in the PDF"}
-
-        # If QR code found, scrape the web page using the URL from QR
-        extracted_data = []
-        for pdf_file, urls in qr_data.items():
-            for url in urls:
-                print(f"\n🌍 Fetching HTML for URL from {pdf_file}: {url}")
-                scraper = WebPageScraper(url)
+async def process_invoice_ocr_kra_portal(path):
+    # 📥 Step 1: Extract QR codes from PDFs
+    qr_extractor = QRCodeExtractor(input_path=path)  
+    qr_data = qr_extractor.extract_qr_codes()
+    invoice_data_updated={}
+    # 🌐 Step 2: If any QR found, fetch the URL
+    for pdf_file, urls in qr_data.items():
+        for url in urls:
+            print(f"\n🌍 Fetching HTML for URL from {pdf_file}: {url}")
+            scraper = WebPageScraper(url)
+            try:
                 html = await scraper.fetch_html()
+            except Exception as e:
+                print(f"❌ Failed to fetch HTML: {e}")
+                continue
 
-                if html:
-                    # Extract invoice data from HTML
-                    parser = KRAInvoiceParser(html)
-                    invoice_data = parser.extract_data()
-                    extracted_data.append(invoice_data)
+            # 📊 Step 3: Extract invoice details from HTML
+            parser = KRAInvoiceParser(html)
+            invoice_data = parser.extract_data()
+            invoice_data_updated[pdf_file] = {
+            "invoice_data": invoice_data,
+            "urls": urls
+        }
 
-        if extracted_data:
-            # Convert extracted data to a DataFrame
-            df = pd.DataFrame(extracted_data)
-
-            # Save the data into the SQL table kra_portal
-            df.to_sql('kra_portal', engine, if_exists='append', index=False)
-            return {"message": "Invoice data successfully processed and saved to SQL."}
-        else:
-            return {"message": "No invoice data found in the web page."}
-
-    except Exception as e:
-        print(f"❌ Invoice processing failed: {e}")
-        return {"message": f"Invoice processing failed: {str(e)}"}
-
-
-
+            # print("✅ Extracted Invoice Data:")
+            # for key, value in invoice_data.items():
+            #     print(f"{key}: {value}")
+    return invoice_data_updated

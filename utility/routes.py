@@ -11,6 +11,7 @@ import asyncio
 from queue import Queue
 from Vendor_Portal.ERP_Upload import InvoiceApiHandler
 from Vendor_Portal.data_conversion import   data_conversion_pipeline
+from Vendor_Portal.validate_pipeline import Buyer_validation
 
 # Initialize logger
 loggs = Logs()
@@ -227,7 +228,12 @@ def kra_portal():
         return jsonify({"error": "No invoice_image provided"}), 400
 
     # Call the function to process the PDF and get the result
-    result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+    # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+    final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+    print(final_details)
+
+    result=asyncio.run(Buyer_validation(final_details))
+    
 
     # Return the result in the response
     return jsonify(result)

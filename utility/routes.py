@@ -231,11 +231,14 @@ def kra_portal():
     # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
     final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
     print(final_details)
-    control_unit_invoice_number = final_details["control_unit_invoice_number"]
+    control_unit_invoice_number = final_details.get(
+    '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
+        ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
 
     print(control_unit_invoice_number)
 
-    result=asyncio.run(Buyer_validation(final_details))
+    # Continue with the buyer validation process
+    result = asyncio.run(Buyer_validation(final_details))
     
 
     # Return the result in the response

@@ -230,7 +230,9 @@ def kra_portal():
     # Call the function to process the PDF and get the result
     # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
     final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+    print("******:")
     print(final_details)
+    print("**********")
     control_unit_invoice_number = final_details.get(
     '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
         ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')

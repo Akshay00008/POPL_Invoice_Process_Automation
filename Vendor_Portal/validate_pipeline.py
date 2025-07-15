@@ -3,6 +3,7 @@ import asyncio
 from playwright.async_api import async_playwright
 
 async def visit_and_validate_invoice_number(combined_data: dict):
+    print("line number 6 ")
     print(combined_data)
     result_status = {}
 

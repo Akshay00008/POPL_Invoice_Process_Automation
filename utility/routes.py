@@ -233,9 +233,17 @@ def kra_portal():
     print("******:")
     print(final_details)
     print("**********")
-    control_unit_invoice_number = final_details.get(
-    '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
-        ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
+
+    for invoice_path, data in final_details.items():
+        control_unit_invoice_number = data.get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
+    print(f"Control Unit Invoice Number: {control_unit_invoice_number}")
+
+    # # Continue with the buyer validation process
+    # result = asyncio.run(Buyer_validation(final_details))
+
+    # control_unit_invoice_number = final_details.get(
+    # '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
+    #     ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
 
     print(control_unit_invoice_number)
 

@@ -216,39 +216,47 @@ def extraction_page():
 # #Flask route for handling the request
 @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
 def kra_portal():
-    """Process the invoice image and store data in SQL."""
-    # Get the PDF path from the request body
-    pdf_path = request.json.get('invoice_image')
 
-    if not pdf_path:
-        return jsonify({"error": "No invoice_image provided"}), 400
+    try :
+        """Process the invoice image and store data in SQL."""
+        # Get the PDF path from the request body
+        pdf_path = request.json.get('invoice_image')
 
-    # Call the function to process the PDF and get the result
-    # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
-    final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
-    print("******:")
-    print(final_details)
-    print("**********")
+        if not pdf_path:
+            return jsonify({"error": "No invoice_image provided"}), 400
 
-    for invoice_path, data in final_details.items():
-        control_unit_invoice_number = data.get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
-        print(f"Control Unit Invoice Number: {control_unit_invoice_number}")
+        # Call the function to process the PDF and get the result
+        # result = asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+        final_details=asyncio.run(process_invoice_ocr_kra_portal(pdf_path))
+        print("******:")
+        print(final_details)
+        print("**********")
 
-    # # Continue with the buyer validation process
-    # result = asyncio.run(Buyer_validation(final_details))
+        for invoice_path, data in final_details.items():
+            control_unit_invoice_number = data.get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
+            print(f"Control Unit Invoice Number: {control_unit_invoice_number}")
 
-    # control_unit_invoice_number = final_details.get(
-    # '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
-    #     ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
+        # # Continue with the buyer validation process
+        # result = asyncio.run(Buyer_validation(final_details))
 
-    # print(control_unit_invoice_number)
+        # control_unit_invoice_number = final_details.get(
+        # '/apps/POPL_Invoice_Process_Automation/Invoices/KOBIAN 122076.pdf', {}
+        #     ).get('invoice_data', {}).get('control_unit_invoice_number', 'Not Found')
 
-    # Continue with the buyer validation process
-    result = asyncio.run(Buyer_validation(final_details))
-    
+        # print(control_unit_invoice_number)
 
-    # Return the result in the response
-    return jsonify(control_unit_invoice_number)
+        # Continue with the buyer validation process
+        result = asyncio.run(Buyer_validation(final_details))
+
+
+        
+
+        # Return the result in the response
+    except Exception as e:
+            loggs.error(f"KRA Validation failed: {str(e)}")
+            raise ValueError(f"KRA Validation failed:: {str(e)}")
+        
+
 # #Flask route for handling the request
 
 @app.route("/erp_upload",methods=["POST"], strict_slashes=False)

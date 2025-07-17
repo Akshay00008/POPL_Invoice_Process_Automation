@@ -169,7 +169,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     
 
 
-def fields_matching(file_path,rel_num):
+def fields_matching(file_path,rel_num,):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
@@ -186,13 +186,13 @@ def fields_matching(file_path,rel_num):
 
         df.to_excel('invoice_data.xlsx')
         
-        lpo_number = df['po_number']
+        # lpo_number = df['po_number']
         invoice_number= df['invoice_number']
 
-        print ("Number :", lpo_number,  "   ", invoice_number)
+        print ("invoice_number :", invoice_number)
         
         print("Invoice data validation successful!")
-        return lpo_number,invoice_number
+        return invoice_number
         
     except Exception as e:
         return {"Message" : "Invoice data validation/reconcillation unsuccessful!"}

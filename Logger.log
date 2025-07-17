@@ -242,3 +242,23 @@ Name: po_number, dtype: object
 1    24004078
 Name: po_number, dtype: object
 2025-07-14 16:48:46,020 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:06:36,433 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:07:06,945 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:07:21,235 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:07:35,111 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:46:01,473 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:46:22,499 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:46:42,158 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:46:56,152 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}

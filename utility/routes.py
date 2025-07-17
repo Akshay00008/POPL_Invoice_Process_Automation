@@ -29,11 +29,11 @@ task_queue = Queue()
 def process_task_from_queue():
     while True:
         # Get the task from the queue
-        file_path, rel_num = task_queue.get()
+        file_path, rel_num, lpo_number = task_queue.get()
         if file_path is None:  # Stop the worker thread if None is received
             break
         # Perform the processing
-        process_invoice_and_reconcile(file_path, rel_num)
+        process_invoice_and_reconcile(file_path, rel_num, lpo_number)
         task_queue.task_done()
 
 # Initialize a worker thread to handle the queue
@@ -41,14 +41,15 @@ worker_thread = Thread(target=process_task_from_queue)
 worker_thread.start()
 
 # Function to manage the OCR and reconciliation steps asynchronously
-def process_invoice_and_reconcile(file_path, rel_num):
+def process_invoice_and_reconcile(file_path, rel_num, lpo_number):
+    lpo_number=lpo_number
     # Perform invoice processing and reconciliation
     lpo_invoice_number = process_invoice_ocr(file_path, rel_num)
     if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
         return lpo_invoice_number
 
-    lpo_numbers = lpo_invoice_number[0]
-    invoice_number = lpo_invoice_number[1]
+    lpo_numbers = lpo_number
+    invoice_number = lpo_invoice_number
     reconciliation_result = perform_reconciliation(lpo_numbers, invoice_number, rel_num, item_count=0)
     return reconciliation_result
 
@@ -67,22 +68,22 @@ def process_invoice_ocr(file_path,rel_num):
             return result
         
         # Unpack the result into invoice_df and invoice_number
-        invoice_df, invoice_number = result
+        invoice_number = result
         
         # Validate the extracted values (ensure they are not None)
-        if invoice_df is None or invoice_number is None:
+        if invoice_number is None:
             raise ValueError("Extracted values for invoice data are None.")
 
-        loggs.info(f"Validated Invoice Data: {invoice_df}")
+        loggs.info(f"Validated Invoice Data: {invoice_number}")
         
         # Extract values
-        lpo_numbers = invoice_df[0]
+        # lpo_numbers = lpo_number
         invoice_number = invoice_number[0]
         
-        print("26 lpo_numbers:", lpo_numbers)
+        # print("26 lpo_numbers:", lpo_numbers)
         print("27 invoice_number:", invoice_number)
         
-        return lpo_numbers, invoice_number
+        return invoice_number
 
     except Exception as e:
         loggs.error(f"Invoice processing failed at line 53 : {str(e)}")
@@ -102,88 +103,94 @@ def perform_reconciliation(lpo_number,invoice_number,rel_num,item_count):
     return {"result": result}
 
 # Function to manage the OCR and reconciliation steps asynchronously
-def process_invoice_and_reconcile(file_path,rel_num):
-    """Process the invoice OCR and then perform reconciliation in background."""
-    lpo_invoice_number = process_invoice_ocr(file_path,rel_num)
+# def process_invoice_and_reconcile(file_path,rel_num):
+#     """Process the invoice OCR and then perform reconciliation in background."""
+#     lpo_invoice_number = process_invoice_ocr(file_path,rel_num)
     
-    print("lpo_invoice_number :",lpo_invoice_number)
+#     print("lpo_invoice_number :",lpo_invoice_number)
 
-    if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
-            # Return the error message
-            return lpo_invoice_number
-    lpo_numbers=lpo_invoice_number[0]
-    invoice_number=lpo_invoice_number[1]
+#     if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
+#             # Return the error message
+#             return lpo_invoice_number
+#     lpo_numbers=lpo_invoice_number[0]
+#     invoice_number=lpo_invoice_number[1]
 
 
-    print("LPo numbers :",lpo_numbers )
-    print("invoice_number :", invoice_number)
-    reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,rel_num,item_count=0)
-    return reconciliation_result
+#     print("LPo numbers :",lpo_numbers )
+#     print("invoice_number :", invoice_number)
+#     reconciliation_result = perform_reconciliation(lpo_numbers,invoice_number,rel_num,item_count=0)
+#     return reconciliation_result
 
 # Route to trigger the invoice processing and reconciliation
 from flask import request
 
 @app.route("/invoice_processing", methods=["POST"], strict_slashes=False)
 def invoice_trigger():
-    submission_type = request.json.get('submission_type')
+    invoices = request.json.get('invoice_objects')
 
-    if submission_type == 'form':
-        invoice_number = request.json.get('invoice_number')
-        lpo_number = request.json.get('lpo_number')
-        rel_num = request.json.get('REL_NUM')
-        item_count = 0
-        result = data_conversion_pipeline(invoice_number)
+    if not invoices:
+        return jsonify({"error": "No invoice objects provided."}), 400
 
-        # Start the task in the queue
-        task_queue.put((lpo_number, invoice_number, rel_num, item_count))
-        return jsonify({"message": "Invoice processing and reconciliation started"}), 202
+    for invoice in invoices:
+        submission_type = invoice.get('submission_type')
 
-    else:
-        file_path = request.json.get('invoice_image')
-        rel_num = request.json.get('REL_NUM')
-        
-        # Check if file_path is provided in the request
-        if not file_path:
-            return jsonify({"error": "File path is required."}), 400
-        
-        # Add task to the queue for sequential processing
-        task_queue.put((file_path, rel_num))
+        if submission_type == 'form':
+            invoice_number = invoice.get('invoice_number')
+            lpo_number = invoice.get('lpo_number')
+            rel_num = invoice.get('REL_NUM')
+            item_count = 0
+            result = data_conversion_pipeline(invoice_number)
 
-        return jsonify({"message": "Invoice processing and reconciliation started."}), 202
+            # Start the task in the queue
+            task_queue.put((lpo_number, invoice_number, rel_num, item_count))
+            # Optionally, you can send a response after each task is added.
+        elif submission_type == 'upload':
+            file_path = invoice.get('invoice_image')
+            rel_num = invoice.get('REL_NUM')
+            lpo_number = invoice.get('lpo_number')
+
+            # Check if file_path is provided in the request
+            if not file_path:
+                return jsonify({"error": "File path is required."}), 400
+
+            # Add task to the queue for sequential processing
+            task_queue.put((file_path, rel_num,lpo_number))
+            # Optionally, you can send a response after each task is added.
+        else:
+            return jsonify({"error": f"Invalid submission type: {submission_type}"}), 400
+
+    return jsonify({"message": "Invoice processing and reconciliation started for all invoices"}), 202
+
 
 # @app.route("/invoice_processing", methods=["POST"], strict_slashes=False)
 # def invoice_trigger():
-#     """Trigger the invoice processing and reconciliation via an API endpoint."""
-#     # Get the file path from the request body
-    
-#     submission_type=request.json.get('submission_type')
-    
-#     if submission_type == 'form' :
+#     submission_type = request.json.get('submission_type')
+
+#     if submission_type == 'form':
 #         invoice_number = request.json.get('invoice_number')
 #         lpo_number = request.json.get('lpo_number')
-#         rel_num=request.json.get('REL_NUM')
-#         item_count=0
-#         result = data_conversion_pipeline (invoice_number)
-#         thread = Thread(target=perform_reconciliation, args=(lpo_number,invoice_number,rel_num,item_count))
-#         thread.start()
-#         return jsonify({"message": "Invoice processing and reconciliation started"}), 202
-    
-    
-#     else :
+#         rel_num = request.json.get('REL_NUM')
+#         item_count = 0
+#         result = data_conversion_pipeline(invoice_number)
 
+#         # Start the task in the queue
+#         task_queue.put((lpo_number, invoice_number, rel_num, item_count))
+#         return jsonify({"message": "Invoice processing and reconciliation started"}), 202
+
+#     else:
 #         file_path = request.json.get('invoice_image')
-#         rel_num=request.json.get('REL_NUM')
-#         print("rel_num :" , rel_num)
+#         rel_num = request.json.get('REL_NUM')
+        
 #         # Check if file_path is provided in the request
 #         if not file_path:
 #             return jsonify({"error": "File path is required."}), 400
         
-#         # Run the processing in a background thread
-#         thread = Thread(target=process_invoice_and_reconcile, args=(file_path,rel_num))
-#         thread.start()
+#         # Add task to the queue for sequential processing
+#         task_queue.put((file_path, rel_num))
 
-#         # Respond to the client immediately while the background process runs
 #         return jsonify({"message": "Invoice processing and reconciliation started."}), 202
+
+
 
 
 @app.route("/extraction_page",methods=["POST"], strict_slashes=False)
@@ -202,19 +209,7 @@ def extraction_page():
         loggs.error(f"Reconciliation failed: {str(e)}")
         raise ValueError(f"Reconciliation failed: {str(e)}")
     
-# @app.route("/kra_portal", methods=["POST"], strict_slashes=False)
-# def kra_portal():
-#     # Get the PDF path from the request body
-#     pdf_path = request.json.get('invoice_image')
 
-#     if not pdf_path:
-#         return jsonify({"error": "No invoice_image provided"}), 400
-    
-#     # Call the function to process the PDF and get the result
-#     result = check_qr_code_in_pdf(pdf_path)
-
-#     # Return the result in the response
-#     return {"message" :result }
 
 
 # #Flask route for handling the request

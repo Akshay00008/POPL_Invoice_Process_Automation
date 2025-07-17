@@ -247,6 +247,7 @@ def kra_portal():
 
         # Continue with the buyer validation process
         result = asyncio.run(Buyer_validation(final_details))
+        return control_unit_invoice_number
 
 
         

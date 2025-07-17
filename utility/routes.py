@@ -12,6 +12,7 @@ from queue import Queue
 from Vendor_Portal.ERP_Upload import InvoiceApiHandler
 from Vendor_Portal.data_conversion import   data_conversion_pipeline
 from Vendor_Portal.validate_pipeline import Buyer_validation
+from Vendor_Portal.validate_pipeline_2 import  visit_and_validate_invoice_number
 
 # Initialize logger
 loggs = Logs()
@@ -264,3 +265,19 @@ def erp_upload():
     # message =handler.grn_generation(result)
 
     return result
+
+@app.route("/Ccuin_fif",methods=["POST"], strict_slashes=False)
+async def main():
+    CUIN=request.json.get('CUIN')
+    results = await visit_and_validate_invoice_number(CUIN)
+    for pdf_file, result in results.items():
+        buyer = result.get("buyer_name", "").strip().upper()
+        if buyer == "PWANI OIL PRODUCTS LTD":
+            print(f"✅ Validated: {pdf_file}")
+            return {"message" : "Sucess"}, 200
+        else:
+            print(f"❌ Not validated: {pdf_file} (Buyer: {buyer})")
+            return {"message" : "Not Sucess"} , 500
+
+
+

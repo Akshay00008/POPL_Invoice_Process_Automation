@@ -492,7 +492,7 @@ WHERE
             po_type = lpo_df['PO_TYPE']
             print("po_type:",po_type)
             
-            po_type=po_type[0]
+            # po_type=po_type[0]
 
             po_type = po_type.iloc[0] if not po_type.iloc[0].isnull() else 'STANDARD'
 

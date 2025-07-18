@@ -646,7 +646,7 @@ WHERE
             value=(final_df['lpo_amnt_bfr_tax'].unique()[0])
             final_df['Lpo_Tax_Amount'] =  value * 0.16
 
-            lpo_df['Total_after_tax'] = lpo_df['lpo_amnt_bfr_tax'] + lpo_df['Lpo_Tax_Amount']
+            final_df['Total_after_tax'] = final_df['lpo_amnt_bfr_tax'] + final_df['Lpo_Tax_Amount']
             final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.85) & (final_df['GRN_Similarity'] > 0.85)]
 

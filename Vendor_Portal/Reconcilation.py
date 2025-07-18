@@ -481,6 +481,7 @@ WHERE
             print("results")
             print(results)
             columns = [col[0] for col in cursor.description]
+            print(columns)
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             # lpo_df = pd.concat([lpo_df, df], ignore_index=True)

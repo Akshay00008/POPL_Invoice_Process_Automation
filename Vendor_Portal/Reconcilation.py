@@ -490,7 +490,7 @@ WHERE
                 lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
             
             rel_num=int(rel_num)
-            po_type = lpo_df['PO_TYPE']
+            po_type = df['PO_TYPE']
             print("po_type:",po_type)
             
             po_type=po_type[0]

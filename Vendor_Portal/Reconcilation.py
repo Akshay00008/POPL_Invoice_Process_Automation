@@ -490,7 +490,7 @@ WHERE
             
             rel_num=int(rel_num)
             po_type = lpo_df['PO_TYPE']
-            print(po_type)
+            print("po_type:",po_type)
             po_type=po_type[0]
 
             if po_type == 'BLANKET' :

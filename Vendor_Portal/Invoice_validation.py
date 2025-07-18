@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 import numpy as np
+from Vendor_Portal.Invoice_processing_new import send_to_llm_single_page
 
 # Load environment variables from .env
 load_dotenv()
@@ -38,21 +39,35 @@ def normalize_field_name(field_name):
 
 def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     # Extract common fields that will remain constant across all rows
+
+    print("**********88888888***")
+    # Check if the fields_matching_result is valid
+    if fields_matching_result is None or not isinstance(fields_matching_result, dict):
+        print("Error: fields_matching_result is None or not a dictionary.")
+        # Or raise an exception if needed
+    
+    print(fields_matching_result)
+
     common_fields = { 
-        'invoice_number': fields_matching_result['invoice_number'],
-        'date': fields_matching_result['date'],
-        'cuin': fields_matching_result['cuin'],
-        'vendor_name': fields_matching_result['vendor_name'],
-        'vendor_address': fields_matching_result['vendor_address'],
-        'vendor_contact': fields_matching_result['vendor_contact'],
-        'po_number': fields_matching_result['po_number'],
-        'sub_total': fields_matching_result['sub_total'],
-        'total_amount': fields_matching_result['total_amount'],
-        'currency': fields_matching_result['currency'],
-        'total_tax_amount': fields_matching_result['total_tax_amount'],
-        'tax_id': fields_matching_result['tax_id'],
-        'vat_pin' : fields_matching_result['vat_pin'],
+        "invoice_number": fields_matching_result.get("invoice_number"),
+        "date": fields_matching_result.get("date"),  # Corrected this line
+        "cuin": fields_matching_result.get("cuin"),
+        "vendor_name": fields_matching_result.get("vendor_name"),
+        "vendor_address": fields_matching_result.get("vendor_address"),
+        "vendor_contact": fields_matching_result.get("vendor_contact"),
+        "po_number": fields_matching_result.get("po_number"),
+        "delivery_note_number": fields_matching_result.get("delivery_note_number"),  # Corrected this line
+        "sub_total": fields_matching_result.get("sub_total"),
+        "total_amount": fields_matching_result.get("total_amount"),
+        "currency": fields_matching_result.get("currency"),
+        "total_tax_amount": fields_matching_result.get("total_tax_amount"),
+        "tax_id": fields_matching_result.get("tax_id"),  # Added tax_id
+        "vat_pin": fields_matching_result.get("vat_pin")  # Added vat_pin
     }
+
+    # Check if the dictionary looks correct
+    print("Common fields extracted:", common_fields)
+
     print("line number 55")
     # Process each item in goods_services_details and create a new row for each
     goods_services_details = fields_matching_result['goods_services_details']
@@ -93,14 +108,15 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
 
    
 
-
+    
     df['release_number'] = rel_num
+    df.drop(["delivery_note_number"],axis=1,inplace=True)
 
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
         # df = pd.DataFrame([row])  # Create a DataFrame for this row
         df.to_sql('extracted_data', engine, if_exists='append', index=False)
-        df.to_sql('Invoice_data_collection', engine, if_exists='replace', index=False)
+        df.to_sql('Invoice_data_collection', engine, if_exists='append', index=False)
         print("Data with None or 0 found, saved to SQL.")
         return {"message" : "validation stopped at extraction stage"}  # Return the DataFrame immediately if saving
 
@@ -173,12 +189,14 @@ def fields_matching(file_path,rel_num,):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
-        result = process_file(file_path)
+        result = send_to_llm_single_page(file_path)
         
         print("136")
+        print(result)
         # print("fields_matching_result:", result)
         # Validate and convert to DataFrame
         df = validate_and_convert_to_dataframe(result,file_path,rel_num)
+        print(df)
 
         print("*********")
 

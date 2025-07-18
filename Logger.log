@@ -262,3 +262,48 @@ Name: invoice_number, dtype: object
 2    MA109185
 Name: invoice_number, dtype: object
 2025-07-17 14:46:56,152 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-18 12:50:05,244 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:50:05,245 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:50:49,494 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:50:49,494 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:52:34,059 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:52:34,059 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:55:05,425 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:55:05,425 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:56:38,404 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:56:38,405 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:59:01,428 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:59:01,429 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:01:59,500 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:01:59,501 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:06:11,786 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:06:11,787 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:10:17,374 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:10:17,374 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:15:49,292 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:15:49,292 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:21:30,606 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:21:30,607 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:35:52,760 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:36:12,470 - ERROR - Reconciliation failed: (pymysql.err.OperationalError) (1054, "Unknown column 'invoice_date' in 'field list'")
+[SQL: INSERT INTO reconciliation_data (invoice_number, invoice_date, cuin, vendor_name, vendor_address, vendor_contact, po_number, delivery_note_number, sub_total, total_amount, currency, total_tax_amount, tax_id, vat_pin, description, quantity, unit_price, subject, received_on, file_path, `OCR_Confidence_Score`, release_number, calculated_subtotal, subtotal_match, tax_amount_match, `Matched_LPO_Description`, `Matched_GRN_Description`, `GRN_Similarity`, `Error_state`, extracted_by, extraction_at, `LPO_Similarity`, `LPO_UNIT_PRICE`, `LPO_QUANTITY`, lpo_amnt_bfr_tax, `Lpo_Tax_Amount`, `Total_after_tax`, `GRN_NO`, `GRN_QUANTITY`, `LPO_Subtotal`) VALUES (%(invoice_number)s, %(invoice_date)s, %(cuin)s, %(vendor_name)s, %(vendor_address)s, %(vendor_contact)s, %(po_number)s, %(delivery_note_number)s, %(sub_total)s, %(total_amount)s, %(currency)s, %(total_tax_amount)s, %(tax_id)s, %(vat_pin)s, %(description)s, %(quantity)s, %(unit_price)s, %(subject)s, %(received_on)s, %(file_path)s, %(OCR_Confidence_Score)s, %(release_number)s, %(calculated_subtotal)s, %(subtotal_match)s, %(tax_amount_match)s, %(Matched_LPO_Description)s, %(Matched_GRN_Description)s, %(GRN_Similarity)s, %(Error_state)s, %(extracted_by)s, %(extraction_at)s, %(LPO_Similarity)s, %(LPO_UNIT_PRICE)s, %(LPO_QUANTITY)s, %(lpo_amnt_bfr_tax)s, %(Lpo_Tax_Amount)s, %(Total_after_tax)s, %(GRN_NO)s, %(GRN_QUANTITY)s, %(LPO_Subtotal)s)]
+[parameters: {'invoice_number': 'MA109185', 'invoice_date': '2024-07-05', 'cuin': 'MA109185', 'vendor_name': 'SANPAC Africa Limited', 'vendor_address': 'P O Box 20496 - 00200 Nairobi, Kenya; P O Box 87025 - 80100 Mombasa, Kenya', 'vendor_contact': 'Tel: +254 (0)20 2112100/1/2/3, Cell: +254 (0)733 201 338, (0)722 201 338, (0)756 201 338, Email: sansales@sanpac.com', 'po_number': '24002984', 'delivery_note_number': '45556', 'sub_total': 316710.0, 'total_amount': 367383.6, 'currency': 'KES', 'total_tax_amount': 50673.6, 'tax_id': 'P000594316O', 'vat_pin': 'P051092185B', 'description': 'Round Jerrycan Yellow 20ltr 800gms', 'quantity': 1530, 'unit_price': 185.7, 'subject': 'Not Provided', 'received_on': 'Vendor Portal', 'file_path': 'C:\\Users\\hp\\Desktop\\pwani_finance_01-07-2025\\Invoices\\SANPAC MA109185_removed.pdf', 'OCR_Confidence_Score': 78.76839509755335, 'release_number': 1, 'calculated_subtotal': 284121.0, 'subtotal_match': 1, 'tax_amount_match': 1, 'Matched_LPO_Description': 'Jerry Can Plain 20LT (800GMS)', 'Matched_GRN_Description': 'Jerry Can Plain 20LT (800GMS)', 'GRN_Similarity': 0.91, 'Error_state': 'Line_Item, Tax_amount', 'extracted_by': None, 'extraction_at': None, 'LPO_Similarity': 0.91, 'LPO_UNIT_PRICE': 191.0, 'LPO_QUANTITY': None, 'lpo_amnt_bfr_tax': 53566979, 'Lpo_Tax_Amount': 10130716.64, 'Total_after_tax': 63697695.64, 'GRN_NO': '32409037', 'GRN_QUANTITY': None, 'LPO_Subtotal': 292230.0}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-07-18 13:39:40,488 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:39:40,488 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:45:15,440 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:45:31,225 - ERROR - Reconciliation failed: (pymysql.err.OperationalError) (1054, "Unknown column 'delivery_note_number' in 'field list'")
+[SQL: INSERT INTO reconciliation_data (invoice_number, date, cuin, vendor_name, vendor_address, vendor_contact, po_number, delivery_note_number, sub_total, total_amount, currency, total_tax_amount, tax_id, vat_pin, description, quantity, unit_price, subject, received_on, file_path, `OCR_Confidence_Score`, release_number, calculated_subtotal, subtotal_match, tax_amount_match, `Matched_LPO_Description`, `Matched_GRN_Description`, `GRN_Similarity`, `Error_state`, extracted_by, extraction_at, `LPO_Similarity`, `LPO_UNIT_PRICE`, `LPO_QUANTITY`, lpo_amnt_bfr_tax, `Lpo_Tax_Amount`, `Total_after_tax`, `GRN_NO`, `GRN_QUANTITY`, `LPO_Subtotal`) VALUES (%(invoice_number)s, %(date)s, %(cuin)s, %(vendor_name)s, %(vendor_address)s, %(vendor_contact)s, %(po_number)s, %(delivery_note_number)s, %(sub_total)s, %(total_amount)s, %(currency)s, %(total_tax_amount)s, %(tax_id)s, %(vat_pin)s, %(description)s, %(quantity)s, %(unit_price)s, %(subject)s, %(received_on)s, %(file_path)s, %(OCR_Confidence_Score)s, %(release_number)s, %(calculated_subtotal)s, %(subtotal_match)s, %(tax_amount_match)s, %(Matched_LPO_Description)s, %(Matched_GRN_Description)s, %(GRN_Similarity)s, %(Error_state)s, %(extracted_by)s, %(extraction_at)s, %(LPO_Similarity)s, %(LPO_UNIT_PRICE)s, %(LPO_QUANTITY)s, %(lpo_amnt_bfr_tax)s, %(Lpo_Tax_Amount)s, %(Total_after_tax)s, %(GRN_NO)s, %(GRN_QUANTITY)s, %(LPO_Subtotal)s)]
+[parameters: {'invoice_number': 'MA109185', 'date': '2024-07-05', 'cuin': 'P000594316O', 'vendor_name': 'Sanpac Africa Limited', 'vendor_address': 'P O Box 20496 - 00200 Nairobi, Kenya; P O Box 87025 - 80100 Mombasa, Kenya', 'vendor_contact': 'Tel: +254 (0)20 2112100/1/2/3, Cell: +254 (0)733 201 338, (0)722 201 338, (0)756 201 338, Email: sansales@sanpac.com', 'po_number': '24002984', 'delivery_note_number': '45556', 'sub_total': 316710.0, 'total_amount': 367383.6, 'currency': 'KES', 'total_tax_amount': 50673.6, 'tax_id': 'P000594316O', 'vat_pin': 'Not provided.', 'description': 'Round Jerrycan Yellow 20ltr 800gms', 'quantity': 1530, 'unit_price': 185.7, 'subject': 'Not Provided', 'received_on': 'Vendor Portal', 'file_path': 'C:\\Users\\hp\\Desktop\\pwani_finance_01-07-2025\\Invoices\\SANPAC MA109185_removed.pdf', 'OCR_Confidence_Score': 87.80842241547889, 'release_number': 1, 'calculated_subtotal': 284121.0, 'subtotal_match': 1, 'tax_amount_match': 1, 'Matched_LPO_Description': 'Jerry Can Plain 20LT (800GMS)', 'Matched_GRN_Description': 'Jerry Can Plain 20LT (800GMS)', 'GRN_Similarity': 0.91, 'Error_state': 'Line_Item, Tax_amount', 'extracted_by': None, 'extraction_at': None, 'LPO_Similarity': 0.91, 'LPO_UNIT_PRICE': 191.0, 'LPO_QUANTITY': None, 'lpo_amnt_bfr_tax': 53566979, 'Lpo_Tax_Amount': 10130716.64, 'Total_after_tax': 63697695.64, 'GRN_NO': '32408567', 'GRN_QUANTITY': None, 'LPO_Subtotal': 292230.0}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-07-18 13:55:58,095 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:56:16,601 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}

@@ -60,7 +60,7 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.))"},
                     {"type": "text", "text": "date (format YYYY-MM-DD), (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated)"},
                     {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
-                    {"type": "text", "text": "Vendor Name"},
+                    {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact)"},
                     {"type": "text", "text": "Vendor Address"},
                     {"type": "text", "text": "Vendor Contact (Phone/Email)"},
                     {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},

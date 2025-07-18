@@ -482,13 +482,15 @@ WHERE
             print(results)
             columns = [col[0] for col in cursor.description]
             print(columns)
-            print(df)
+            
             df = pd.DataFrame(results, columns=columns)
+            # print(df)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             # lpo_df = pd.concat([lpo_df, df], ignore_index=True)
         
             if lpo_df['ITEM_DESCRIPTION'].isna().any():
                 lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
+                
             
             rel_num=int(rel_num)
             po_type = df['PO_TYPE']

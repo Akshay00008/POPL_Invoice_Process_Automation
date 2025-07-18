@@ -307,3 +307,9 @@ Name: invoice_number, dtype: object
 2    MA109185
 Name: invoice_number, dtype: object
 2025-07-18 13:56:16,601 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-18 22:12:42,841 - INFO - Validated Invoice Data: 0    INV134727
+Name: invoice_number, dtype: object
+2025-07-18 22:12:58,459 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-18 22:13:25,251 - INFO - Validated Invoice Data: 0    INV134727
+Name: invoice_number, dtype: object
+2025-07-18 22:13:28,809 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}

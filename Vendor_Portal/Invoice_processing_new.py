@@ -94,6 +94,15 @@ def send_to_llm_single_page(pdf_path):
                         "vat_pin": "Not provided."
                     }
                     '''},
+                       {
+                "type": "text", "text": "Important Instructions for Number Extraction:"
+            },
+            {
+                "type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."
+            },
+            {
+                "type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."
+            },
                     {
                         "type": "image_url",
                         "image_url": {

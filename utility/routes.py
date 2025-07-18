@@ -30,11 +30,11 @@ task_queue = Queue()
 def process_task_from_queue():
     while True:
         # Get the task from the queue
-        file_path, rel_num, lpo_number = task_queue.get()
+        file_path, rel_num, lpo_number,cuin = task_queue.get()
         if file_path is None:  # Stop the worker thread if None is received
             break
         # Perform the processing
-        process_invoice_and_reconcile(file_path, rel_num, lpo_number)
+        process_invoice_and_reconcile(file_path, rel_num, lpo_number,cuin)
         task_queue.task_done()
 
 # Initialize a worker thread to handle the queue
@@ -42,10 +42,11 @@ worker_thread = Thread(target=process_task_from_queue)
 worker_thread.start()
 
 # Function to manage the OCR and reconciliation steps asynchronously
-def process_invoice_and_reconcile(file_path, rel_num, lpo_number):
+def process_invoice_and_reconcile(file_path, rel_num, lpo_number,cuin):
     lpo_number=lpo_number
+    cuin=cuin
     # Perform invoice processing and reconciliation
-    lpo_invoice_number = process_invoice_ocr(file_path, rel_num)
+    lpo_invoice_number = process_invoice_ocr(file_path, rel_num,cuin)
     if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
         return lpo_invoice_number
 
@@ -55,11 +56,11 @@ def process_invoice_and_reconcile(file_path, rel_num, lpo_number):
     return reconciliation_result
 
 # Helper function to process the invoice OCR
-def process_invoice_ocr(file_path,rel_num):
+def process_invoice_ocr(file_path,rel_num,cuin):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
-        result = fields_matching(file_path,rel_num)
+        result = fields_matching(file_path,rel_num,cuin)
         
         print("**********")
         print(result )
@@ -149,13 +150,14 @@ def invoice_trigger():
             file_path = invoice.get('invoice_image')
             rel_num = invoice.get('REL_NUM')
             lpo_number = invoice.get('lpo_number')
+            cuin=invoice.get('cuin')
 
             # Check if file_path is provided in the request
             if not file_path:
                 return jsonify({"error": "File path is required."}), 400
 
             # Add task to the queue for sequential processing
-            task_queue.put((file_path, rel_num,lpo_number))
+            task_queue.put((file_path, rel_num,lpo_number,cuin))
             # Optionally, you can send a response after each task is added.
         else:
             return jsonify({"error": f"Invalid submission type: {submission_type}"}), 400

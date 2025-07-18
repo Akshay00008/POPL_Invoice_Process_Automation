@@ -37,7 +37,7 @@ def normalize_field_name(field_name):
                     .replace('-', '_') \
                     .replace('__', '_')
 
-def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
+def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,cuin):
     # Extract common fields that will remain constant across all rows
 
     print("**********88888888***")
@@ -110,6 +110,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
 
     
     df['release_number'] = rel_num
+    df['cuin']=cuin
     df.drop(["delivery_note_number"],axis=1,inplace=True)
 
     # Check if any value is None or 0 and save to the database immediately
@@ -185,7 +186,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num):
     
 
 
-def fields_matching(file_path,rel_num,):
+def fields_matching(file_path,rel_num,cuin):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
@@ -195,7 +196,7 @@ def fields_matching(file_path,rel_num,):
         print(result)
         # print("fields_matching_result:", result)
         # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result,file_path,rel_num)
+        df = validate_and_convert_to_dataframe(result,file_path,rel_num,cuin)
         print(df)
 
         print("*********")

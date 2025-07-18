@@ -484,7 +484,10 @@ WHERE
             df = pd.DataFrame(results, columns=columns)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             # lpo_df = pd.concat([lpo_df, df], ignore_index=True)
-            lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
+            try:
+                lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
+            except :
+                lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             rel_num=int(rel_num)
             po_type = lpo_df['PO_TYPE']
             print(po_type)

@@ -487,11 +487,14 @@ WHERE
         
             if lpo_df['ITEM_DESCRIPTION'].isna().any():
                 lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
-            print("lpo_df:", lpo_df.columns)
+            
             rel_num=int(rel_num)
             po_type = lpo_df['PO_TYPE']
             print("po_type:",po_type)
+            
             po_type=po_type[0]
+
+            po_type = po_type.iloc[0] if not po_type.iloc[0].isnull() else 'STANDARD'
 
             if po_type == 'BLANKET' :
                   lpo_df=lpo_df.loc[lpo_df['RELEASE_NUM'].isin([rel_num])]

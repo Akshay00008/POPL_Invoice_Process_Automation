@@ -641,6 +641,10 @@ WHERE
             final_df = merged_df.merge(grn_df, on='Matched_GRN_Description', how='left')
             final_df.drop_duplicates(subset=['description'],keep='first',inplace=True)
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.80) & (final_df['GRN_Similarity'] > 0.80)]
+            final_df['lpo_amnt_bfr_tax'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
+            final_df['lpo_amnt_bfr_tax'] = final_df['lpo_amnt_bfr_tax'].sum()
+            final_df['Lpo_Tax_Amount'] = ((lpo_df['lpo_amnt_bfr_tax'] * 16 ) / 100)
+            lpo_df['Total_after_tax'] = lpo_df['lpo_amnt_bfr_tax'] + lpo_df['Lpo_Tax_Amount']
             final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.85) & (final_df['GRN_Similarity'] > 0.85)]
 

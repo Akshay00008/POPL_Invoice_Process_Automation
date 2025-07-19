@@ -313,3 +313,9 @@ Name: invoice_number, dtype: object
 2025-07-18 22:13:25,251 - INFO - Validated Invoice Data: 0    INV134727
 Name: invoice_number, dtype: object
 2025-07-18 22:13:28,809 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-19 14:17:24,138 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:17:24,140 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:24:22,361 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:24:22,362 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:26:02,265 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:26:02,266 - ERROR - Invoice processing failed at line 53 : 0

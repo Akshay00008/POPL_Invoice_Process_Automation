@@ -110,11 +110,12 @@ def send_to_llm_single_page(pdf_path):
         response = client.chat.completions.create(
             model="gpt-4.1-mini-2025-04-14",
             messages=messages,
-            max_tokens=1500
+            max_tokens=5000
         )
         log_time(start_time, "OpenAI API call")
 
         # Check and parse response
+        print("response :", response)
         if not response or not response.choices or not response.choices[0].message.content:
             return {"error": "No content returned from OpenAI"}
 

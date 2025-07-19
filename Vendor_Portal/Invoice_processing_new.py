@@ -10,12 +10,16 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
-# Retrieve OpenAI API Key from environment variables
-openai_api_key = os.getenv("OPENAI_API_KEY")
-
-
 # Load the OpenAI API key from environment variables
-openai_api_key = os.getenv("OPENAI_API_KEY")
+openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
+
+print("openai_api_key :", openai_api_key)
+# Check if the API key is loaded correctly
+if not openai_api_key:
+    print("OpenAI API key is not set. Please set it in the .env file.")
+    raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
+
+
 
 # Helper function to log time
 def log_time(start_time, process_name):
@@ -65,30 +69,27 @@ def send_to_llm_single_page(pdf_path):
                 "content": [
                     {"type": "text", "text": "Extract the following details from the invoice image."},
                     {"type": "text", "text": "Required fields:"},
-                    {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.))"},
-                    {"type": "text", "text": "date (format YYYY-MM-DD), (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated)"},
-                    {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
-                    {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
+                    {"type": "text", "text": "Invoice Number (may include special characters like /-.#)"},
+                    {"type": "text", "text": "Invoice Date (format YYYY-MM-DD)"},
+                    {"type": "text", "text": "CUIN (Invoice Number)"},
+                    {"type": "text", "text": "Vendor Name"},
                     {"type": "text", "text": "Vendor Address"},
                     {"type": "text", "text": "Vendor Contact (Phone/Email)"},
-                    {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},
+                    {"type": "text", "text": "PO Number (first 8 alphanumeric digits)"},
                     {"type": "text", "text": "Delivery Note/Challan Number"},
-                    {"type": "text", "text": "SubTotal (numeric value), (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )"},
-                    {"type": "text", "text": "Total Amount (numeric value),(aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT,) "},
+                    {"type": "text", "text": "SubTotal (numeric value)"},
+                    {"type": "text", "text": "Total Amount (numeric value)"},
                     {"type": "text", "text": "Currency (3-letter code, default KES if missing)"},
-                    {"type": "text", "text": "Total Tax Amount (numeric value), "},
-                    {"type": "text", "text": "Goods/Services Details "
-                    "(Goods/Services Details: List of objects with: - description: Exact item text "
-                    " - quantity: Numeric value (also referred to by aliases such as Quantity, Qty, QTY, QUANTITY). Ensure that numbers are extracted as they are written under columns name given in aliases and correspond to correct description This field accepts values corresponding to any of these aliases and should be interpreted correctly based on the provided input."
-                    "- unit_price: Numeric value (aliases : @ price, @price, Unit Price, unity price, Rate, rate) ) Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."},
-                    {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax)- rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
+                    {"type": "text", "text": "Total Tax Amount (numeric value)"},
+                    {"type": "text", "text": "Goods/Services Details (list with description, quantity, unit_price)"},
+                    {"type": "text", "text": "Tax Details (list with tax_type, rate, amount)"},
                     {"type": "text", "text": "Tax ID"},
                     {"type": "text", "text": "VAT PIN"},
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
                     {"type": "text", "text": '''
                     {
                         "invoice_number": "Not provided.",
-                        "date": "Not provided.",
+                        "invoice_date": "Not provided.",
                         "cuin": "Not provided.",
                         "vendor_name": "Not provided.",
                         "vendor_address": "Not provided.",
@@ -105,18 +106,6 @@ def send_to_llm_single_page(pdf_path):
                         "vat_pin": "Not provided."
                     }
                     '''},
-                       {
-                "type": "text", "text": "Important Instructions for Number Extraction:"
-            },
-            {
-               "type": "text", "text": "Donot use comma  , inplace of decimal . when extracting numbers" 
-            },
-            {
-                "type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."
-            },
-            {
-                "type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."
-            },
                     {
                         "type": "image_url",
                         "image_url": {

@@ -319,3 +319,17 @@ Name: invoice_number, dtype: object
 2025-07-19 14:24:22,362 - ERROR - Invoice processing failed at line 53 : 0
 2025-07-19 14:26:02,265 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
 2025-07-19 14:26:02,266 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:43:08,678 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:43:08,680 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:51:55,702 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:51:55,703 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:53:10,394 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:53:10,395 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:58:11,536 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:58:11,537 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:10:03,347 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:10:03,348 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:12:51,326 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:12:51,327 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:14:26,433 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:14:26,434 - ERROR - Invoice processing failed at line 53 : 0

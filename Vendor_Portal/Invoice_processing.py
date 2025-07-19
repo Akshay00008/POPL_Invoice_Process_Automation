@@ -42,7 +42,7 @@ def ocr_from_pdf(pdf_path):
         )
     except Exception as e:
         raise RuntimeError(f"PDF conversion failed: {e}") from e
-    
+
     if not pages:
         raise ValueError("PDF file is empty or could not be processed")
     

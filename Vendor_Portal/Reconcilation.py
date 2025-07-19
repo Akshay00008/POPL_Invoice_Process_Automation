@@ -620,7 +620,7 @@ WHERE
             # df_invoice.drop(['Unnamed: 0'],inplace=True)
             # df_invoice.to_excel("invoice_validation.xlsx")
 
-            lpo_df = lpo_df[['ITEM_DESCRIPTION', 'UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
+            lpo_df = lpo_df[['ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
             
             # Rename columns using the 'columns' keyword argument
@@ -655,7 +655,7 @@ WHERE
 
 
           
-            if final_df['po_type'].iloc[0] == 'STANDARD':
+            if final_df['PO_TYPE'].iloc[0] == 'STANDARD':
                 if not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
                     final_df['Error_state'] = "Line_Item"
                     print("661")

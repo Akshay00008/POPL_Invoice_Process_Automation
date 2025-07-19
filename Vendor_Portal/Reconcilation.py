@@ -653,9 +653,13 @@ WHERE
 
             erroe_state=[]
 
+            PO_Type=final_df['PO_TYPE'].iloc[0] 
 
+            print("PO_Type :", PO_Type)
+
+            final_df.drop(['PO_TYPE'],axis=1,inplace=True)
           
-            if final_df['PO_TYPE'].iloc[0] == 'STANDARD':
+            if PO_Type == 'STANDARD':
                 if not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
                     final_df['Error_state'] = "Line_Item"
                     print("661")

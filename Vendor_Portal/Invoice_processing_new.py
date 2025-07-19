@@ -1,62 +1,52 @@
 import base64
 import time
-import requests
-from openai import OpenAI
 import os
-from pdf2image import convert_from_path
-import json  # Import the json module for parsing
+import json
 from dotenv import load_dotenv
+from pdf2image import convert_from_path
+from openai import OpenAI  # Import OpenAI client
 
-# Load environment variables from the .env file
+# Load environment variables
 load_dotenv()
 
-# Load the OpenAI API key from environment variables
-openai_api_key = os.getenv("OPENAI_API_KEY")  # Use the key stored in .env
-
-print("openai_api_key :", openai_api_key)
-# Check if the API key is loaded correctly
+# Load OpenAI API key
+openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
-    print("OpenAI API key is not set. Please set it in the .env file.")
     raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
 
+# Initialize OpenAI client once
+client = OpenAI(api_key=openai_api_key)
 
-
-# Helper function to log time
+# Log duration helper
 def log_time(start_time, process_name):
     elapsed_time = time.time() - start_time
     print(f"{process_name} took {elapsed_time:.2f} seconds")
 
-# Function to convert PDF to image
+# Convert first page of PDF to image
 def convert_pdf_to_image(pdf_path):
-    # Convert the PDF to images
     images = convert_from_path(pdf_path)
-    # Save the first page as an image (you can modify this if needed to handle more pages)
     image_path = "converted_page.jpg"
     images[0].save(image_path, "JPEG")
     return image_path
 
-# Function to send invoice image to LLM for extraction
+# Function to send invoice to LLM
 def send_to_llm_single_page(pdf_path):
     try:
-        # If the file is a PDF, convert it to an image first
+        # Convert PDF to image if needed
         if pdf_path.lower().endswith(".pdf"):
             image_path = convert_pdf_to_image(pdf_path)
         else:
-            image_path = pdf_path  # If it's already an image, use it as is
+            image_path = pdf_path
 
-        # Load the image and convert it to base64
+        # Convert image to base64
         with open(image_path, "rb") as image_file:
             start_time = time.time()
             image_base64 = base64.b64encode(image_file.read()).decode("utf-8")
-            log_time(start_time, "image64")
+            log_time(start_time, "Image encoding")
 
-        # Initialize OpenAI client
-        client = OpenAI(api_key=openai_api_key)
-
-        # Make API call to OpenAI for extraction
-        response = client.chat.completions.create(
-            model='gpt-4.1-mini-2025-04-14',
-            messages=[{
+        # Prepare the chat message with the image
+        messages = [
+            {
                 "role": "system",
                 "content": (
                     "You are an invoice extraction assistant. Extract the requested fields from the invoice image "
@@ -68,7 +58,6 @@ def send_to_llm_single_page(pdf_path):
                 "role": "user",
                 "content": [
                     {"type": "text", "text": "Extract the following details from the invoice image."},
-                    {"type": "text", "text": "Required fields:"},
                     {"type": "text", "text": "Invoice Number (may include special characters like /-.#)"},
                     {"type": "text", "text": "Invoice Date (format YYYY-MM-DD)"},
                     {"type": "text", "text": "CUIN (Invoice Number)"},
@@ -87,24 +76,24 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "VAT PIN"},
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
                     {"type": "text", "text": '''
-                    {
-                        "invoice_number": "Not provided.",
-                        "invoice_date": "Not provided.",
-                        "cuin": "Not provided.",
-                        "vendor_name": "Not provided.",
-                        "vendor_address": "Not provided.",
-                        "vendor_contact": "Not provided.",
-                        "po_number": "Not provided.",
-                        "delivery_note_number": "Not provided.",
-                        "sub_total": 0.0,
-                        "total_amount": 0.0,
-                        "currency": "KES",
-                        "total_tax_amount": 0.0,
-                        "goods_services_details": [],
-                        "tax_details": [],
-                        "tax_id": "Not provided.",
-                        "vat_pin": "Not provided."
-                    }
+{
+    "invoice_number": "Not provided.",
+    "invoice_date": "Not provided.",
+    "cuin": "Not provided.",
+    "vendor_name": "Not provided.",
+    "vendor_address": "Not provided.",
+    "vendor_contact": "Not provided.",
+    "po_number": "Not provided.",
+    "delivery_note_number": "Not provided.",
+    "sub_total": 0.0,
+    "total_amount": 0.0,
+    "currency": "KES",
+    "total_tax_amount": 0.0,
+    "goods_services_details": [],
+    "tax_details": [],
+    "tax_id": "Not provided.",
+    "vat_pin": "Not provided."
+}
                     '''},
                     {
                         "type": "image_url",
@@ -113,27 +102,28 @@ def send_to_llm_single_page(pdf_path):
                         }
                     }
                 ]
-            }]
+            }
+        ]
+
+        # Call OpenAI API
+        start_time = time.time()
+        response = client.chat.completions.create(
+            model="gpt-4.1-mini-2025-04-14",
+            messages=messages,
+            max_tokens=1500
         )
+        log_time(start_time, "OpenAI API call")
 
-        # Log time taken for OpenAI request
-        log_time(start_time, "openai")
-
-        # Check for valid response
+        # Check and parse response
         if not response or not response.choices or not response.choices[0].message.content:
-            return {"error": "No content returned"}
+            return {"error": "No content returned from OpenAI"}
 
-        # Parse the response into a dictionary
-        response_content = response.choices[0].message.content.strip()
-        response_dict = json.loads(response_content)  # Convert the response to a dictionary
-
-        # Return the dictionary
-        return response_dict
+        content = response.choices[0].message.content.strip()
+        return json.loads(content)
 
     except Exception as e:
         return {"error": str(e)}
 
-# Example usage
-# pdf_path = "path_to_pdf.pdf"
-# extracted_data = send_to_llm_single_page(pdf_path)
-# print(extracted_data)
+# Example usage:
+# result = send_to_llm_single_page("path_to_invoice.pdf")
+# print(result)

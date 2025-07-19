@@ -29,13 +29,22 @@ task_queue = Queue()
 # Function to process each task from the queue
 def process_task_from_queue():
     while True:
-        # Get the task from the queue
-        file_path, rel_num, lpo_number,cuin = task_queue.get()
-        if file_path is None:  # Stop the worker thread if None is received
-            break
-        # Perform the processing
-        process_invoice_and_reconcile(file_path, rel_num, lpo_number,cuin)
-        task_queue.task_done()
+        try:
+            file_path, rel_num, lpo_number, cuin = task_queue.get()
+            if file_path is None:  # Stop the worker thread if None is received
+                break
+
+            try:
+                # Perform the processing
+                process_invoice_and_reconcile(file_path, rel_num, lpo_number, cuin)
+            except Exception as e:
+                print(f"Error processing task {file_path}: {e}")  # Log the error but continue
+
+            task_queue.task_done()
+
+        except Exception as queue_error:
+            print(f"Unexpected error in worker loop: {queue_error}")
+
 
 # Initialize a worker thread to handle the queue
 worker_thread = Thread(target=process_task_from_queue)

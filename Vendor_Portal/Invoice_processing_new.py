@@ -16,9 +16,7 @@ def log_time(start_time, process_name):
 
 # Function to convert PDF to image
 def convert_pdf_to_image(pdf_path):
-    # Convert the PDF to images
     images = convert_from_path(pdf_path)
-    # Save the first page as an image (you can modify this if needed to handle more pages)
     image_path = "converted_page.jpg"
     images[0].save(image_path, "JPEG")
     return image_path
@@ -26,22 +24,38 @@ def convert_pdf_to_image(pdf_path):
 # Function to send invoice image to LLM for extraction
 def send_to_llm_single_page(pdf_path):
     try:
-        # If the file is a PDF, convert it to an image first
         if pdf_path.lower().endswith(".pdf"):
             image_path = convert_pdf_to_image(pdf_path)
         else:
-            image_path = pdf_path  # If it's already an image, use it as is
+            image_path = pdf_path
 
-        # Load the image and convert it to base64
         with open(image_path, "rb") as image_file:
             start_time = time.time()
             image_base64 = base64.b64encode(image_file.read()).decode("utf-8")
             log_time(start_time, "image64")
 
-        # Initialize OpenAI client
+        # JSON response example to be passed safely as string
+        json_format = {
+            "invoice_number": "Not provided.",
+            "date": "Not provided.",
+            "cuin": "Not provided.",
+            "vendor_name": "Not provided.",
+            "vendor_address": "Not provided.",
+            "vendor_contact": "Not provided.",
+            "po_number": "Not provided.",
+            "delivery_note_number": "Not provided.",
+            "sub_total": 0.0,
+            "total_amount": 0.0,
+            "currency": "KES",
+            "total_tax_amount": 0.0,
+            "goods_services_details": [],
+            "tax_details": [],
+            "tax_id": "Not provided.",
+            "vat_pin": "Not provided."
+        }
+
         client = OpenAI(api_key=openai_api_key)
 
-        # Make API call to OpenAI for extraction
         response = client.chat.completions.create(
             model='gpt-4.1-mini-2025-04-14',
             messages=[{
@@ -74,38 +88,11 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "Tax ID"},
                     {"type": "text", "text": "VAT PIN"},
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
-                    {"type": "text", "text": '''
-                    {
-                        "invoice_number": "Not provided.",
-                        "date": "Not provided.",
-                        "cuin": "Not provided.",
-                        "vendor_name": "Not provided.",
-                        "vendor_address": "Not provided.",
-                        "vendor_contact": "Not provided.",
-                        "po_number": "Not provided.",
-                        "delivery_note_number": "Not provided.",
-                        "sub_total": 0.0,
-                        "total_amount": 0.0,
-                        "currency": "KES",
-                        "total_tax_amount": 0.0,
-                        "goods_services_details": [],
-                        "tax_details": [],
-                        "tax_id": "Not provided.",
-                        "vat_pin": "Not provided."
-                    }
-                    '''},
-                       {
-                "type": "text", "text": "Important Instructions for Number Extraction:"
-            },
-            {
-               "type": "text", "text": "Donot use comma  , inplace of decimal . when extracting numbers" 
-            },
-            {
-                "type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."
-            },
-            {
-                "type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."
-            },
+                    {"type": "text", "text": json.dumps(json_format)},
+                    {"type": "text", "text": "Important Instructions for Number Extraction:"},
+                    {"type": "text", "text": "Donot use comma  , inplace of decimal . when extracting numbers"},
+                    {"type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."},
+                    {"type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."},
                     {
                         "type": "image_url",
                         "image_url": {
@@ -116,24 +103,14 @@ def send_to_llm_single_page(pdf_path):
             }]
         )
 
-        # Log time taken for OpenAI request
         log_time(start_time, "openai")
 
-        # Check for valid response
         if not response or not response.choices or not response.choices[0].message.content:
             return {"error": "No content returned"}
 
-        # Parse the response into a dictionary
         response_content = response.choices[0].message.content.strip()
-        response_dict = json.loads(response_content)  # Convert the response to a dictionary
-
-        # Return the dictionary
+        response_dict = json.loads(response_content)
         return response_dict
 
     except Exception as e:
         return {"error": str(e)}
-
-# Example usage
-# pdf_path = "path_to_pdf.pdf"
-# extracted_data = send_to_llm_single_page(pdf_path)
-# print(extracted_data)

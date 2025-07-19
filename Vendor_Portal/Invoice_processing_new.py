@@ -69,8 +69,8 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "Total Amount (numeric value),(aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT,) "},
                     {"type": "text", "text": "Currency (3-letter code, default KES if missing)"},
                     {"type": "text", "text": "Total Tax Amount (numeric value), "},
-                    {"type": "text", "text": "Goods/Services Details (list with description, quantity, unit_price)"},
-                    {"type": "text", "text": "Tax Details (list with tax_type, rate, amount)"},
+                    {"type": "text", "text": "Goods/Services Details (Goods/Services Details: List of objects with: - description: Exact item text  - quantity: Numeric value (also referred to by aliases such as Quantity, Qty, QTY, QUANTITY). This field accepts values corresponding to any of these aliases and should be interpreted correctly based on the provided input.- unit_price: Numeric value (aliases : @ price, @price, Unit Price, unity price, Rate, rate) ) "},
+                    {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax)- rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
                     {"type": "text", "text": "Tax ID"},
                     {"type": "text", "text": "VAT PIN"},
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
@@ -96,6 +96,9 @@ def send_to_llm_single_page(pdf_path):
                     '''},
                        {
                 "type": "text", "text": "Important Instructions for Number Extraction:"
+            },
+            {
+               "type": "text", "text": "Donot use comma  , inplace of decimal . when extracting numbers" 
             },
             {
                 "type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."

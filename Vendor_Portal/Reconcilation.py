@@ -659,8 +659,8 @@ WHERE
 
             final_df.drop(['PO_TYPE'],axis=1,inplace=True)
           
-            if PO_Type == 'STANDARD':
-                if not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
+            
+            if not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
                     final_df['Error_state'] = "Line_Item"
                     print("661")
                     final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)

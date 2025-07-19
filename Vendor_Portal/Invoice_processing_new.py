@@ -1,52 +1,50 @@
 import base64
 import time
+import requests
+from openai import OpenAI
 import os
-import json
-from dotenv import load_dotenv
 from pdf2image import convert_from_path
-from openai import OpenAI  # Import OpenAI client
+import json  # Import the json module for parsing
 
-# Load environment variables
-load_dotenv()
-
-# Load OpenAI API key
+# Load the OpenAI API key from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
-if not openai_api_key:
-    raise ValueError("OpenAI API key is not set. Please set it in the .env file.")
 
-# Initialize OpenAI client once
-client = OpenAI(api_key=openai_api_key)
-
-# Log duration helper
+# Helper function to log time
 def log_time(start_time, process_name):
     elapsed_time = time.time() - start_time
     print(f"{process_name} took {elapsed_time:.2f} seconds")
 
-# Convert first page of PDF to image
+# Function to convert PDF to image
 def convert_pdf_to_image(pdf_path):
+    # Convert the PDF to images
     images = convert_from_path(pdf_path)
+    # Save the first page as an image (you can modify this if needed to handle more pages)
     image_path = "converted_page.jpg"
     images[0].save(image_path, "JPEG")
     return image_path
 
-# Function to send invoice to LLM
+# Function to send invoice image to LLM for extraction
 def send_to_llm_single_page(pdf_path):
     try:
-        # Convert PDF to image if needed
+        # If the file is a PDF, convert it to an image first
         if pdf_path.lower().endswith(".pdf"):
             image_path = convert_pdf_to_image(pdf_path)
         else:
-            image_path = pdf_path
+            image_path = pdf_path  # If it's already an image, use it as is
 
-        # Convert image to base64
+        # Load the image and convert it to base64
         with open(image_path, "rb") as image_file:
             start_time = time.time()
             image_base64 = base64.b64encode(image_file.read()).decode("utf-8")
-            log_time(start_time, "Image encoding")
+            log_time(start_time, "image64")
 
-        # Prepare the chat message with the image
-        messages = [
-            {
+        # Initialize OpenAI client
+        client = OpenAI(api_key=openai_api_key)
+
+        # Make API call to OpenAI for extraction
+        response = client.chat.completions.create(
+            model='gpt-4.1-mini-2025-04-14',
+            messages=[{
                 "role": "system",
                 "content": (
                     "You are an invoice extraction assistant. Extract the requested fields from the invoice image "
@@ -58,43 +56,59 @@ def send_to_llm_single_page(pdf_path):
                 "role": "user",
                 "content": [
                     {"type": "text", "text": "Extract the following details from the invoice image."},
-                    {"type": "text", "text": "Invoice Number (may include special characters like /-.#)"},
-                    {"type": "text", "text": "Invoice Date (format YYYY-MM-DD)"},
-                    {"type": "text", "text": "CUIN (Invoice Number)"},
-                    {"type": "text", "text": "Vendor Name"},
+                    {"type": "text", "text": "Required fields:"},
+                    {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.))"},
+                    {"type": "text", "text": "date (format YYYY-MM-DD), (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated)"},
+                    {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
+                    {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
                     {"type": "text", "text": "Vendor Address"},
                     {"type": "text", "text": "Vendor Contact (Phone/Email)"},
-                    {"type": "text", "text": "PO Number (first 8 alphanumeric digits)"},
+                    {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},
                     {"type": "text", "text": "Delivery Note/Challan Number"},
-                    {"type": "text", "text": "SubTotal (numeric value)"},
-                    {"type": "text", "text": "Total Amount (numeric value)"},
+                    {"type": "text", "text": "SubTotal (numeric value), (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )"},
+                    {"type": "text", "text": "Total Amount (numeric value),(aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT,) "},
                     {"type": "text", "text": "Currency (3-letter code, default KES if missing)"},
-                    {"type": "text", "text": "Total Tax Amount (numeric value)"},
-                    {"type": "text", "text": "Goods/Services Details (list with description, quantity, unit_price)"},
-                    {"type": "text", "text": "Tax Details (list with tax_type, rate, amount)"},
+                    {"type": "text", "text": "Total Tax Amount (numeric value), "},
+                    {"type": "text", "text": "Goods/Services Details "
+                    "(Goods/Services Details: List of objects with: - description: Exact item text "
+                    " - quantity: Numeric value (also referred to by aliases such as Quantity, Qty, QTY, QUANTITY). Ensure that numbers are extracted as they are written under columns name given in aliases and correspond to correct description This field accepts values corresponding to any of these aliases and should be interpreted correctly based on the provided input."
+                    "- unit_price: Numeric value (aliases : @ price, @price, Unit Price, unity price, Rate, rate) ) Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."},
+                    {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax)- rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
                     {"type": "text", "text": "Tax ID"},
                     {"type": "text", "text": "VAT PIN"},
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
                     {"type": "text", "text": '''
-{
-    "invoice_number": "Not provided.",
-    "invoice_date": "Not provided.",
-    "cuin": "Not provided.",
-    "vendor_name": "Not provided.",
-    "vendor_address": "Not provided.",
-    "vendor_contact": "Not provided.",
-    "po_number": "Not provided.",
-    "delivery_note_number": "Not provided.",
-    "sub_total": 0.0,
-    "total_amount": 0.0,
-    "currency": "KES",
-    "total_tax_amount": 0.0,
-    "goods_services_details": [],
-    "tax_details": [],
-    "tax_id": "Not provided.",
-    "vat_pin": "Not provided."
-}
+                    {
+                        "invoice_number": "Not provided.",
+                        "date": "Not provided.",
+                        "cuin": "Not provided.",
+                        "vendor_name": "Not provided.",
+                        "vendor_address": "Not provided.",
+                        "vendor_contact": "Not provided.",
+                        "po_number": "Not provided.",
+                        "delivery_note_number": "Not provided.",
+                        "sub_total": 0.0,
+                        "total_amount": 0.0,
+                        "currency": "KES",
+                        "total_tax_amount": 0.0,
+                        "goods_services_details": [],
+                        "tax_details": [],
+                        "tax_id": "Not provided.",
+                        "vat_pin": "Not provided."
+                    }
                     '''},
+                       {
+                "type": "text", "text": "Important Instructions for Number Extraction:"
+            },
+            {
+               "type": "text", "text": "Donot use comma  , inplace of decimal . when extracting numbers" 
+            },
+            {
+                "type": "text", "text": "1. Ensure that numbers are extracted as they are written. Do not confuse similar-looking characters. For example: '6' should not be interpreted as '5', '9' should not be interpreted as '0', '4' should not be interpreted as '1', etc."
+            },
+            {
+                "type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."
+            },
                     {
                         "type": "image_url",
                         "image_url": {
@@ -102,29 +116,28 @@ def send_to_llm_single_page(pdf_path):
                         }
                     }
                 ]
-            }
-        ]
-
-        # Call OpenAI API
-        start_time = time.time()
-        response = client.chat.completions.create(
-            model="gpt-4.1-mini-2025-04-14",
-            messages=messages,
-            max_tokens=5000
+            }]
         )
-        log_time(start_time, "OpenAI API call")
 
-        # Check and parse response
-        print("response :", response)
+        # Log time taken for OpenAI request
+        log_time(start_time, "openai")
+
+        # Check for valid response
         if not response or not response.choices or not response.choices[0].message.content:
-            return {"error": "No content returned from OpenAI"}
+            return {"error": "No content returned"}
 
+        # Parse the response into a dictionary
         content = response.choices[0].message.content.strip()
-        return json.loads(content)
+
+        # Fix JSON backslash error
+        safe_json_string = content.replace('\\', '\\\\')
+
+        return json.loads(safe_json_string)
 
     except Exception as e:
         return {"error": str(e)}
 
-# Example usage:
-# result = send_to_llm_single_page("path_to_invoice.pdf")
-# print(result)
+# Example usage
+# pdf_path = "path_to_pdf.pdf"
+# extracted_data = send_to_llm_single_page(pdf_path)
+# print(extracted_data)

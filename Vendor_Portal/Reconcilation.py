@@ -655,13 +655,20 @@ WHERE
 
 
           
-
-            if (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
+            if final_df['po_type'].iloc[0] == 'STANDARD':
+                if not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
+                    final_df['Error_state'] = "Line_Item"
+                    print("661")
+                    final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                    return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+            
+            
+            elif (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
                 
             
               # final_df['Error_state'].append = "Tax_amount"
                 print("451")
-                final_df['Error_state']="Line_Item, Tax_amount"
+                final_df['Error_state']="Tax_amount"
 
                 final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
@@ -671,15 +678,33 @@ WHERE
               # return df
                 return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
             
-            elif not (final_df['unit_price'] == final_df['LPO_UNIT_PRICE']).all():
-                final_df['Error_state'] = "Line_Item, Tax_amount"
-                print("648")
+            
+                
+            # elif not (final_df['lpo_amnt_bfr_tax'] ==  final_df['calculated_subtotal']).all():
+            #     final_df['Error_state'] = "Tax_amount"
+            #     final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+            #     return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+            
+            # elif not (final_df['total_tax_amount'] == final_df['Lpo_Tax_Amount']).all():
+            #     final_df['Error_state'] = "Tax_amount"
+            #     final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+            #     return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+            
+            # elif not (final_df['Total_after_tax'] == final_df['total_amount']).all():
+            #     final_df['Error_state'] = "Tax_amount"
+            #     final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+            #     return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+            
+            if not (
+                (final_df['lpo_amnt_bfr_tax'] == final_df['calculated_subtotal']).all() and
+                (final_df['total_tax_amount'] == final_df['Lpo_Tax_Amount']).all() and
+                (final_df['Total_after_tax'] == final_df['total_amount']).all()
+            ):
+                final_df['Error_state'] = "Tax_amount"
                 final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
-                return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
-            elif not (final_df['LPO_Subtotal'] ==  final_df['calculated_subtotal']).all():
-                final_df['Error_state'] = "Line_Item, Tax_amount"
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
-                return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+                return {"Message": "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
+
+
                   
             elif (df_invoice['LPO_Similarity'] < 0.75).any() :
                   

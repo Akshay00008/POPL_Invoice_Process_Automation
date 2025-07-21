@@ -350,7 +350,7 @@ class KRAInvoiceParser:
         return result
 
 
-async def main_qr(path):
+async def process_invoice_ocr_kra_portal(path):
     # 📥 Step 1: Extract QR codes from PDFs
     qr_data=extract_all_qr_codes(path)
    

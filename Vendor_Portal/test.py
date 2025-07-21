@@ -324,22 +324,22 @@ class KRAInvoiceParser:
         soup = BeautifulSoup(self.html, "html.parser")
         result = {
             "control_unit_invoice_number": None,
-            # "invoice_number": None,
-            # "invoice_date": None,
-            # "total_taxable_amount": None,
-            # "total_tax_amount": None,
-            # "total_invoice_amount": None,
-            # "supplier_name": None
+            "invoice_number": None,
+            "invoice_date": None,
+            "total_taxable_amount": None,
+            "total_tax_amount": None,
+            "total_invoice_amount": None,
+            "supplier_name": None
         }
 
         key_map = {
             "control unit invoice number": "control_unit_invoice_number",
-            # "trader system invoice no": "invoice_number",
-            # "invoice date": "invoice_date",
-            # "total taxable amount": "total_taxable_amount",
-            # "total tax amount": "total_tax_amount",
-            # "total invoice amount": "total_invoice_amount",
-            # "supplier name": "supplier_name"
+            "trader system invoice no": "invoice_number",
+            "invoice date": "invoice_date",
+            "total taxable amount": "total_taxable_amount",
+            "total tax amount": "total_tax_amount",
+            "total invoice amount": "total_invoice_amount",
+            "supplier name": "supplier_name"
         }
 
         tables = soup.find_all("table", {"width": "100%"})
@@ -384,6 +384,9 @@ async def process_invoice_ocr_kra_portal(path):
             # 📊 Step 3: Extract invoice details from HTML
             parser = KRAInvoiceParser(html)
             invoice_data = parser.extract_data()
+            
+            save_invoice_data_to_db(invoice_data)
+            
             invoice_data_updated[pdf_file] = {
             "invoice_data": invoice_data,
             "urls": urls

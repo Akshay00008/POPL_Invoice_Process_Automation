@@ -9,12 +9,12 @@ from bs4 import BeautifulSoup
 import nest_asyncio
 import cv2
 import pytesseract
+
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
 from skimage.filters import threshold_sauvola
 nest_asyncio.apply()
-
 
 
 
@@ -355,7 +355,7 @@ class KRAInvoiceParser:
         return result
 
 
-async def main_qr(path):
+async def process_invoice_ocr_kra_portal(path):
     # 📥 Step 1: Extract QR codes from PDFs
     qr_data=extract_all_qr_codes(path)
    

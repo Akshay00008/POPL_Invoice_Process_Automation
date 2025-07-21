@@ -487,7 +487,8 @@ WHERE
             # print(df)
             lpo_df = pd.concat([lpo_df, df], ignore_index=True)
             # lpo_df = pd.concat([lpo_df, df], ignore_index=True)
-        
+            lpo_df['PO_NUMBER'] = lpo_number
+            lpo_df['po_number'] = lpo_number
             if lpo_df['ITEM_DESCRIPTION'].isna().any():
                 lpo_df = lpo_df[lpo_df['ITEM_DESCRIPTION'].notna()]
                 
@@ -549,6 +550,7 @@ WHERE
                   df_invoice = pd.read_sql_query(query_2, engine)
                   df_invoice.drop(['LPO_UNIT_PRICE'  , 'LPO_QUANTITY', 'GRN_QUANTITY', 'GRN_NO' ], axis=1, inplace=True)   
             print("line 357 :", "df_invoice")
+            df_invoice.drop(['po_number'],axis=1,inplace=True)
             # df_invoice = pd.read_excel('invoice_data.xlsx')
             # df_invoice.drop(columns=['Unnamed: 0'],inplace=True)
             # model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -620,7 +622,7 @@ WHERE
             # df_invoice.drop(['Unnamed: 0'],inplace=True)
             # df_invoice.to_excel("invoice_validation.xlsx")
 
-            lpo_df = lpo_df[['ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
+            lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
             
             # Rename columns using the 'columns' keyword argument

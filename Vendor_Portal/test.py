@@ -9,15 +9,9 @@ from bs4 import BeautifulSoup
 import nest_asyncio
 import cv2
 import pytesseract
-
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
-
 from skimage.filters import threshold_sauvola
-nest_asyncio.apply()
-
-
-
 nest_asyncio.apply()
 
 # Load DB credentials
@@ -49,6 +43,7 @@ def save_invoice_data_to_db(invoice_data):
         print("✅ Data saved to database.")
     except Exception as e:
         print(f"❌ Error saving data: {e}")
+
 
 
 class QRCodeExtractor:
@@ -113,7 +108,7 @@ class QRCodePDFProcessor:
 
     def __init__(self, input_path, dpi_list=None):
         self.input_path = input_path
-        self.dpi_list = dpi_list if dpi_list else [400, 500, 600]
+        self.dpi_list = dpi_list if dpi_list else [400, 500, 600,700]
         self.qr_detector = cv2.QRCodeDetector()
         self.results = {}  # NEW: dictionary to store multiple QR codes per file
         if os.path.isfile(self.input_path) and self.input_path.lower().endswith('.pdf'):
@@ -216,7 +211,7 @@ class QRCodePDFProcessor:
                 # Brute force
                 print("   🔄 Trying brute-force rotation & scale...")
                 angles = list(range(0, 120, 15))
-                scales = [1.5, 2.0, 2.5, 3.0,3.5]
+                scales = [1.0,1.5, 2.0, 2.5, 3.0,3.5]
                 interpolation=cv2.INTER_CUBIC
 
                 for angle in angles:
@@ -355,7 +350,7 @@ class KRAInvoiceParser:
         return result
 
 
-async def process_invoice_ocr_kra_portal(path):
+async def main_qr(path):
     # 📥 Step 1: Extract QR codes from PDFs
     qr_data=extract_all_qr_codes(path)
    

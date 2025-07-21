@@ -45,7 +45,6 @@ def save_invoice_data_to_db(invoice_data):
         print(f"❌ Error saving data: {e}")
 
 
-
 class QRCodeExtractor:
     def __init__(self, input_path, dpi_list=None):
         self.input_path = input_path
@@ -241,15 +240,14 @@ class QRCodePDFProcessor:
         return self.results  # ⬅️ Return extracted QR data
 
 
-def detect_sanpac_by_ocr(pdf_path, dpi=500, line_limit=7):
+def detect_sanpac_by_ocr(pdf_path, dpi=500):
     try:
         image = convert_from_path(pdf_path, dpi=dpi)[0]
         gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
         text = pytesseract.image_to_string(gray)
         lines = text.splitlines()
 
-        for line in lines[:line_limit]:
-            print(line)
+        for line in lines:
             if "sanpac" in line.lower():
                 return True
     except Exception as e:
@@ -273,18 +271,35 @@ def extract_all_qr_codes(path):
         print(f"\n🔎 OCR Scanning first page of: {os.path.basename(pdf)}")
         is_sanpac = detect_sanpac_by_ocr(pdf)
 
+        qr_data = {}
+        # Try primary method based on OCR detection
         if is_sanpac:
             print(f"🔧 Detected 'SANPAC' by OCR → Using QRCodePDFProcessor for: {os.path.basename(pdf)}")
             qr_extractor = QRCodePDFProcessor(input_path=pdf)
             qr_data = qr_extractor.process()
+            
+            if not qr_data:  # Fallback to alternate method
+                print(f"⚠️ QRCodePDFProcessor failed. Trying fallback QRCodeExtractor...")
+                fallback_extractor = QRCodeExtractor(input_path=pdf)
+                qr_data = fallback_extractor.extract_qr_codes()
+
         else:
             print(f"🔧 Did not detect 'SANPAC' → Using QRCodeExtractor for: {os.path.basename(pdf)}")
             qr_extractor = QRCodeExtractor(input_path=pdf)
             qr_data = qr_extractor.extract_qr_codes()
 
-        results.update(qr_data)
+            if not qr_data:  # Fallback to alternate method
+                print(f"⚠️ QRCodeExtractor failed. Trying fallback QRCodePDFProcessor...")
+                fallback_extractor = QRCodePDFProcessor(input_path=pdf)
+                qr_data = fallback_extractor.process()
+
+        if qr_data:
+            results.update(qr_data)
+        else:
+            print(f"❌ No QR code found in: {os.path.basename(pdf)} after both attempts.")
 
     return results
+
 
 class WebPageScraper:
     def __init__(self, url):

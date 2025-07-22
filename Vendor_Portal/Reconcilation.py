@@ -626,7 +626,7 @@ WHERE
             grn_df['QUANTITY'] = grn_df['QUANTITY_RECEIVED']
 
             lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
-            grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY_RECEIVED','QUANTITY']]
+            grn_df = grn_df[['GRN_NO','ITEM_NAME','QUANTITY']]
 
             
             

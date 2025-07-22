@@ -43,7 +43,7 @@ def send_to_llm_single_page(pdf_path):
 
         # Make API call to OpenAI for extraction
         response = client.chat.completions.create(
-            model='gpt-4.1-mini-2025-04-14',
+            model='o4-mini-2025-04-16',
             messages=[{
                 "role": "system",
                 "content": (
@@ -57,7 +57,7 @@ def send_to_llm_single_page(pdf_path):
                 "content": [
                     {"type": "text", "text": "Extract the following details from the invoice image."},
                     {"type": "text", "text": "Required fields:"},
-                    {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.))"},
+                    {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.)), Invoice numbers may contain special characters or alphanumeric codes like 'INV-123/AB45'. Ensure that all characters in the invoice number are preserved exactly as they appear, including any dashes, slashes, or other symbols."} ,
                     {"type": "text", "text": "date (format YYYY-MM-DD), (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated)"},
                     {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
                     {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},

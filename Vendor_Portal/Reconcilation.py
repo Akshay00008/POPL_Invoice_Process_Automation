@@ -378,7 +378,8 @@ WHERE
          g.primary_uom_code uom,
          e.quantity,
          d.receipt_num,
-         h.subinventory
+         h.subinventory,
+         f.QUANTITY_RECEIVED
     FROM po_headers_all a,
          po_vendors b,
          po_vendor_sites_all c,
@@ -622,8 +623,12 @@ WHERE
             # df_invoice.drop(['Unnamed: 0'],inplace=True)
             # df_invoice.to_excel("invoice_validation.xlsx")
 
+            grn_df['QUANTITY'] = grn_df['QUANTITY_RECEIVED']
+
             lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
-            grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY']]
+            grn_df = grn_df[['GRN_NO','ITEM_NAME', 'QUANTITY_RECEIVED','QUANTITY']]
+
+            
             
             # Rename columns using the 'columns' keyword argument
             lpo_df['lpo_amnt_bfr_tax'] = lpo_df['ENCUMBERED_AMOUNT'].sum()

@@ -62,7 +62,7 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
                     {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
                     {"type": "text", "text": "Vendor Address"},
-                    {"type": "text", "text": "Vendor Contact (Phone/Email)"},
+                    {"type": "text", "text": "Vendor Contact (Phone/Email) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
                     {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},
                     {"type": "text", "text": "Delivery Note/Challan Number"},
                     {"type": "text", "text": "SubTotal (numeric value), (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )"},

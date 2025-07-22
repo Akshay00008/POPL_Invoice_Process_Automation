@@ -137,6 +137,9 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,c
     # Check if subtotal + tax amount matches the total amount
     df['tax_amount_match'] = (df['sub_total'] + df['total_tax_amount']) == df['total_amount']
 
+    df['total_tax_amount'] = df['calculated_subtotal'] * 0.16
+    df['total_amount']= df['total_tax_amount'] + df['calculated_subtotal']
+
     df.drop_duplicates(subset=['description'],keep='first',inplace=True)
     print("line number 116")
     

@@ -652,6 +652,9 @@ WHERE
             final_df['LPO_Subtotal'] = final_df['LPO_UNIT_PRICE'] * final_df['quantity']
             # final_df = final_df[(final_df['LPO_Similarity'] > 0.85) & (final_df['GRN_Similarity'] > 0.85)]
 
+            
+           
+
 
             erroe_state=[]
 

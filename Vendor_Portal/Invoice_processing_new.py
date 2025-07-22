@@ -72,7 +72,13 @@ def send_to_llm_single_page(pdf_path):
                     {"type": "text", "text": "Goods/Services Details "
                     "(Goods/Services Details: description: Exact item text as it appears. Ensure the correct extraction of the item description without altering or skipping any characters."
                     "quantity: Numeric value extracted from any of the following aliases: 'Quantity', 'Qty', 'QTY', 'QUANTITY'. This value can include decimals (e.g., 464.00) and should not be confused with unit price. Ensure that the correct number is extracted from the column names or labels provided in aliases, and make sure it corresponds accurately to the description. Avoid interpreting decimal values as unit prices. "
-                    "Unit Price: Numeric value extracted from any of the following aliases: '@ price', '@price', 'Unit Price', 'unit/price', 'UNIT/PRICE', 'Unit/Price', 'Unity Price', 'Rate', 'rate'. Ensure that the extracted unit price is accurate and matches the exact value, especially when dealing with digits like '4', '5', and '6'. Be cautious of similar-looking characters that might lead to errors (e.g., ensure that '475' is not mistakenly interpreted as '550', '6' is not confused with '5', '9' is not interpreted as '0', '4' is not interpreted as '1', etc.)."},
+                    "Unit Price: Numeric value extracted from any of the following aliases: '@ price', '@price', 'Unit Price', 'unit/price', 'UNIT/PRICE', 'Unit/Price', 'Unity Price', 'Rate', 'rate'. Ensure that the extracted value represents the actual unit price without any alterations. Pay particular attention to digit accuracy, especially when characters resemble each other (e.g., '4' vs. '5', '6' vs. '9', '0' vs. '9')."
+                    "Avoid confusion where similar-looking characters could lead to misinterpretation. For instance:"
+                    "'475' should not be mistaken for '550'."
+                    "'6' must not be confused with '5'."
+                    "'9' should not be read as '0'."
+                    "'4' should not be interpreted as '1'."
+                    "Ensure the extracted value is precise, reflecting the true unit price as written.."},
                     {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax Total VAT Amount in KSH) - rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
                     {"type": "text", "text": "Tax ID"},
                     {"type": "text", "text": "VAT PIN"},

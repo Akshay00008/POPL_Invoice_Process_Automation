@@ -1,12 +1,11 @@
 import base64
 import time
-import requests
-from openai import OpenAI
 import os
+import json
 from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
-import json  # Import the json module for parsing
+from openai import OpenAI
 
 # Load the OpenAI API key from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -27,7 +26,7 @@ def ocr_from_pdf(pdf_path):
             pdf_path, 
             dpi=300,
             # poppler_path=r"C:\Users\hp\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
-            poppler_path=r"/usr/bin"
+            poppler_path=r"/usr/bin"  # Adjust according to your setup
         )
     except Exception as e:
         raise RuntimeError(f"PDF conversion failed: {e}") from e
@@ -36,6 +35,7 @@ def ocr_from_pdf(pdf_path):
         raise ValueError("PDF file is empty or could not be processed")
     
     return "\n".join(pytesseract.image_to_string(page).strip() for page in pages)
+
 # Helper function to log time
 def log_time(start_time, process_name):
     elapsed_time = time.time() - start_time
@@ -43,15 +43,14 @@ def log_time(start_time, process_name):
 
 # Function to convert PDF to image
 def convert_pdf_to_image(pdf_path):
-    # Convert the PDF to images
+    """Convert PDF to an image"""
     images = convert_from_path(pdf_path)
-    # Save the first page as an image (you can modify this if needed to handle more pages)
     image_path = "converted_page.jpg"
     images[0].save(image_path, "JPEG")
     return image_path
 
 # Function to send invoice image to LLM for extraction
-def send_to_llm_single_page(pdf_path,text):
+def send_to_llm_single_page(pdf_path, text):
     try:
         # If the file is a PDF, convert it to an image first
         if pdf_path.lower().endswith(".pdf"):
@@ -71,7 +70,7 @@ def send_to_llm_single_page(pdf_path,text):
         # Make API call to OpenAI for extraction
         response = client.chat.completions.create(
             model='gpt-4.1-2025-04-14',
-           messages=[{
+            messages=[{
                 "role": "system",
                 "content": (
                     "You are an expert invoice extraction assistant. Your task is to extract specific fields from invoice images accurately. "
@@ -172,11 +171,11 @@ def send_to_llm_single_page(pdf_path,text):
 
     except Exception as e:
         return {"error": str(e)}
-    
+
 def process_file(filepath):
     """Process a file and return extracted invoice data"""
     if not os.path.exists(filepath):
-        print("File not found: {filepath}")
+        print(f"File not found: {filepath}")
         raise FileNotFoundError(f"File not found: {filepath}")
 
     ext = filepath.lower().split('.')[-1]
@@ -190,15 +189,13 @@ def process_file(filepath):
         
         print(f"Extracted {len(text)} characters from OCR")
 
-        return send_to_llm_single_page(filepath,text)
-
+        return send_to_llm_single_page(filepath, text)
 
     except Exception as e:
-            print(f"Error processing {filepath}: {str(e)}")
-            raise
-
+        print(f"Error processing {filepath}: {str(e)}")
+        raise
 
 # Example usage
 # pdf_path = "path_to_pdf.pdf"
-# extracted_data = send_to_llm_single_page(pdf_path)
+# extracted_data = process_file(pdf_path)
 # print(extracted_data)

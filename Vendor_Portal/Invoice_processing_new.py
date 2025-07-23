@@ -43,7 +43,7 @@ def send_to_llm_single_page(pdf_path):
 
         # Make API call to OpenAI for extraction
         response = client.chat.completions.create(
-            model='gpt-4o-mini-2024-07-18',
+            model='chatgpt-4o-latest',
             messages=[{
                 "role": "system",
                 "content": (

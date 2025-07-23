@@ -56,29 +56,49 @@ def send_to_llm_single_page(pdf_path):
                 "role": "user",
                 "content": [
                     {"type": "text", "text": "Extract the following details from the invoice image."},
+
                     {"type": "text", "text": "Required fields:"},
+
                     {"type": "text", "text": "Invoice Number (Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.)), Invoice numbers may contain special characters or alphanumeric codes like 'INV-123/AB45'. Ensure that all characters in the invoice number are preserved exactly as they appear, including any dashes, slashes, or other symbols."} ,
+
                     {"type": "text", "text": "date (format YYYY-MM-DD), (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated)"},
+
                     {"type": "text", "text": "CUIN (Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO))"},
+
                     {"type": "text", "text": "Vendor Name (This will never be PWANI or PWANI OIL PRODUCTS LTD or PWANI LTD or any other information related to PWANI details like address, Contact) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
+
                     {"type": "text", "text": "Vendor Address"},
+
                     {"type": "text", "text": "Vendor Contact (Phone/Email) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
+
                     {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},
+
+
                     {"type": "text", "text": "Delivery Note/Challan Number"},
+
                     {"type": "text", "text": "SubTotal (numeric value), (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )"},
+
                     {"type": "text", "text": "Total Amount (numeric value),(aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT, Taxable amount In KSH) "},
+
                     {"type": "text", "text": "Currency (3-letter code, default KES if missing)"},
+
                     {"type": "text", "text": "Total Tax Amount (numeric value), VAT Total, Total VAT Amount in KSH"},
-                    {"type": "text", "text": "Goods/Services Details "
-                    "(Goods/Services Details: description: Exact item text as it appears. Ensure the correct extraction of the item description without altering or skipping any characters."
-                     "-Quantity: Numeric value extracted from any of the following aliases: 'Quantity', 'Qty', 'QTY', 'QUANTITY'. Ensure that packaging details are not included in the quantity—only extract values corresponding to these aliases. The quantity may include decimals (e.g., 464.00 or 2990.3). Ensure that decimals are captured accurately (e.g., extract '2990.3' correctly and not as '2909'). Do not confuse quantity with unit price. Double-check that the extracted value aligns with the description provided in the column names or labels, and ensure it represents the quantity and not any other value, such as unit price."
+
+                    {"type": "text", "text": "(Goods/Services Details: "
+                    "description: Exact item text as it appears. Ensure the correct extraction of the item description without altering or skipping any characters."
+                    "-Quantity: Numeric value extracted from any of the following aliases: 'Quantity', 'Qty', 'QTY', 'QUANTITY'. Ensure that packaging details are not included in the quantity—only extract values corresponding to these aliases. The quantity may include decimals (e.g., 464.00 or 2990.3). Ensure that decimals are captured accurately (e.g., extract '2990.3' correctly and not as '2909'). Do not confuse quantity with unit price. Double-check that the extracted value aligns with the description provided in the column names or labels, and ensure it represents the quantity and not any other value, such as unit price."
                     "-Unit Price: Numeric value extracted from any of the following aliases: '@ price', '@price', 'Unit Price', 'unit/price', 'UNIT/PRICE', 'Unit/Price', 'Unity Price', 'Rate', 'rate'. Ensure that the extracted value represents the actual unit price without any alterations. Pay particular attention to digit accuracy, especially when characters resemble each other."
                     "Avoid confusion where similar-looking characters could lead to misinterpretation. For instance:"
                     "Ensure the extracted value is precise, reflecting the true unit price as written.."},
+
                     {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax Total VAT Amount in KSH) - rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
+                    
                     {"type": "text", "text": "Tax ID"},
+
                     {"type": "text", "text": "VAT PIN"},
+
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
+
                     {"type": "text", "text": '''
                     {
                         "invoice_number": "Not provided.",
@@ -112,10 +132,7 @@ def send_to_llm_single_page(pdf_path):
                 "type": "text", "text": "2. Do not replace or misinterpret alphanumeric characters. Ensure that numbers such as '24004078' are extracted as is, without modifying or truncating them."
             },
 
-            {
-                "type" : "text", "text" : "3. Invoices may be over written or misaligned please look into those invoices carefully for extracting the information and clearly interpreting the values you interpreting one incorrect value is dangerous please be accurate and clear"
-
-            },
+           
                     {
                         "type": "image_url",
                         "image_url": {

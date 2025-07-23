@@ -47,74 +47,59 @@ def send_to_llm_single_page(pdf_path):
             messages=[{
                 "role": "system",
                 "content": (
-                    "You are an invoice extraction assistant. Extract the requested fields from the invoice image "
-                    "and return the output ONLY in the exact following JSON structure. Do not add any commentary or explanation. "
-                    "All keys must be present, even if values are 'Not provided.' or 'Not explicitly listed.'"
+                    "You are an expert invoice extraction assistant. You help extract structured data from invoice images. "
+                    "Extract only the specific fields listed below from the invoice image and return the results as a JSON object." 
+                    "Do NOT include any comments, preamble, or additional explanation. If a value is missing or not visible, use 'Not provided.' for strings and 0.0 for numbers."
+                    "Do not infer or guess. ALL fields must be present in your response. "
+                    "Be very careful to preserve numbers, codes, and text exactly as shown - do not add, remove, or alter any characters. "
+                    "Follow the extraction rules, supported aliases, and output sample JSON."
                 )
             },
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Extract the following details from the invoice image."},
+                    {"type": "text", "text": "Extract these fields from the invoice image and return exactly as instructed:"},
 
                     {"type": "text", "text": "Required fields:"},
 
-                    {"type": "text", "text": '''Extract invoice fields from the text below with strict accuracy. Follow these guidelines:
-                        1. Preserve EXACT original formatting including special characters and case sensitivity
-                        2. Handle alternative field name variations (see mappings below)
-                        3. Return JSON with null for missing fields
+                    {"type": "text", "text": "invoice_number: Extract exactly as written, preserving any special characters (e.g., /-.#). Aliases: Invoice Number, Invoice NO."},
 
-                        Field Specifications:
-                        - Invoice Number: Extract exactly as shown (alphanumeric with possible special characters: /-.#) (aliases : Invoice Number, Invoice NO.) Please extract correct value donot get confused between 2,5,6,9,3 and 4 ,1
-                        - Date: Convert to YYYY-MM-DD format (aliases : Invoice Date , Invoice date, DATE, date, DATED,dated),
-                        - CUIN: Extract as written (usually alphanumeric) (aliases : @ KRA Inv. No. , CUIN, CU INVOICE NUMBER, CU INVOICE N, KRA Receipt NO, Number  beneath the QR Code starting with NO) 
-                        - Vendor Name: Full legal name (Be specific between L and l dont take it as i ,) you are reading all pack as salipack or ali pack please be correct.
-                        - Vendor Address: Multi-line format if available
-                        - Vendor Contact: Phone/email if available
-                        - PO Number: (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )
-                        - Delivery Note/Challan Number: Extract with original formatting
-                        - SubTotal: Numeric value only (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )
-                        - Total Amount: Numeric value only  (aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT,)
-                        - Currency: 3-letter code (default to KES if missing)
-                        - Total Tax Amount: Numeric value
-                        - Goods/Services Details: List of objects with:
-                        - description: Exact item text 
-                        - quantity: Numeric value (also referred to by aliases such as Quantity, Qty, QTY, QUANTITY). This field accepts values corresponding to any of these aliases and should be interpreted correctly based on the provided input.
-                        - unit_price: Numeric value (aliases : @ price, @price, Unit Price, unity price, Rate, rate) 
-                        - Tax Details: List of objects with:
-                        - tax_type: (e.g., VAT, GST, Sales Tax)
-                        - rate: Percentage (e.g., 16%)
-                        - amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT)
-                        - Tax ID: Government-issued tax identifier
-                        - vat pin: PIN on invoice
+                    {"type": "text", "text": "\ndate: Extract in YYYY-MM-DD format. Aliases: Invoice Date, DATE, DATED. If not found, return 'Not provided.'"},
 
-                        Special Handling Instructions:
+                    {"type": "text", "text": "\ncuin: As written, usually alphanumeric or under/near QR code. Aliases: @ KRA Inv. No., CUIN, CU INVOICE NUMBER, KRA Receipt NO, Number beneath QR code starting with NO"},
 
-                        Invoice Number:
-                        Invoice numbers may contain special characters or alphanumeric codes like "INV-123/AB45". Ensure that all characters in the invoice number are preserved exactly as they appear, including any dashes, slashes, or other symbols.
+                    {"type": "text", "text": "\nvendor_name: Extract vendor name from header, under/near logo. MUST NOT be any variant of 'PWANI' (e.g., PWANI, PWANI OIL PRODUCTS LTD, etc.)"
+                                                },
 
-                        PO Number:
-                        Purchase order (PO) numbers may be written in various formats, such as "LPO: 2345-XYZ". When processing these, extract only the alphanumeric portion of the PO number after "LPO:". For example, from "LPO: 2345-XYZ", extract "2345-XYZ".
+                    {"type": "text", "text": "\nvendor_address: Extract as is."},
 
-                        Amounts with Currency Symbols:
-                        When processing amounts with currency symbols like "KES 1,500.00", you should remove the currency symbol and extract only the numeric value. In this case, "KES 1,500.00" should be converted to the value 1500.0. If the amount includes commas, remove them, and ensure the value is in a float format.
+                    {"type": "text", "text": "Vendor Contact (Phone/Email) (Extract the vendor name from the invoice, which is located in the header of the document, specifically under or near the company logo.)"},
 
-                        Quantity:
-                        The quantity can sometimes be written with a comma or multiple decimal places. Here’s how to handle it:
-                        If the quantity appears as "1,488.00", treat it as 1488.
-                        If the quantity is written as "3.00000", treat it as 3 (ignore extra decimals).
-                        If the quantity is "60.00", treat it as 60.
-                        Essentially, remove any commas and round decimals where applicable, keeping the integer value as the quantity.
+                    {"type": "text", "text": "PO Number (first 8 alphanumeric digits), (aliases: LPO Number,L.P.O. No., PO No., Order Number, Purchase Order)(take only the first 8 numbers not anything else for example :24004078R7 PO number will be 24004078 )"},
 
-                        Unit Price:
-                        Unit prices can also be written in different formats, such as:
-                        "2,400.00" → This should be treated as 2400.
-                        "8.00000" → This should be treated as 8.
-                        "196.50000" → This should be treated as 196.5.
-                        if none the it should be treated as 0
-                        Remove commas, and convert the value to a float, ensuring only significant digits are included (i.e., no unnecessary decimal places).'''}
 
-,
+                    {"type": "text", "text": "Delivery Note/Challan Number"},
+
+                    {"type": "text", "text": "SubTotal (numeric value), (aliases : sub total , SUB TOTAL, Amount,Total Net Value, @price, )"},
+
+                    {"type": "text", "text": "Total Amount (numeric value),(aliases  : TOTAL, TOTAL(Incl), TOTAL AMOUNT, Taxable amount In KSH) "},
+
+                    {"type": "text", "text": "Currency (3-letter code, default KES if missing)"},
+
+                    {"type": "text", "text": "Total Tax Amount (numeric value), VAT Total, Total VAT Amount in KSH"},
+
+                    {"type": "text", "text": "(Goods/Services Details: "
+                    "goods_services_details: List each item with:"
+                    "\n  - description: Exact item description as on invoice; do not alter or skip characters."
+                    "\n  - quantity: Numeric, including decimals (e.g., 464.00). Do not include packaging info. Aliases: Quantity, Qty, QTY, QUANTITY."
+                    "\n  - unit_price: Numeric. Aliases: @ price, @price, Unit Price, unit/price, Unity Price, Rate, rate."
+                    },
+
+                    {"type": "text", "text": "Tax Details (List of objects with: - tax_type: (e.g., VAT, GST, Sales Tax Total VAT Amount in KSH) - rate: Percentage (e.g., 16%)- amount: Numeric VAlue only (aliases : VAT, VAT AMOUNT, V.A.T,VALUE ADDED TAX, VAT@, OUTPUT VAT))"},
+                    
+                    {"type": "text", "text": "Tax ID"},
+
+                    {"type": "text", "text": "VAT PIN"},
 
                     {"type": "text", "text": "Return the response exactly in this JSON format:"},
 

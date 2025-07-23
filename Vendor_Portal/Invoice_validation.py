@@ -1,10 +1,10 @@
 import pandas as pd
-from Vendor_Portal.Invoice_processing import process_file
+# from Vendor_Portal.Invoice_processing import process_file
 from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 import numpy as np
-from Vendor_Portal.Invoice_processing_new import send_to_llm_single_page
+from Vendor_Portal.Invoice_processing_new import process_file
 
 # Load environment variables from .env
 load_dotenv()
@@ -193,7 +193,7 @@ def fields_matching(file_path,rel_num,cuin):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
-        result = send_to_llm_single_page(file_path)
+        result = process_file(file_path)
         
         print("136")
         print(result)

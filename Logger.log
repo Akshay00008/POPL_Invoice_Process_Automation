@@ -1,0 +1,387 @@
+2025-06-18 13:01:05,617 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:01:05,617 [33mPress CTRL+C to quit[0m
+2025-06-18 13:01:05,622  * Restarting with stat
+2025-06-18 13:01:08,386  * Debugger is active!
+2025-06-18 13:01:08,393  * Debugger PIN: 534-669-484
+2025-06-18 13:02:06,986 127.0.0.1 - - [18/Jun/2025 13:02:06] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:05:33,900  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:05:34,095  * Restarting with stat
+2025-06-18 13:05:37,016  * Debugger is active!
+2025-06-18 13:05:37,021  * Debugger PIN: 534-669-484
+2025-06-18 13:05:59,332 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://169.254.210.253:5001
+2025-06-18 13:05:59,332 [33mPress CTRL+C to quit[0m
+2025-06-18 13:05:59,337  * Restarting with stat
+2025-06-18 13:06:01,714  * Debugger is active!
+2025-06-18 13:06:01,720  * Debugger PIN: 534-669-484
+2025-06-18 13:06:32,635 Retrying request to /chat/completions in 0.412600 seconds
+2025-06-18 13:06:45,109 Retrying request to /chat/completions in 0.958528 seconds
+2025-06-18 13:06:58,138 127.0.0.1 - - [18/Jun/2025 13:06:58] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:11:18,136  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:11:18,333  * Restarting with stat
+2025-06-18 13:11:21,286  * Debugger is active!
+2025-06-18 13:11:21,294  * Debugger PIN: 534-669-484
+2025-06-18 13:12:01,985  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:12:02,175  * Restarting with stat
+2025-06-18 13:12:04,549  * Debugger is active!
+2025-06-18 13:12:04,554  * Debugger PIN: 534-669-484
+2025-06-18 13:12:24,881 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:12:24,882 [33mPress CTRL+C to quit[0m
+2025-06-18 13:12:24,886  * Restarting with stat
+2025-06-18 13:12:26,941  * Debugger is active!
+2025-06-18 13:12:26,948  * Debugger PIN: 534-669-484
+2025-06-18 13:12:55,185 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-18 13:12:55,212 127.0.0.1 - - [18/Jun/2025 13:12:55] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:13:57,607  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:13:57,806  * Restarting with stat
+2025-06-18 13:14:00,267  * Debugger is active!
+2025-06-18 13:14:00,273  * Debugger PIN: 534-669-484
+2025-06-18 13:14:21,608 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:14:21,644 127.0.0.1 - - [18/Jun/2025 13:14:21] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:15:25,012 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:15:25,012 [33mPress CTRL+C to quit[0m
+2025-06-18 13:15:25,016  * Restarting with stat
+2025-06-18 13:15:27,257  * Debugger is active!
+2025-06-18 13:15:27,263  * Debugger PIN: 534-669-484
+2025-06-18 13:15:45,553 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:15:45,607 127.0.0.1 - - [18/Jun/2025 13:15:45] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:37:58,475  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:37:58,663  * Restarting with stat
+2025-06-18 13:38:56,787 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:38:56,787 [33mPress CTRL+C to quit[0m
+2025-06-18 13:38:56,790  * Restarting with stat
+2025-06-18 13:38:58,569  * Debugger is active!
+2025-06-18 13:38:58,573  * Debugger PIN: 534-669-484
+2025-06-18 13:40:17,452 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:40:17,904 127.0.0.1 - - [18/Jun/2025 13:40:17] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:42:45,114  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_validation.py', reloading
+2025-06-18 13:42:45,314  * Restarting with stat
+2025-06-18 13:42:46,972  * Debugger is active!
+2025-06-18 13:42:46,976  * Debugger PIN: 534-669-484
+2025-06-18 13:43:15,557 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:43:15,869 127.0.0.1 - - [18/Jun/2025 13:43:15] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:45:19,800  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_validation.py', reloading
+2025-06-18 13:45:19,986  * Restarting with stat
+2025-06-18 13:45:21,751  * Debugger is active!
+2025-06-18 13:45:21,756  * Debugger PIN: 534-669-484
+2025-06-18 13:46:17,402  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Invoice_processing.py', reloading
+2025-06-18 13:46:17,550  * Restarting with stat
+2025-06-18 13:46:19,230  * Debugger is active!
+2025-06-18 13:46:19,235  * Debugger PIN: 534-669-484
+2025-06-18 13:46:40,880 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 13:46:40,880 [33mPress CTRL+C to quit[0m
+2025-06-18 13:46:40,885  * Restarting with stat
+2025-06-18 13:46:42,508  * Debugger is active!
+2025-06-18 13:46:42,512  * Debugger PIN: 534-669-484
+2025-06-18 13:47:08,743 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 13:47:09,044 127.0.0.1 - - [18/Jun/2025 13:47:09] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 500 -
+2025-06-18 13:49:16,308  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\LPO_&_GRN.py', reloading
+2025-06-18 13:49:16,499  * Restarting with stat
+2025-06-18 13:49:18,183  * Debugger is active!
+2025-06-18 13:49:18,189  * Debugger PIN: 534-669-484
+2025-06-18 13:50:26,162  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:50:26,301  * Restarting with stat
+2025-06-18 13:50:28,002  * Debugger is active!
+2025-06-18 13:50:28,007  * Debugger PIN: 534-669-484
+2025-06-18 13:50:44,832  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:50:44,971  * Restarting with stat
+2025-06-18 13:50:46,483  * Debugger is active!
+2025-06-18 13:50:46,488  * Debugger PIN: 534-669-484
+2025-06-18 13:52:11,925  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:52:12,058  * Restarting with stat
+2025-06-18 13:52:13,575  * Debugger is active!
+2025-06-18 13:52:13,579  * Debugger PIN: 534-669-484
+2025-06-18 13:52:25,962  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:52:26,101  * Restarting with stat
+2025-06-18 13:52:27,990  * Debugger is active!
+2025-06-18 13:52:27,997  * Debugger PIN: 534-669-484
+2025-06-18 13:53:15,296  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\Vendor_Portal\\Reconcilation.py', reloading
+2025-06-18 13:53:15,463  * Restarting with stat
+2025-06-18 13:53:17,276  * Debugger is active!
+2025-06-18 13:53:17,280  * Debugger PIN: 534-669-484
+2025-06-18 13:58:15,632  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\routes.py', reloading
+2025-06-18 13:58:15,781  * Restarting with stat
+2025-06-18 14:01:26,712 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.204:5001
+2025-06-18 14:01:26,712 [33mPress CTRL+C to quit[0m
+2025-06-18 14:01:26,717  * Restarting with stat
+2025-06-18 14:01:34,332  * Debugger is active!
+2025-06-18 14:01:34,338  * Debugger PIN: 534-669-484
+2025-06-18 14:01:34,505 127.0.0.1 - - [18/Jun/2025 14:01:34] "[35m[1mPOST /invoice_processing HTTP/1.1[0m" 202 -
+2025-06-18 14:01:48,936 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-18 14:05:58,705  * Detected change in 'C:\\Users\\hp\\Desktop\\FINANCE_20-05-2025\\utility\\logger_file.py', reloading
+2025-06-18 14:05:59,514  * Restarting with stat
+2025-06-18 14:09:34,401  * Restarting with stat
+2025-07-09 15:28:48,698 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:32:31,565 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:34:39,518 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:36:21,089 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:37:16,285 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:39:13,905 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:40:35,306 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:54:39,071 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 15:55:35,778 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 16:01:00,248 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 16:01:43,990 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 16:03:50,129 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 16:04:28,864 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 16:04:42,129 - ERROR - Reconciliation failed: Error code: 400 - {'error': {'message': "'$.input' is invalid. Please check the API reference: https://platform.openai.com/docs/api-reference.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-09 16:06:07,110 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 16:06:17,139 - ERROR - Reconciliation failed: Error code: 400 - {'error': {'message': "'$.input' is invalid. Please check the API reference: https://platform.openai.com/docs/api-reference.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-09 17:35:44,338 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:35:48,639 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 17:41:21,329 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:41:32,060 - ERROR - Reconciliation failed: 'DESCRIPTION'
+2025-07-09 17:45:36,273 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 17:45:54,689 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 18:28:31,423 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 18:28:50,315 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 19:21:41,058 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:21:44,639 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 19:35:41,927 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:43:57,779 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:48:20,964 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-09 19:51:09,574 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:51:13,992 - ERROR - Reconciliation failed: 'RELEASE_NUM'
+2025-07-09 19:55:07,334 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 19:55:11,516 - ERROR - Reconciliation failed: 'RELEASE_NUM'
+2025-07-09 20:10:50,052 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:10:53,521 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 20:13:59,704 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:14:03,946 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 20:15:07,657 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:21:40,088 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:26:18,648 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:28:52,518 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:29:51,494 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:31:32,379 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:39:49,446 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:41:01,638 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:42:24,247 - ERROR - Reconciliation failed: "['LPO_UNIT_PRICE_x', 'LPO_QUANTITY_x', 'GRN_QUANTITY_x', 'GRN_NO_x'] not found in axis"
+2025-07-09 20:44:12,446 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:44:16,854 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-09 20:47:21,426 - INFO - Validated Invoice Data: 0    24003596
+Name: po_number, dtype: object
+2025-07-09 20:47:39,191 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-09 20:48:17,108 - INFO - Validated Invoice Data: 0    24002984
+1    24002984
+2    24002984
+Name: po_number, dtype: object
+2025-07-09 20:48:30,889 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-11 14:22:52,544 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-11 17:26:03,951 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-14 16:47:07,097 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-14 16:47:25,406 - ERROR - Invoice processing failed at line 53 : not enough values to unpack (expected 2, got 1)
+2025-07-14 16:48:00,339 - INFO - Validated Invoice Data: 0    24004482
+Name: po_number, dtype: object
+2025-07-14 16:48:07,531 - INFO - Reconciliation result: {'message': 'Lpo_details Found , GRN details not found'}
+2025-07-14 16:48:23,022 - INFO - Validated Invoice Data: 0    24004078
+1    24004078
+Name: po_number, dtype: object
+2025-07-14 16:48:46,020 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:06:36,433 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:07:06,945 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:07:21,235 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:07:35,111 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:46:01,473 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:46:22,499 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-17 14:46:42,158 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-17 14:46:56,152 - INFO - Reconciliation result: {'Message': 'Data Saved to saved page'}
+2025-07-18 12:50:05,244 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:50:05,245 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:50:49,494 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:50:49,494 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:52:34,059 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:52:34,059 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:55:05,425 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:55:05,425 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:56:38,404 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:56:38,405 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 12:59:01,428 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 12:59:01,429 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:01:59,500 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:01:59,501 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:06:11,786 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:06:11,787 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:10:17,374 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:10:17,374 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:15:49,292 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:15:49,292 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:21:30,606 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:21:30,607 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:35:52,760 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:36:12,470 - ERROR - Reconciliation failed: (pymysql.err.OperationalError) (1054, "Unknown column 'invoice_date' in 'field list'")
+[SQL: INSERT INTO reconciliation_data (invoice_number, invoice_date, cuin, vendor_name, vendor_address, vendor_contact, po_number, delivery_note_number, sub_total, total_amount, currency, total_tax_amount, tax_id, vat_pin, description, quantity, unit_price, subject, received_on, file_path, `OCR_Confidence_Score`, release_number, calculated_subtotal, subtotal_match, tax_amount_match, `Matched_LPO_Description`, `Matched_GRN_Description`, `GRN_Similarity`, `Error_state`, extracted_by, extraction_at, `LPO_Similarity`, `LPO_UNIT_PRICE`, `LPO_QUANTITY`, lpo_amnt_bfr_tax, `Lpo_Tax_Amount`, `Total_after_tax`, `GRN_NO`, `GRN_QUANTITY`, `LPO_Subtotal`) VALUES (%(invoice_number)s, %(invoice_date)s, %(cuin)s, %(vendor_name)s, %(vendor_address)s, %(vendor_contact)s, %(po_number)s, %(delivery_note_number)s, %(sub_total)s, %(total_amount)s, %(currency)s, %(total_tax_amount)s, %(tax_id)s, %(vat_pin)s, %(description)s, %(quantity)s, %(unit_price)s, %(subject)s, %(received_on)s, %(file_path)s, %(OCR_Confidence_Score)s, %(release_number)s, %(calculated_subtotal)s, %(subtotal_match)s, %(tax_amount_match)s, %(Matched_LPO_Description)s, %(Matched_GRN_Description)s, %(GRN_Similarity)s, %(Error_state)s, %(extracted_by)s, %(extraction_at)s, %(LPO_Similarity)s, %(LPO_UNIT_PRICE)s, %(LPO_QUANTITY)s, %(lpo_amnt_bfr_tax)s, %(Lpo_Tax_Amount)s, %(Total_after_tax)s, %(GRN_NO)s, %(GRN_QUANTITY)s, %(LPO_Subtotal)s)]
+[parameters: {'invoice_number': 'MA109185', 'invoice_date': '2024-07-05', 'cuin': 'MA109185', 'vendor_name': 'SANPAC Africa Limited', 'vendor_address': 'P O Box 20496 - 00200 Nairobi, Kenya; P O Box 87025 - 80100 Mombasa, Kenya', 'vendor_contact': 'Tel: +254 (0)20 2112100/1/2/3, Cell: +254 (0)733 201 338, (0)722 201 338, (0)756 201 338, Email: sansales@sanpac.com', 'po_number': '24002984', 'delivery_note_number': '45556', 'sub_total': 316710.0, 'total_amount': 367383.6, 'currency': 'KES', 'total_tax_amount': 50673.6, 'tax_id': 'P000594316O', 'vat_pin': 'P051092185B', 'description': 'Round Jerrycan Yellow 20ltr 800gms', 'quantity': 1530, 'unit_price': 185.7, 'subject': 'Not Provided', 'received_on': 'Vendor Portal', 'file_path': 'C:\\Users\\hp\\Desktop\\pwani_finance_01-07-2025\\Invoices\\SANPAC MA109185_removed.pdf', 'OCR_Confidence_Score': 78.76839509755335, 'release_number': 1, 'calculated_subtotal': 284121.0, 'subtotal_match': 1, 'tax_amount_match': 1, 'Matched_LPO_Description': 'Jerry Can Plain 20LT (800GMS)', 'Matched_GRN_Description': 'Jerry Can Plain 20LT (800GMS)', 'GRN_Similarity': 0.91, 'Error_state': 'Line_Item, Tax_amount', 'extracted_by': None, 'extraction_at': None, 'LPO_Similarity': 0.91, 'LPO_UNIT_PRICE': 191.0, 'LPO_QUANTITY': None, 'lpo_amnt_bfr_tax': 53566979, 'Lpo_Tax_Amount': 10130716.64, 'Total_after_tax': 63697695.64, 'GRN_NO': '32409037', 'GRN_QUANTITY': None, 'LPO_Subtotal': 292230.0}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-07-18 13:39:40,488 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-18 13:39:40,488 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-18 13:45:15,440 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:45:31,225 - ERROR - Reconciliation failed: (pymysql.err.OperationalError) (1054, "Unknown column 'delivery_note_number' in 'field list'")
+[SQL: INSERT INTO reconciliation_data (invoice_number, date, cuin, vendor_name, vendor_address, vendor_contact, po_number, delivery_note_number, sub_total, total_amount, currency, total_tax_amount, tax_id, vat_pin, description, quantity, unit_price, subject, received_on, file_path, `OCR_Confidence_Score`, release_number, calculated_subtotal, subtotal_match, tax_amount_match, `Matched_LPO_Description`, `Matched_GRN_Description`, `GRN_Similarity`, `Error_state`, extracted_by, extraction_at, `LPO_Similarity`, `LPO_UNIT_PRICE`, `LPO_QUANTITY`, lpo_amnt_bfr_tax, `Lpo_Tax_Amount`, `Total_after_tax`, `GRN_NO`, `GRN_QUANTITY`, `LPO_Subtotal`) VALUES (%(invoice_number)s, %(date)s, %(cuin)s, %(vendor_name)s, %(vendor_address)s, %(vendor_contact)s, %(po_number)s, %(delivery_note_number)s, %(sub_total)s, %(total_amount)s, %(currency)s, %(total_tax_amount)s, %(tax_id)s, %(vat_pin)s, %(description)s, %(quantity)s, %(unit_price)s, %(subject)s, %(received_on)s, %(file_path)s, %(OCR_Confidence_Score)s, %(release_number)s, %(calculated_subtotal)s, %(subtotal_match)s, %(tax_amount_match)s, %(Matched_LPO_Description)s, %(Matched_GRN_Description)s, %(GRN_Similarity)s, %(Error_state)s, %(extracted_by)s, %(extraction_at)s, %(LPO_Similarity)s, %(LPO_UNIT_PRICE)s, %(LPO_QUANTITY)s, %(lpo_amnt_bfr_tax)s, %(Lpo_Tax_Amount)s, %(Total_after_tax)s, %(GRN_NO)s, %(GRN_QUANTITY)s, %(LPO_Subtotal)s)]
+[parameters: {'invoice_number': 'MA109185', 'date': '2024-07-05', 'cuin': 'P000594316O', 'vendor_name': 'Sanpac Africa Limited', 'vendor_address': 'P O Box 20496 - 00200 Nairobi, Kenya; P O Box 87025 - 80100 Mombasa, Kenya', 'vendor_contact': 'Tel: +254 (0)20 2112100/1/2/3, Cell: +254 (0)733 201 338, (0)722 201 338, (0)756 201 338, Email: sansales@sanpac.com', 'po_number': '24002984', 'delivery_note_number': '45556', 'sub_total': 316710.0, 'total_amount': 367383.6, 'currency': 'KES', 'total_tax_amount': 50673.6, 'tax_id': 'P000594316O', 'vat_pin': 'Not provided.', 'description': 'Round Jerrycan Yellow 20ltr 800gms', 'quantity': 1530, 'unit_price': 185.7, 'subject': 'Not Provided', 'received_on': 'Vendor Portal', 'file_path': 'C:\\Users\\hp\\Desktop\\pwani_finance_01-07-2025\\Invoices\\SANPAC MA109185_removed.pdf', 'OCR_Confidence_Score': 87.80842241547889, 'release_number': 1, 'calculated_subtotal': 284121.0, 'subtotal_match': 1, 'tax_amount_match': 1, 'Matched_LPO_Description': 'Jerry Can Plain 20LT (800GMS)', 'Matched_GRN_Description': 'Jerry Can Plain 20LT (800GMS)', 'GRN_Similarity': 0.91, 'Error_state': 'Line_Item, Tax_amount', 'extracted_by': None, 'extraction_at': None, 'LPO_Similarity': 0.91, 'LPO_UNIT_PRICE': 191.0, 'LPO_QUANTITY': None, 'lpo_amnt_bfr_tax': 53566979, 'Lpo_Tax_Amount': 10130716.64, 'Total_after_tax': 63697695.64, 'GRN_NO': '32408567', 'GRN_QUANTITY': None, 'LPO_Subtotal': 292230.0}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-07-18 13:55:58,095 - INFO - Validated Invoice Data: 0    MA109185
+1    MA109185
+2    MA109185
+Name: invoice_number, dtype: object
+2025-07-18 13:56:16,601 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-18 22:12:42,841 - INFO - Validated Invoice Data: 0    INV134727
+Name: invoice_number, dtype: object
+2025-07-18 22:12:58,459 - INFO - Reconciliation result: {'Message': 'Data Saved to Reconcillateion stage mismatch in subtotal and tax amount'}
+2025-07-18 22:13:25,251 - INFO - Validated Invoice Data: 0    INV134727
+Name: invoice_number, dtype: object
+2025-07-18 22:13:28,809 - INFO - Reconciliation result: {'message': 'LPO and GRN details not found'}
+2025-07-19 14:17:24,138 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:17:24,140 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:24:22,361 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:24:22,362 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:26:02,265 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:26:02,266 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:43:08,678 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:43:08,680 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:51:55,702 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:51:55,703 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:53:10,394 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:53:10,395 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 14:58:11,536 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 14:58:11,537 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:10:03,347 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:10:03,348 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:12:51,326 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:12:51,327 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:14:26,433 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:14:26,434 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-19 15:19:18,163 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-19 15:19:18,164 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 14:45:10,994 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 14:45:10,995 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 14:45:59,273 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 14:45:59,273 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 14:47:36,809 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 14:47:36,809 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 14:52:26,664 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 14:52:26,664 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 14:55:14,530 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 14:55:14,531 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:00:04,465 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:00:04,465 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:03:03,549 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:03:03,550 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:06:45,221 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:06:45,222 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:08:33,932 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:08:33,934 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:09:56,799 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:09:56,799 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:16:07,935 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:16:07,936 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:20:17,217 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:20:17,217 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:21:46,345 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:21:46,346 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:26:06,788 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:26:06,788 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:31:21,284 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:31:21,285 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:33:19,327 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:33:19,327 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:37:18,050 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:37:18,051 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:40:32,032 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:40:32,032 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:50:03,803 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:50:03,804 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:53:08,212 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:53:08,212 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:56:28,456 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:56:28,457 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 15:58:34,170 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 15:58:34,170 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 16:06:44,942 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 16:06:44,942 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 16:11:58,861 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 16:11:58,862 - ERROR - Invoice processing failed at line 53 : 0
+2025-07-23 16:13:00,011 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-07-23 16:13:00,012 - ERROR - Invoice processing failed at line 53 : 0

@@ -1,0 +1,214 @@
+[33mb7a89f0[m[33m ([m[1;36mHEAD[m[33m)[m extraction prompting json
+[33m5573d69[m[33m ([m[1;31morigin/master[m[33m)[m wertyuiolkjhgf
+[33m0e9b69a[m tesseract and prompt
+[33m2d48056[m prex prompt
+[33m0d03ed0[m old prompt
+[33m96cc4c0[m gpt-4.1-2025-04-14
+[33mf22df29[m 4o
+[33m2969395[m 4omini
+[33m7ca4ad2[m model 4o
+[33m781d761[m prompt
+[33maff611a[m prompt
+[33m2f930bf[m prompt
+[33mb54efcd[m prompt
+[33m24749d4[m pppp
+[33mc5f186a[m old
+[33m3d42088[m models
+[33m8ea161b[m model change
+[33md8d400b[m huy
+[33m9032296[m hh
+[33m7b7849a[m prompting
+[33mdcc6de7[m QUANTITY_RECEIVED
+[33ma267518[m 123eed
+[33ma73d159[m promprty
+[33mba69f6f[m fkdvfnvldnf
+[33m27604d4[m changes/87
+[33m96027d4[m prompting
+[33m7b8b1b0[m prompt 1
+[33m724d6b6[m prompt unit/price
+[33me12bfb0[m prompt
+[33me47b337[m lpo number check
+[33ma33a28d[m save_invoice_data_to_db(invoice_data)
+[33m5407430[m chnages_S
+[33mc7e2ef5[m process_invoice_ocr_kra_portal
+[33m85545fc[m ythth
+[33me9b6ba9[m chnages for QR code
+[33m34e61a0[m Sanpack_profile
+[33me50c217[m json content
+[33m711376c[m ttt
+[33m3312ffd[m ytyytyt
+[33m1a0b0f8[m fgrt
+[33m2fb1229[m key
+[33m6ecfaa1[m rr
+[33m47e75de[m jk
+[33mf290339[m thy
+[33mca7da9b[m ppop
+[33m518c84d[m prompt
+[33m3d09c29[m hyhyh
+[33m0169868[m unit price condition reevaluated
+[33mb9e18ad[m kra portal data saving
+[33me01180f[m prompt
+[33m8f54617[m dd
+[33m20a6ae7[m PO_TYPE
+[33m930c03a[m error_state
+[33mf1b5b0a[m queue running
+[33m8ef7b74[m bugs
+[33mc0d6dd1[m mfemomvoermvo
+[33ma457adb[m 0.16
+[33m82c4f7c[m modulus
+[33m6cf9c74[m cal2
+[33mc4b4c24[m cal
+[33m6560783[m final_df['Lpo_Tax_Amount'] = (lpo_df['lpo_amnt_bfr_tax'] * 16) / 100
+[33m8870e34[m caculation
+[33m76a2b5c[m uyttreewq
+[33m3f199b0[m checks
+[33me0b9750[m bug
+[33m7b1c31d[m columns
+[33ma64ca18[m llksks
+[33m6db27d2[m null value handel
+[33m4cb1cbe[m po_type = po_type.iloc[0] if not po_type.iloc[0].isnull() else 'STANDARD'
+[33m78b11e7[m 14uu
+[33m1a670d9[m po_type
+[33m37c60f8[m lpo df
+[33m274702d[m try except
+[33md116d05[m null description
+[33m26b8b89[m vendor
+[33mdfe0262[m score
+[33m8a615de[m vendor name
+[33mbce60e8[m cuin num as input and numbers from ocr
+[33m00f22bd[m ocr modification
+[33mc9b921d[m return statement
+[33m072077f[m try except in kr portal
+[33m96c3da6[m indent
+[33mac1919e[m indent error
+[33m064c0d0[m CUIN API
+[33m66a1aeb[m Combined invoice; LPO from request body
+[33mc83f2b9[m Control Unit Invoice Number: {control_unit_invoice_number}
+[33mce01b9c[m bugging
+[33m9fe5fb8[m changes 4
+[33me6693e0[m cuin
+[33ma1b808e[m cuin
+[33mea8afd1[m final_details
+[33m3facac8[m improting issue
+[33m03fab47[m kra portal updated flow
+[33m3ca4b5c[m bfigierngow
+[33mb0fdd16[m Logger not needed for updating for Local machine.
+[33m0cdea4a[m Queue implemented
+[33m2d09779[m sd
+[33m5e7752a[m prompt
+[33m5d1eb15[m chnages
+[33m49dba5b[m Axis to axis
+[33m9e35f7b[m removeing
+[33mb6dc9ae[m changes
+[33m8645775[m eree
+[33md880859[m elif not (final_df['LPO_Subtotal'] ==  final_df['calculated_subtotal']).all():
+[33m5420aa2[m elif syntax
+[33m8d3cc17[m unit _price _validation
+[33me5b3261[m PROMPT
+[33me8ab179[m che
+[33mf90b0bb[m excel
+[33m2b8ab30[m prompt change
+[33mf10ef91[m replace to append
+[33ma6427ac[m tax final
+[33ma9b021c[m query333
+[33m713cc31[m nortnortrstp
+[33m49a6cda[m changesss
+[33m1482099[m query_3
+[33m32f3686[m poppeler
+[33m5a916f9[m tax details
+[33md7dc807[m tax
+[33mf93a81d[m gf
+[33m3d47268[m print(po_type)
+[33m93c5b87[m commit
+[33ma1f6206[m popp
+[33mc5053cf[m changes
+[33m5802dbe[m debugging
+[33m69d24b8[m quantity
+[33mfc166cb[m item duplicacy,
+[33m4b655fc[m po type filtering
+[33mb62b96e[m replace > append
+[33mf40295a[m rel_num=int(rel_num)
+[33m54d70f5[m details
+[33m7345147[m godfod
+[33m1b2512f[m removed print statements
+[33mf776cdb[m debugging
+[33mc812314[m replace
+[33m498b093[m result_df['release_number']=1
+[33mdf3cefa[m 1345
+[33m5f9a722[m REL_NUM
+[33md41b74b[m print("rel_num :" , rel_num)
+[33m347aa48[m print rel_num
+[33ma2993b2[m re
+[33mfe96c94[m rel_num=request.json.get('rel_num')
+[33macd4a19[m rel_number_2
+[33mc20ad8b[m rel_num
+[33maf3133c[m #########
+[33m70a1ee8[m RELEASE_NUM
+[33m7c594f0[m kra
+[33mae2e655[m filtering output
+[33m21fa0d5[m ERPL PIPEline, Release_NUmber inclusion, done
+[33me099d67[m data entry
+[33m85bc6b0[m aliases
+[33mb5265d9[m append at test
+[33m630d79f[m import asyncio
+[33m2e81fdf[m Vendor_Portal.test
+[33me9ac0be[m kra portal qr methodology change
+[33m14637f1[m kra path
+[33m8f43b44[m added kra portal
+[33mbdcaf84[m try except
+[33m3ff8ab0[m poppler path
+[33me14ed12[m changes done and deployed
+[33mc5f55a1[m 12321
+[33m9190eb1[m Data with None or 0 found, saved to SQL.
+[33mc58f24b[m first
+[33m25dd88d[m changes
+[33mb26fa04[m return {"Message": f"Invoice data validation/reconciliation unsuccessful! Error: {str(e)}"}
+[33mb7b1aab[m fileds matching
+[33m931c6c3[m poppler path
+[33mfd27d7e[m changes_tables
+[33mce3c997[m removed excels and added app route
+[33m24f5469[m JALARAM 126883
+[33m1c20552[m BLOW 6987
+[33m1ca3a22[m nodnof
+[33m09eedb9[m path change
+[33mb15177c[m /usr/lib/x86_64-linux-gnu/libzbar.so.0
+[33me40cbc7[m /usr/local/lib/libzbar.so
+[33m27e567e[m test path
+[33m1b95f42[m kra portal
+[33m0338d1c[m 136
+[33m87a5378[m 144
+[33mba5f2f3[m obj
+[33m35d5c73[m :
+[33mc682587[m for loop
+[33mfd61645[m iterator
+[33m78d714c[m 133
+[33m21b1de2[m kra and all
+[33m516dd24[m KRA portal added
+[33mc365d1b[m added grn number and filepath
+[33m9e8624c[m replace to append
+[33m0cd0dde[m rec_o2
+[33m271d10c[m reconcillation
+[33m75c35b0[m bug1
+[33me8fea57[m print_Df
+[33m6f0bc07[m replace
+[33m1de0efc[m vat pin
+[33mdfffc04[m changes_01
+[33m1a1c6d0[m xchanges
+[33ma8d06c6[m /usr/bin
+[33m21fa13b[m ocr_pdf
+[33mbaaad97[m changes to poppelr path
+[33m57471e8[m r"//usr//bin//pdftoppm
+[33ma7f3cb0[m r
+[33m23f11e0[m r
+[33m412f4f8[m path conversion
+[33m876c807[m //
+[33m18a0db1[m debugging
+[33mc93153c[m poppler path in invoice processing
+[33m5881594[m path2
+[33m7875f74[m path
+[33m05580bf[m env path
+[33m2efa361[m changed poppler path
+[33md09f258[m added poppler
+[33mf44df77[m change port to 5002
+[33m32f10ff[m changes_to_incorporate
+[33mab93bd4[m first comit

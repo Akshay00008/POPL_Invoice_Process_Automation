@@ -11,7 +11,7 @@ from openai import OpenAI
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 # Alternatively, set the API key here if you're not using environment variables (use cautiously)
-openai_api_key = "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"
+
 
 def ocr_from_image(image_path):
     """Extract text from an image file using OCR"""

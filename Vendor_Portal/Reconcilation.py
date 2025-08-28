@@ -575,9 +575,13 @@ WHERE
 
             cursor.execute(query_Delivernote, p_lpo_numbers=lpo_number, shipment_num = Deliver_num)
             results = cursor.fetchall()
+            print("578")
             columns = [col[0] for col in cursor.description]
+            print("580")
             df = pd.DataFrame(results, columns=columns)
+            print("581")
             grn_number = df['GRN_NO'].iloc[0]
+            print("584")
 
 
 

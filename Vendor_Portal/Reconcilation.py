@@ -593,7 +593,9 @@ WHERE
 
             
             grn_df = pd.concat([grn_df, df], ignore_index=True)
+            print("596")
             grn_df=grn_df.iloc[grn_df['GRN_NO'].isin([grn_number])]
+            print("598")
             grn_df.to_excel('grn_df.xlsx')
 
     except cx_Oracle.DatabaseError as e:

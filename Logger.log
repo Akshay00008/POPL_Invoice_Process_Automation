@@ -385,3 +385,5 @@ Name: invoice_number, dtype: object
 2025-07-23 16:11:58,862 - ERROR - Invoice processing failed at line 53 : 0
 2025-07-23 16:13:00,011 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
 2025-07-23 16:13:00,012 - ERROR - Invoice processing failed at line 53 : 0
+2025-08-28 17:25:06,298 - INFO - Validated Invoice Data: {'Message': 'Invoice data validation/reconcillation unsuccessful!'}
+2025-08-28 17:25:06,299 - ERROR - Invoice processing failed at line 53 : 0

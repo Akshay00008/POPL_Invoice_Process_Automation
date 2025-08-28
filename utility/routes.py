@@ -103,7 +103,7 @@ def process_invoice_ocr(file_path,Deliver_num,rel_num,cuin):
 
 
 # Helper function to handle the reconciliation process
-def perform_reconciliation(lpo_number,invoice_number,Deliver_num,rel_num,item_count):
+def perform_reconciliation(lpo_number,invoice_number,rel_num,Deliver_num,item_count):
     """Runs the reconciliation process with the provided LPO numbers."""
     try:
         result = Reconcillation_process(lpo_number,invoice_number,rel_num,Deliver_num,item_count)

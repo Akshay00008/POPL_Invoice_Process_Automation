@@ -379,7 +379,8 @@ WHERE
          e.quantity,
          d.receipt_num,
          h.subinventory,
-         f.QUANTITY_RECEIVED
+         f.QUANTITY_RECEIVED,
+         f.LINE_NUM Receipt_line_num  --added by Godfrey 25-08-2025
     FROM po_headers_all a,
          po_vendors b,
          po_vendor_sites_all c,
@@ -708,7 +709,7 @@ WHERE
             grn_df['QUANTITY'] = grn_df['QUANTITY_RECEIVED']
 
             lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX','VENDOR_NAME', 'VENDOR_SITE_CODE', 'VENDOR_CODE']]
-            grn_df = grn_df[['GRN_NO','ITEM_NAME','QUANTITY']]
+            grn_df = grn_df[['GRN_NO','ITEM_NAME','QUANTITY','RECEIPT_LINE_NUM']]
 
             
             
@@ -720,7 +721,7 @@ WHERE
             lpo_df.drop(['ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX'],axis=1,inplace=True)
 
             lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY", "VENDOR_NAME" : "SUPPLIER_NAME", "VENDOR_SITE_CODE" : "SUPPLIER_SITE", "VENDOR_CODE" : "SUPPLIER_NUMBER" }, inplace=True)
-            grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)
+            grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY", "RECEIPT_LINE_NUM" : "GRN_LINE_NUMBER"}, inplace=True)
 
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
             merged_df = df_invoice.merge(lpo_df, on='Matched_LPO_Description', how='left')

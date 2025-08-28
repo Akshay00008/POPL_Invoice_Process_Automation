@@ -40,7 +40,7 @@ SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{D
 # Create an SQLAlchemy engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-def Reconcillation_process(lpo_number,invoice_number,rel_num,item_count=0):
+def Reconcillation_process(lpo_number,invoice_number,rel_num,Deliver_num,item_count=0):
       
     
     # lpo_numbers = []
@@ -417,6 +417,7 @@ SELECT
     ph.authorization_status,
     ph.creation_date           AS po_date,
     pv.vendor_name,
+    pv.segment1 vendor_code,
     pvs.vendor_site_code,
     pl.line_num,
     pl.po_line_id,
@@ -459,6 +460,66 @@ WHERE
     and ph.PO_HEADER_ID = por.PO_HEADER_ID(+)
     AND ph.segment1 = :lpo_number
     '''
+   
+    query_Delivernote = '''SELECT a.po_header_id,
+         a.org_id,
+         a.segment1 po_no,
+         a.creation_date order_date,
+         b.segment1 vendor_code,
+         b.vendor_name,
+         c.vendor_site_code,
+         c.address_line1,
+         c.address_line2,
+         c.address_line3,
+         c.city || ' ' || c.state || ' ' || c.zip || ' ' || c.country
+            city_country,
+         b.vendor_id,
+         c.vendor_site_id,
+         d.receipt_num grn_no,
+         d.creation_date receipt_date,d.shipment_num,
+         d.shipment_num || ' ' || d.shipped_date supplier_inv_date,
+         d.num_of_containers container_id,
+         d.comments remarks,
+         d.shipment_header_id,
+         f.shipment_line_id,
+         g.segment1 item_code,
+         f.item_id,
+         g.description item_name,
+         g.primary_uom_code uom,
+         e.quantity,
+         d.receipt_num,
+         h.subinventory,
+         f.QUANTITY_RECEIVED,f.LINE_NUM
+    FROM po_headers_all a,
+         po_vendors b,
+         po_vendor_sites_all c,
+         rcv_shipment_headers_v d,
+         po_lines_all e,
+         rcv_shipment_lines f,
+         mtl_system_items g,
+         rcv_transactions h
+   WHERE     a.vendor_id = b.vendor_id
+         AND a.vendor_site_id = c.vendor_site_id
+         AND b.vendor_id = c.vendor_id
+         AND a.vendor_id = d.vendor_id
+         AND a.vendor_site_id = d.vendor_site_id
+         AND a.po_header_id = e.po_header_id
+         AND d.shipment_header_id = f.shipment_header_id
+         AND f.po_header_id = e.po_header_id
+         AND f.po_line_id = e.po_line_id
+         AND f.item_id IS NOT NULL
+         AND f.po_header_id = a.po_header_id
+         AND f.item_id = g.inventory_item_id(+)
+         AND f.to_organization_id = g.organization_id(+)
+         AND f.shipment_header_id = h.shipment_header_id
+         AND f.shipment_line_id = h.shipment_line_id
+         AND UPPER (h.transaction_type) = 'DELIVER'
+         AND H.INSPECTION_STATUS_CODE != 'REJECTED'
+         AND TO_NUMBER (a.segment1) =
+                NVL (TO_NUMBER (:p_lpo_numbers), TO_NUMBER (a.segment1))
+                AND d.shipment_num = :shipment_num
+                   '''
+   
     dsn = "TEST"
     username = "Apps"
     password = "apps085"
@@ -510,12 +571,25 @@ WHERE
             #       lpo_df=lpo_df
             
             print("lpo:", lpo_number)
+
+            cursor.execute(query_Delivernote, p_lpo_numbers=lpo_number, shipment_num = Deliver_num)
+            results = cursor.fetchall()
+            columns = [col[0] for col in cursor.description]
+            df = pd.DataFrame(results, columns=columns)
+            grn_number = df['GRN_NO'].iloc[0]
+
+
+
+
             cursor.execute(query_GRN__Details, p_lpo_numbers=lpo_number)
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             df = pd.DataFrame(results, columns=columns)
+
+            
             grn_df = pd.concat([grn_df, df], ignore_index=True)
-            # grn_#df.to_excel('grn_df.xlsx')
+            grn_df=grn_df.iloc[grn_df['GRN_NO'].isin([grn_number])]
+            grn_df.to_excel('grn_df.xlsx')
 
     except cx_Oracle.DatabaseError as e:
         print(f"Database error: {e}")
@@ -625,7 +699,7 @@ WHERE
 
             grn_df['QUANTITY'] = grn_df['QUANTITY_RECEIVED']
 
-            lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX']]
+            lpo_df = lpo_df[['po_number','ITEM_DESCRIPTION', 'PO_TYPE','UNIT_PRICE', 'QUANTITY','ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX','VENDOR_NAME', 'VENDOR_SITE_CODE', 'VENDOR_CODE']]
             grn_df = grn_df[['GRN_NO','ITEM_NAME','QUANTITY']]
 
             
@@ -637,7 +711,7 @@ WHERE
 
             lpo_df.drop(['ENCUMBERED_AMOUNT', 'RECOVERABLE_TAX'],axis=1,inplace=True)
 
-            lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY" }, inplace=True)
+            lpo_df.rename(columns={"ITEM_DESCRIPTION": "Matched_LPO_Description", "UNIT_PRICE": "LPO_UNIT_PRICE", "QUANTITY": "LPO_QUANTITY", "VENDOR_NAME" : "SUPPLIER_NAME", "VENDOR_SITE_CODE" : "SUPPLIER_SITE", "VENDOR_CODE" : "SUPPLIER_NUMBER" }, inplace=True)
             grn_df.rename(columns={"ITEM_NAME": "Matched_GRN_Description", "QUANTITY": "GRN_QUANTITY"}, inplace=True)
 
             # First, merge df_invoice with lpo_df on 'Matched_LPO_Description'
@@ -687,7 +761,7 @@ WHERE
             # If any mismatches were found, set error state and save
             if error_types:
                 final_df['Error_state'] = ", ".join(error_types)
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
                 return {"Message": "Data Saved to Reconcillateion stage mismatch in: " + final_df['Error_state'].iloc[0]}
 
             elif (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
@@ -697,7 +771,7 @@ WHERE
                 print("451")
                 final_df['Error_state']="Tax_amount"
 
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
 
                 
 
@@ -728,7 +802,7 @@ WHERE
                 (final_df['Total_after_tax'] == final_df['total_amount']).all()
             ):
                 final_df['Error_state'] = "Tax_amount"
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
                 return {"Message": "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
 
 
@@ -742,10 +816,10 @@ WHERE
               # Store the invoice_df into 'reconciliation_data' table if the condition is met
               final_df['Error_state'] = "Line_Item"
               print("465")
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :
                 print (470)
-                final_df.to_sql('Saved_Data', con=engine, if_exists='append', index=False)  
+                final_df.to_sql('Saved_Data', con=engine, if_exists='replace', index=False)  
                 return {"Message" : "Data Saved to saved page"}

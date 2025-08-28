@@ -37,7 +37,7 @@ def normalize_field_name(field_name):
                     .replace('-', '_') \
                     .replace('__', '_')
 
-def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,cuin):
+def validate_and_convert_to_dataframe(fields_matching_result,file_path,Deliver_num,rel_num,cuin):
     # Extract common fields that will remain constant across all rows
 
     print("**********88888888***")
@@ -111,13 +111,13 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,c
     
     df['release_number'] = rel_num
     df['cuin']=cuin
-    df.drop(["delivery_note_number"],axis=1,inplace=True)
+    df["delivery_note_number"]=Deliver_num
 
     # Check if any value is None or 0 and save to the database immediately
     if any(val == '0' or val is None for val in row.values()):
         # df = pd.DataFrame([row])  # Create a DataFrame for this row
-        df.to_sql('extracted_data', engine, if_exists='append', index=False)
-        df.to_sql('Invoice_data_collection', engine, if_exists='append', index=False)
+        df.to_sql('extracted_data', engine, if_exists='replace', index=False)
+        df.to_sql('Invoice_data_collection', engine, if_exists='replace', index=False)
         print("Data with None or 0 found, saved to SQL.")
         return {"message" : "validation stopped at extraction stage"}  # Return the DataFrame immediately if saving
 
@@ -179,7 +179,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,c
     "calculated_subtotal", "subtotal_match", "tax_amount_match", "Matched_LPO_Description",
     "Matched_GRN_Description", "LPO_Similarity", "GRN_Similarity", "LPO_UNIT_PRICE",
     "LPO_QUANTITY", "GRN_QUANTITY", "Error_state", "file_path", "GRN_NO", "extracted_by",
-    "OCR_Confidence_Score", "extraction_at", "release_number"
+    "OCR_Confidence_Score", "extraction_at", "release_number","delivery_note_number"
 ]
 
 # Check for presence
@@ -201,7 +201,7 @@ def validate_and_convert_to_dataframe(fields_matching_result,file_path,rel_num,c
     
 
 
-def fields_matching(file_path,rel_num,cuin):
+def fields_matching(file_path,Deliver_num,rel_num,cuin):
     """Main processing function with enhanced validation"""
     try:
         # Process the file
@@ -211,7 +211,7 @@ def fields_matching(file_path,rel_num,cuin):
         print(result)
         # print("fields_matching_result:", result)
         # Validate and convert to DataFrame
-        df = validate_and_convert_to_dataframe(result,file_path,rel_num,cuin)
+        df = validate_and_convert_to_dataframe(result,file_path,Deliver_num,rel_num,cuin)
         print(df)
 
         print("*********")

@@ -30,13 +30,13 @@ task_queue = Queue()
 def process_task_from_queue():
     while True:
         try:
-            file_path, rel_num, lpo_number, cuin = task_queue.get()
+            file_path, Deliver_num,rel_num, lpo_number, cuin = task_queue.get()
             if file_path is None:  # Stop the worker thread if None is received
                 break
 
             try:
                 # Perform the processing
-                process_invoice_and_reconcile(file_path, rel_num, lpo_number, cuin)
+                process_invoice_and_reconcile(file_path,Deliver_num, rel_num, lpo_number, cuin)
             except Exception as e:
                 print(f"Error processing task {file_path}: {e}")  # Log the error but continue
 
@@ -51,25 +51,26 @@ worker_thread = Thread(target=process_task_from_queue)
 worker_thread.start()
 
 # Function to manage the OCR and reconciliation steps asynchronously
-def process_invoice_and_reconcile(file_path, rel_num, lpo_number,cuin):
+def process_invoice_and_reconcile(file_path, Deliver_num,rel_num, lpo_number,cuin):
     lpo_number=lpo_number
     cuin=cuin
+    Deliver_num=Deliver_num
     # Perform invoice processing and reconciliation
-    lpo_invoice_number = process_invoice_ocr(file_path, rel_num,cuin)
+    lpo_invoice_number = process_invoice_ocr(file_path,Deliver_num, rel_num,cuin)
     if isinstance(lpo_invoice_number, dict) and "message" in lpo_invoice_number:
         return lpo_invoice_number
 
     lpo_numbers = lpo_number
     invoice_number = lpo_invoice_number
-    reconciliation_result = perform_reconciliation(lpo_numbers, invoice_number, rel_num, item_count=0)
+    reconciliation_result = perform_reconciliation(lpo_numbers, invoice_number, rel_num,Deliver_num, item_count=0)
     return reconciliation_result
 
 # Helper function to process the invoice OCR
-def process_invoice_ocr(file_path,rel_num,cuin):
+def process_invoice_ocr(file_path,Deliver_num,rel_num,cuin):
     """Processes the invoice file using OCR and validates the fields."""
     try:
         # Extract invoice data and validate fields
-        result = fields_matching(file_path,rel_num,cuin)
+        result = fields_matching(file_path,Deliver_num,rel_num,cuin)
         
         print("**********")
         print(result )
@@ -102,10 +103,10 @@ def process_invoice_ocr(file_path,rel_num,cuin):
 
 
 # Helper function to handle the reconciliation process
-def perform_reconciliation(lpo_number,invoice_number,rel_num,item_count):
+def perform_reconciliation(lpo_number,invoice_number,Deliver_num,rel_num,item_count):
     """Runs the reconciliation process with the provided LPO numbers."""
     try:
-        result = Reconcillation_process(lpo_number,invoice_number,rel_num,item_count)
+        result = Reconcillation_process(lpo_number,invoice_number,rel_num,Deliver_num,item_count)
         loggs.info(f"Reconciliation result: {result}")
     except Exception as e:
         loggs.error(f"Reconciliation failed: {str(e)}")
@@ -150,23 +151,26 @@ def invoice_trigger():
             lpo_number = invoice.get('lpo_number')
             rel_num = invoice.get('REL_NUM')
             item_count = 0
+            Deliver_num=invoice.get('Delivery_number')
             result = data_conversion_pipeline(invoice_number)
 
+
             # Start the task in the queue
-            task_queue.put((lpo_number, invoice_number, rel_num, item_count))
+            task_queue.put((lpo_number, invoice_number, rel_num,Deliver_num, item_count))
             # Optionally, you can send a response after each task is added.
         elif submission_type == 'upload':
             file_path = invoice.get('invoice_image')
             rel_num = invoice.get('REL_NUM')
             lpo_number = invoice.get('lpo_number')
             cuin=invoice.get('cuin')
+            Deliver_num=invoice.get('Delivery_number')
 
             # Check if file_path is provided in the request
             if not file_path:
                 return jsonify({"error": "File path is required."}), 400
 
             # Add task to the queue for sequential processing
-            task_queue.put((file_path, rel_num,lpo_number,cuin))
+            task_queue.put((file_path, Deliver_num,rel_num,lpo_number,cuin))
             # Optionally, you can send a response after each task is added.
         else:
             return jsonify({"error": f"Invalid submission type: {submission_type}"}), 400

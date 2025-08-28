@@ -771,7 +771,7 @@ WHERE
             # If any mismatches were found, set error state and save
             if error_types:
                 final_df['Error_state'] = ", ".join(error_types)
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
                 return {"Message": "Data Saved to Reconcillateion stage mismatch in: " + final_df['Error_state'].iloc[0]}
 
             elif (final_df['subtotal_match'] == False).any() or (final_df['tax_amount_match'] == False).any():
@@ -781,7 +781,7 @@ WHERE
                 print("451")
                 final_df['Error_state']="Tax_amount"
 
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
                 
 
@@ -812,7 +812,7 @@ WHERE
                 (final_df['Total_after_tax'] == final_df['total_amount']).all()
             ):
                 final_df['Error_state'] = "Tax_amount"
-                final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+                final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
                 return {"Message": "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}
 
 
@@ -826,10 +826,10 @@ WHERE
               # Store the invoice_df into 'reconciliation_data' table if the condition is met
               final_df['Error_state'] = "Line_Item"
               print("465")
-              final_df.to_sql('reconciliation_data', con=engine, if_exists='replace', index=False)
+              final_df.to_sql('reconciliation_data', con=engine, if_exists='append', index=False)
 
               return {"Message" : "Data Saved to Reconcillateion stage mismatch in subtotal and tax amount"}  
             else :
                 print (470)
-                final_df.to_sql('Saved_Data', con=engine, if_exists='replace', index=False)  
+                final_df.to_sql('Saved_Data', con=engine, if_exists='append', index=False)  
                 return {"Message" : "Data Saved to saved page"}

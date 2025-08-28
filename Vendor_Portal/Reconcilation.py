@@ -758,6 +758,7 @@ WHERE
                 error_types.append("Line_Item")
                 print("661")
 
+            final_df['calculated_subtotal'] = final_df['calculated_subtotal'].sum()
             # Check subtotal/tax/total amount mismatches
             if not (
                 (final_df['lpo_amnt_bfr_tax'] == final_df['calculated_subtotal']).all() and

@@ -571,7 +571,7 @@ WHERE
             #       lpo_df=lpo_df
             
             print("lpo:", lpo_number)
-            print( "Deliver_num" : Deliver_num)
+            print("Deliver_num", Deliver_num)
 
             cursor.execute(query_Delivernote, p_lpo_numbers=lpo_number, shipment_num = Deliver_num)
             results = cursor.fetchall()

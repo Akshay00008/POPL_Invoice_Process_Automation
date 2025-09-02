@@ -3,7 +3,7 @@ from pdf2image import convert_from_path
 import numpy as np
 import os
 
-# from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import decode
 import asyncio
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
